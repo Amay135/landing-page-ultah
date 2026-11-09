@@ -31,9 +31,17 @@ const DATA = {
   kueTulisan: "Happy Birthday, [CONTOH] Sayang",
   kueLabelTiup: "Tiup Lilin",
   kueLabelPotong: "Potong Kue",
+  kueLabelPotongLagi: "Potong lagi",
+  kueLabelKasih: "Kasih 🍰",
   kueAria: "Kue ulang tahun tiga tingkat dengan lilin menyala",
   kueAriaPadam: "Kue ulang tahun tiga tingkat, lilin sudah padam",
   lilinPadamTeks: "Make a wish ✨",
+  kueTanyaPenerima: "Potongan pertama untuk siapa?",
+  kueTanyaPenerimaLagi: "Potongan berikutnya untuk siapa?",
+  kueTeksPenerima: "Potongan pertama untuk {nama}",
+  kueTeksPenerimaLagi: "Potongan berikutnya untuk {nama}",
+  kuePesanNamaKosong: "Nama penerimanya diisi dulu ya 🥺",
+  kueDaftarAria: "Daftar penerima potongan kue",
   potonganLucuTeks: "Jawaban paling benar!",
 
   // 6. Foto galeri (8 foto)

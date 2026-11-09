@@ -116,9 +116,24 @@ const kueTeks = document.getElementById("kueTeks");
 const tombolTiup = document.getElementById("tombolTiup");
 const tombolPotong = document.getElementById("tombolPotong");
 const harapanKue = document.getElementById("kueHarapan");
+const kartuPotongan = document.getElementById("kueKartu");
+const formPotongan = document.getElementById("formPotongan");
+const labelPenerima = document.getElementById("labelPenerima");
+const namaPenerima = document.getElementById("namaPenerima");
+const pesanPenerima = document.getElementById("pesanPenerima");
+const tombolKasih = document.getElementById("tombolKasih");
+const tombolPotongLagi = document.getElementById("tombolPotongLagi");
+const potonganKue = document.getElementById("kue-potongan");
+const piringKue = document.getElementById("kue-piring");
+const penerimaTeks = document.getElementById("kuePenerimaTeks");
+const penerimaLucu = document.getElementById("kueLucu");
+const daftarPenerima = document.getElementById("kuePenerimaDaftar");
 
 tombolTiup.textContent = DATA.kueLabelTiup;
 tombolPotong.textContent = DATA.kueLabelPotong;
+tombolKasih.textContent = DATA.kueLabelKasih;
+tombolPotongLagi.textContent = DATA.kueLabelPotongLagi;
+daftarPenerima.setAttribute("aria-label", DATA.kueDaftarAria);
 kueSvg.setAttribute("aria-label", DATA.kueAria);
 
 // Tulisan di tingkat tengah: perkecil font bila nama panjang agar tetap muat.
@@ -157,11 +172,88 @@ tombolTiup.addEventListener("click", () => {
   const kotak = (api || kueSvg).getBoundingClientRect();
   burst(kotak.left + kotak.width / 2, kotak.top + kotak.height / 2, 120);
 
-  // Tombol potong baru berfungsi penuh di tahap 4B.
+  // Tombol potong muncul setelah api padam.
   setTimeout(() => {
     tombolPotong.hidden = false;
     tombolPotong.focus({ preventScroll: true });
   }, 800);
+});
+
+// --- Kue (F4B): potong, beri potongan, daftar penerima ---
+const jedaPisau = mqGerakMinimal.matches ? 0 : 450;
+const jedaKartu = mqGerakMinimal.matches ? 0 : 1000;
+let jumlahPenerima = 0;
+let sedangPotong = false;
+
+// Animasi pisau, potongan terpisah, lalu kartu nama penerima.
+function mulaiPotong() {
+  if (sedangPotong) return;
+  sedangPotong = true;
+  tombolPotong.hidden = true;
+  kartuPotongan.hidden = true;
+  tombolPotongLagi.hidden = true;
+  penerimaTeks.textContent = "";
+  penerimaLucu.textContent = "";
+  pesanPenerima.textContent = "";
+  namaPenerima.value = "";
+  labelPenerima.textContent = jumlahPenerima === 0 ? DATA.kueTanyaPenerima : DATA.kueTanyaPenerimaLagi;
+
+  piringKue.hidden = false;
+  potonganKue.hidden = false;
+  potonganKue.classList.remove("kue__potongan--tampil", "kue__potongan--piring");
+
+  // Ulang animasi pisau dari awal.
+  kue.classList.remove("kue--potong");
+  void kue.offsetWidth;
+  kue.classList.add("kue--potong");
+
+  setTimeout(() => {
+    potonganKue.classList.add("kue__potongan--tampil");
+    sedangPotong = false;
+  }, jedaPisau);
+
+  setTimeout(() => {
+    kartuPotongan.hidden = false;
+    namaPenerima.focus({ preventScroll: true });
+  }, jedaKartu);
+}
+
+tombolPotong.addEventListener("click", mulaiPotong);
+tombolPotongLagi.addEventListener("click", mulaiPotong);
+
+formPotongan.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const nama = namaPenerima.value.trim().slice(0, 30);
+  if (!nama) {
+    pesanPenerima.textContent = DATA.kuePesanNamaKosong;
+    namaPenerima.focus({ preventScroll: true });
+    return;
+  }
+  pesanPenerima.textContent = "";
+  jumlahPenerima += 1;
+
+  // Bandingkan tanpa peduli huruf besar-kecil; tampil dengan textContent, tanpa HTML.
+  const namaSaya = DATA.namaSaya.trim().toLowerCase();
+  const cocok = namaSaya !== "" && nama.toLowerCase().includes(namaSaya);
+
+  const pola = jumlahPenerima === 1 ? DATA.kueTeksPenerima : DATA.kueTeksPenerimaLagi;
+  penerimaTeks.textContent = pola.replace("{nama}", () => nama);
+  penerimaLucu.textContent = cocok ? DATA.potonganLucuTeks : "";
+
+  const baris = document.createElement("li");
+  baris.textContent = nama;
+  daftarPenerima.appendChild(baris);
+  daftarPenerima.hidden = false;
+
+  kartuPotongan.hidden = true;
+  potonganKue.classList.remove("kue__potongan--tampil");
+  potonganKue.classList.add("kue__potongan--piring");
+
+  const kotakPiring = piringKue.getBoundingClientRect();
+  burst(kotakPiring.left + kotakPiring.width / 2, kotakPiring.top + kotakPiring.height / 2, 40);
+
+  tombolPotongLagi.hidden = false;
+  tombolPotongLagi.focus({ preventScroll: true });
 });
 
 // --- Confetti global (F3) ---
