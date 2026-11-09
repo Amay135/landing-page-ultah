@@ -296,3 +296,86 @@ document.addEventListener("visibilitychange", () => {
   }
   if (!mqGerakMinimal.matches || partikelConfetti.length) mulaiLoopConfetti();
 });
+
+// --- Stiker dekoratif dan parallax (F13) ---
+// SVG buatan sendiri: daun kering, bunga, pita, bintang kertas, hati, washi tape, sobekan kertas.
+const BENTUK_STIKER = [
+  `<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 33C7 18 19 7 33 7c0 14-11 26-26 26Z" fill="#CDB4DB"/><path d="M10 30 27 13M16 30l5-11M26 22l-10 5" stroke="#5A3E36" stroke-width="1.1" stroke-linecap="round" opacity=".4" fill="none"/></svg>`,
+  `<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><g fill="#F4B6C2"><circle cx="20" cy="9" r="7"/><circle cx="30" cy="16.5" r="7"/><circle cx="26.5" cy="29" r="7"/><circle cx="13.5" cy="29" r="7"/><circle cx="10" cy="16.5" r="7"/></g><circle cx="20" cy="20" r="5.5" fill="#E8B86D"/></svg>`,
+  `<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M17 20C10 11 3 13 4 20c.8 5 8 5 13 0Z" fill="#F4B6C2"/><path d="M23 20c7-9 13-7 12 0-.8 5-8 5-12 0Z" fill="#F4B6C2"/><path d="M16 22 12 35l8-4 4 4V22Z" fill="#E8B86D"/><circle cx="20" cy="20" r="3.4" fill="#E8B86D"/></svg>`,
+  `<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="m20 4 4.7 9.5 10.5 1.5-7.6 7.4 1.8 10.6L20 28l-9.4 5 1.8-10.6-7.6-7.4 10.5-1.5Z" fill="#E8B86D"/></svg>`,
+  `<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 33C10 26 4 21 4 14.5 4 9 8 6 12.5 6c3 0 5.5 1.5 7.5 4 2-2.5 4.5-4 7.5-4C32 6 36 9 36 14.5 36 21 30 26 20 33Z" fill="#F4B6C2"/></svg>`,
+  `<svg viewBox="0 0 60 22" aria-hidden="true" focusable="false"><rect width="60" height="22" rx="3" fill="#FFD3B6" opacity=".9"/><g stroke="#FFF6EC" stroke-width="4" opacity=".75"><path d="M10 0v22M22 0v22M34 0v22M46 0v22"/></g></svg>`,
+  `<svg viewBox="0 0 44 34" aria-hidden="true" focusable="false"><path d="M2 6 8 3l7 2 7-3 8 2 8-2 4 5-2 7 3 6-4 7-6-3-7 4-8-3-7 3-6-4-2-7 3-5Z" fill="#FFF1DF" stroke="#E7CDB5" stroke-width="1"/></svg>`,
+];
+
+const KECEPATAN_LAPIS = [0.1, 0.22, 0.36]; // < 1: lebih lambat dari konten
+const STIKER_PER_LAPIS = 5;
+const lapisanDekor = [];
+let tinggiLayarDekor = innerHeight;
+let rafDekor = 0;
+
+// Tiap stiker diduplikasi di bawahnya (top + 50%) agar lapisan setinggi 200% bisa looping mulus.
+function pasangDekorasi() {
+  if (mqGerakMinimal.matches) return;
+
+  const dekor = document.createElement("div");
+  dekor.className = "dekor";
+  dekor.setAttribute("aria-hidden", "true");
+
+  for (const kecepatan of KECEPATAN_LAPIS) {
+    const lapis = document.createElement("div");
+    lapis.className = "dekor__lapis";
+    lapis.dataset.kecepatan = kecepatan;
+    let isi = "";
+    for (let i = 0; i < STIKER_PER_LAPIS; i++) {
+      const bentuk = BENTUK_STIKER[(Math.random() * BENTUK_STIKER.length) | 0];
+      // Hanya di sisi kiri/kanan agar teks di tengah tidak tertutup.
+      const kiri = (Math.random() < 0.5 ? acak(1, 13) : acak(82, 93)).toFixed(1);
+      const atas = acak(0, 50);
+      const ukuran = Math.round(acak(28, 58));
+      const gaya = `left:${kiri}%;width:${ukuran}px;--rot:${Math.round(acak(-28, 28))}deg;--amp:${Math.round(acak(5, 12))}px;--dur:${acak(5, 9).toFixed(1)}s;--delay:${(-acak(0, 6)).toFixed(1)}s`;
+      isi += `<div class="dekor__stiker" style="${gaya};top:${atas.toFixed(2)}%">${bentuk}</div>`;
+      isi += `<div class="dekor__stiker" style="${gaya};top:${(atas + 50).toFixed(2)}%">${bentuk}</div>`;
+    }
+    lapis.innerHTML = isi; // hanya string SVG statis di atas, bukan masukan pengguna
+    dekor.appendChild(lapis);
+    lapisanDekor.push(lapis);
+  }
+
+  document.body.prepend(dekor);
+  addEventListener("scroll", mintaParallax, { passive: true });
+  addEventListener("resize", () => {
+    tinggiLayarDekor = innerHeight;
+    mintaParallax();
+  });
+  mintaParallax();
+}
+
+// Geser tiap lapisan sesuai kecepatannya; modulo tinggi layar membuat loop mulus.
+function perbaruiParallax() {
+  rafDekor = 0;
+  for (const lapis of lapisanDekor) {
+    const kecepatan = Number(lapis.dataset.kecepatan);
+    const y = -((scrollY * kecepatan) % tinggiLayarDekor);
+    lapis.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
+  }
+}
+
+function mintaParallax() {
+  if (!rafDekor) rafDekor = requestAnimationFrame(perbaruiParallax);
+}
+
+pasangDekorasi();
+
+// --- Reveal section saat masuk layar (fade + slide) ---
+if (!mqGerakMinimal.matches) {
+  const pemantauBagian = new IntersectionObserver((entri, pengamat) => {
+    for (const e of entri) {
+      if (!e.isIntersecting) continue;
+      e.target.classList.add("bagian--tampil");
+      pengamat.unobserve(e.target);
+    }
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".bagian").forEach((el) => pemantauBagian.observe(el));
+}
