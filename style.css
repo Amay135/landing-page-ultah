@@ -288,7 +288,123 @@ main, footer { position: relative; z-index: 2; }
   to { transform: rotate(var(--rot)) translateY(var(--amp)); }
 }
 
-/* --- 11. Hormati preferensi gerak minimal --- */
+/* --- 11. Kue interaktif (F4): panggung, lilin, tombol --- */
+.kue {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 76px 20px 56px;
+  overflow: hidden;
+  text-align: center;
+}
+/* Latar gradien dipasang di body (di bawah canvas confetti) agar ledakan
+   confetti tetap terlihat di belakang konten. Aktif saat section kue terlihat. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background:
+    radial-gradient(circle at 50% 26%, rgba(255, 246, 236, 0.55), transparent 58%),
+    linear-gradient(180deg, var(--peach) 0%, var(--lavender) 100%);
+}
+body.kue-aktif::before { opacity: 1; }
+.kue__dekor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.kue__dalam {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 460px;
+}
+.kue__panggung { width: min(100%, 400px); }
+.kue__svg { display: block; width: 100%; height: auto; }
+
+/* Ruang teks harapan dipesan agar tombol tidak melompat saat teks muncul */
+.kue__harapan {
+  min-height: 2.1rem;
+  margin: 0;
+  font-size: 1.7rem;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.kue__harapan--tampil { opacity: 1; transform: none; }
+
+.kue__aksi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Api berkedip dan halo cahaya hangat */
+.kue__nyala {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: api-berkedip 1.3s ease-in-out infinite alternate;
+}
+.kue__lilin:nth-child(2) .kue__nyala { animation-delay: -0.45s; animation-duration: 1.1s; }
+.kue__lilin:nth-child(3) .kue__nyala { animation-delay: -0.85s; animation-duration: 1.5s; }
+.kue__halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: halo-berdenyut 2.4s ease-in-out infinite alternate;
+}
+@keyframes api-berkedip {
+  from { transform: scale(0.92, 1.06) rotate(-2deg); opacity: 0.92; }
+  to { transform: scale(1.04, 0.94) rotate(2deg); opacity: 1; }
+}
+@keyframes halo-berdenyut {
+  from { transform: scale(0.92); opacity: 0.55; }
+  to { transform: scale(1.08); opacity: 0.9; }
+}
+
+/* Lilin padam: api dan halo hilang, asap naik sekali */
+.kue__asap path {
+  fill: none;
+  stroke: #A38C80;
+  stroke-width: 3;
+  stroke-linecap: round;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.kue--padam .kue__nyala,
+.kue--padam .kue__halo { animation: none; opacity: 0; }
+.kue--padam .kue__asap path { animation: asap-naik 1.8s ease-out forwards; }
+.kue__asap path:nth-child(2) { animation-delay: 0.18s; }
+@keyframes asap-naik {
+  0% { opacity: 0; transform: translateY(0) scale(0.8); }
+  18% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-26px) scale(1.2); }
+}
+
+/* Balon melayang pelan di latar */
+.kue__balon { animation: balon-melayang 6s ease-in-out infinite alternate; }
+.kue__balon--2 { animation-delay: -1.6s; animation-duration: 7.2s; }
+.kue__balon--3 { animation-delay: -3.1s; animation-duration: 6.4s; }
+.kue__balon--4 { animation-delay: -4.4s; animation-duration: 8s; }
+@keyframes balon-melayang {
+  from { transform: translateY(-7px) rotate(-2deg); }
+  to { transform: translateY(9px) rotate(2deg); }
+}
+
+/* --- 12. Hormati preferensi gerak minimal --- */
 @media (prefers-reduced-motion: reduce) {
   :root { --transisi: 0.01s; }
   *, *::before, *::after {

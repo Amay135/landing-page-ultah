@@ -109,6 +109,61 @@ function mulaiKetikHero() {
   }, 55);
 }
 
+// --- Kue (F4A): tulisan, lilin, tiup lilin ---
+const kue = document.getElementById("kue");
+const kueSvg = document.getElementById("kueSvg");
+const kueTeks = document.getElementById("kueTeks");
+const tombolTiup = document.getElementById("tombolTiup");
+const tombolPotong = document.getElementById("tombolPotong");
+const harapanKue = document.getElementById("kueHarapan");
+
+tombolTiup.textContent = DATA.kueLabelTiup;
+tombolPotong.textContent = DATA.kueLabelPotong;
+kueSvg.setAttribute("aria-label", DATA.kueAria);
+
+// Tulisan di tingkat tengah: perkecil font bila nama panjang agar tetap muat.
+function aturTeksKue() {
+  const lebarMaks = 190; // satuan viewBox
+  let ukuran = 26;
+  kueTeks.textContent = DATA.kueTulisan;
+  kueTeks.setAttribute("font-size", ukuran);
+  while (ukuran > 9 && kueTeks.getComputedTextLength() > lebarMaks) {
+    ukuran -= 1;
+    kueTeks.setAttribute("font-size", ukuran);
+  }
+}
+aturTeksKue();
+document.fonts?.ready.then(aturTeksKue); // ukur ulang setelah font Caveat termuat
+
+// Latar gradien kue ditampilkan lewat body agar confetti (di atasnya) tetap terlihat.
+const pengamatLatarKue = new IntersectionObserver(
+  ([entri]) => document.body.classList.toggle("kue-aktif", entri.intersectionRatio >= 0.55),
+  { threshold: 0.55 }
+);
+pengamatLatarKue.observe(kue);
+
+// Tiup lilin: api padam + asap, confetti di api, "Make a wish", lalu tombol potong.
+let lilinPadam = false;
+tombolTiup.addEventListener("click", () => {
+  if (lilinPadam) return;
+  lilinPadam = true;
+  kue.classList.add("kue--padam");
+  kueSvg.setAttribute("aria-label", DATA.kueAriaPadam);
+  tombolTiup.hidden = true;
+  harapanKue.textContent = DATA.lilinPadamTeks;
+  harapanKue.classList.add("kue__harapan--tampil");
+
+  const api = kueSvg.querySelector(".kue__api");
+  const kotak = (api || kueSvg).getBoundingClientRect();
+  burst(kotak.left + kotak.width / 2, kotak.top + kotak.height / 2, 120);
+
+  // Tombol potong baru berfungsi penuh di tahap 4B.
+  setTimeout(() => {
+    tombolPotong.hidden = false;
+    tombolPotong.focus({ preventScroll: true });
+  }, 800);
+});
+
 // --- Confetti global (F3) ---
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.
 const kanvasConfetti = document.getElementById("confetti");

@@ -29,6 +29,10 @@ const DATA = {
 
   // 5. Kue
   kueTulisan: "Happy Birthday, [CONTOH] Sayang",
+  kueLabelTiup: "Tiup Lilin",
+  kueLabelPotong: "Potong Kue",
+  kueAria: "Kue ulang tahun tiga tingkat dengan lilin menyala",
+  kueAriaPadam: "Kue ulang tahun tiga tingkat, lilin sudah padam",
   lilinPadamTeks: "Make a wish ✨",
   potonganLucuTeks: "Jawaban paling benar!",
 

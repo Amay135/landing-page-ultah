@@ -52,7 +52,252 @@
         </a>
       </div>
     </section>
-    <section id="kue" class="bagian"></section>
+    <!-- Kue interaktif (F4). Tiap tingkat, lilin, dan potongan adalah grup SVG
+         terpisah supaya bisa dianimasikan di tahap 4B. -->
+    <section id="kue" class="bagian kue">
+      <!-- Latar meriah: balon, bunting, bokeh (gradien dari CSS) -->
+      <svg class="kue__dekor" viewBox="0 0 400 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <g fill="#FFF6EC">
+          <circle cx="48" cy="430" r="34" opacity=".18"/>
+          <circle cx="352" cy="150" r="26" opacity=".22"/>
+          <circle cx="322" cy="530" r="44" opacity=".14"/>
+          <circle cx="120" cy="580" r="22" opacity=".2"/>
+          <circle cx="372" cy="452" r="16" opacity=".24"/>
+          <circle cx="210" cy="64" r="12" opacity=".25"/>
+          <circle cx="70" cy="132" r="16" opacity=".16"/>
+          <circle cx="262" cy="360" r="9" opacity=".22"/>
+        </g>
+
+        <g class="kue__bunting">
+          <path d="M-10 26Q200 82 410 26" fill="none" stroke="#5A3E36" stroke-width="2" opacity=".35"/>
+          <path d="M29 39h22l-11 24Z" fill="#F4B6C2"/>
+          <path d="M89 49h22l-11 24Z" fill="#FFD3B6"/>
+          <path d="M149 54h22l-11 24Z" fill="#CDB4DB"/>
+          <path d="M189 55h22l-11 24Z" fill="#E8B86D"/>
+          <path d="M229 54h22l-11 24Z" fill="#F4B6C2"/>
+          <path d="M289 49h22l-11 24Z" fill="#FFD3B6"/>
+          <path d="M349 39h22l-11 24Z" fill="#CDB4DB"/>
+        </g>
+
+        <g transform="translate(90 270) rotate(-7)">
+          <g class="kue__balon">
+            <path d="M0 34c9 20 3 44-6 58" fill="none" stroke="#5A3E36" stroke-width="1.6" opacity=".3"/>
+            <ellipse cx="0" cy="0" rx="27" ry="33" fill="#F4B6C2"/>
+            <path d="M0 33l8 9h-16Z" fill="#F4B6C2"/>
+            <ellipse cx="-9" cy="-11" rx="6" ry="11" fill="#FFF6EC" opacity=".5" transform="rotate(-18 -9 -11)"/>
+          </g>
+        </g>
+        <g transform="translate(70 400) rotate(5)">
+          <g class="kue__balon kue__balon--2">
+            <path d="M0 28c7 16 2 34-5 46" fill="none" stroke="#5A3E36" stroke-width="1.4" opacity=".3"/>
+            <ellipse cx="0" cy="0" rx="22" ry="27" fill="#CDB4DB"/>
+            <path d="M0 27l7 8h-14Z" fill="#CDB4DB"/>
+            <ellipse cx="-7" cy="-9" rx="5" ry="9" fill="#FFF6EC" opacity=".45" transform="rotate(-18 -7 -9)"/>
+          </g>
+        </g>
+        <g transform="translate(320 252) rotate(8)">
+          <g class="kue__balon kue__balon--3">
+            <path d="M0 31c8 18 2 40-6 54" fill="none" stroke="#5A3E36" stroke-width="1.6" opacity=".3"/>
+            <ellipse cx="0" cy="0" rx="25" ry="30" fill="#FFD3B6"/>
+            <path d="M0 30l8 9h-16Z" fill="#FFD3B6"/>
+            <ellipse cx="-8" cy="-10" rx="6" ry="10" fill="#FFF6EC" opacity=".5" transform="rotate(-18 -8 -10)"/>
+          </g>
+        </g>
+        <g transform="translate(322 414) rotate(-6)">
+          <g class="kue__balon kue__balon--4">
+            <path d="M0 26c6 15 1 32-5 43" fill="none" stroke="#5A3E36" stroke-width="1.4" opacity=".3"/>
+            <ellipse cx="0" cy="0" rx="20" ry="25" fill="#F4B6C2"/>
+            <path d="M0 25l7 8h-14Z" fill="#F4B6C2"/>
+            <ellipse cx="-6" cy="-8" rx="4.5" ry="8" fill="#FFF6EC" opacity=".45" transform="rotate(-18 -6 -8)"/>
+          </g>
+        </g>
+      </svg>
+
+      <div class="kue__dalam">
+        <div class="kue__panggung">
+          <svg id="kueSvg" class="kue__svg" viewBox="0 0 400 480" role="img" aria-label="Kue ulang tahun tiga tingkat">
+            <defs>
+              <linearGradient id="gradKue" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFF9F1"/>
+                <stop offset="1" stop-color="#FFE3D2"/>
+              </linearGradient>
+              <linearGradient id="gradStand" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFFDF8"/>
+                <stop offset="1" stop-color="#F3E2EC"/>
+              </linearGradient>
+              <radialGradient id="gradHalo">
+                <stop offset="0" stop-color="#FFDFA6" stop-opacity=".85"/>
+                <stop offset="55%" stop-color="#FFC98A" stop-opacity=".3"/>
+                <stop offset="100%" stop-color="#FFC98A" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="gradApi" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0" stop-color="#FFB86B"/>
+                <stop offset=".55" stop-color="#F8A94F"/>
+                <stop offset="1" stop-color="#EF8A3C"/>
+              </linearGradient>
+              <clipPath id="klipPotongan">
+                <path d="M-24 44 0-6 24 44Z"/>
+              </clipPath>
+            </defs>
+
+            <!-- Cake stand dan alas piring renda -->
+            <g id="kue-stand">
+              <ellipse cx="200" cy="455" rx="70" ry="12" fill="#D9BFC9" opacity=".45"/>
+              <ellipse cx="200" cy="443" rx="54" ry="11" fill="url(#gradStand)" stroke="#E8B86D" stroke-width="1.5"/>
+              <path d="M191 401h18v40c0 7-4 10-9 10s-9-3-9-10z" fill="url(#gradStand)" stroke="#E8B86D" stroke-width="1.5"/>
+              <ellipse cx="200" cy="404" rx="150" ry="25" fill="url(#gradStand)" stroke="#E8B86D" stroke-width="2"/>
+              <ellipse cx="200" cy="399" rx="136" ry="19" fill="#FFFDF8"/>
+              <ellipse cx="200" cy="399" rx="131" ry="16" fill="none" stroke="#FFEBD5" stroke-width="6" stroke-dasharray="0.1 12" stroke-linecap="round"/>
+            </g>
+
+            <!-- Tingkat bawah -->
+            <g id="kue-tingkat-bawah">
+              <ellipse cx="200" cy="300" rx="148" ry="20" fill="#FBDDE2"/>
+              <path d="M52 300H348V376A20 20 0 0 1 328 396H72A20 20 0 0 1 52 376Z" fill="url(#gradKue)" stroke="#E9C9B6" stroke-width="1.5"/>
+              <path d="M64 380H336" fill="none" stroke="#FFFDF8" stroke-width="9" stroke-dasharray="0.1 17" stroke-linecap="round"/>
+              <g fill="#E8B86D">
+                <rect x="98" y="330" width="8" height="3.6" rx="1.8" transform="rotate(22 102 332)"/>
+                <rect x="146" y="352" width="8" height="3.6" rx="1.8" transform="rotate(-18 150 354)"/>
+                <rect x="212" y="322" width="8" height="3.6" rx="1.8" transform="rotate(12 216 324)"/>
+                <rect x="268" y="344" width="8" height="3.6" rx="1.8" transform="rotate(-26 272 346)"/>
+                <rect x="300" y="318" width="8" height="3.6" rx="1.8" transform="rotate(18 304 320)"/>
+              </g>
+            </g>
+
+            <!-- Tingkat tengah: tulisan dari data.js -->
+            <g id="kue-tingkat-tengah">
+              <ellipse cx="200" cy="208" rx="112" ry="16" fill="#FBDDE2"/>
+              <path d="M88 208H312V286A16 16 0 0 1 296 302H104A16 16 0 0 1 88 286Z" fill="url(#gradKue)" stroke="#E9C9B6" stroke-width="1.5"/>
+              <text id="kueTeks" x="200" y="266" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="26" fill="#5A3E36">Happy Birthday</text>
+              <path d="M104 288H296" fill="none" stroke="#FFFDF8" stroke-width="8" stroke-dasharray="0.1 15" stroke-linecap="round"/>
+              <g fill="#E8B86D">
+                <rect x="118" y="228" width="7" height="3.2" rx="1.6" transform="rotate(20 121 230)"/>
+                <rect x="270" y="232" width="7" height="3.2" rx="1.6" transform="rotate(-16 273 234)"/>
+                <rect x="150" y="280" width="7" height="3.2" rx="1.6" transform="rotate(-24 153 282)"/>
+                <rect x="250" y="278" width="7" height="3.2" rx="1.6" transform="rotate(14 253 280)"/>
+              </g>
+            </g>
+
+            <!-- Tingkat atas: glaze menetes dan stroberi -->
+            <g id="kue-tingkat-atas">
+              <path d="M128 124H272V200A13 13 0 0 1 259 213H141A13 13 0 0 1 128 200Z" fill="url(#gradKue)" stroke="#E9C9B6" stroke-width="1.5"/>
+              <ellipse cx="200" cy="124" rx="72" ry="12" fill="#F9C9D2"/>
+              <g fill="#F9C9D2">
+                <rect x="132" y="122" width="10" height="22" rx="5"/>
+                <rect x="144" y="122" width="10" height="14" rx="5"/>
+                <rect x="156" y="122" width="10" height="28" rx="5"/>
+                <rect x="168" y="122" width="10" height="18" rx="5"/>
+                <rect x="180" y="122" width="10" height="24" rx="5"/>
+                <rect x="192" y="122" width="10" height="16" rx="5"/>
+                <rect x="204" y="122" width="10" height="26" rx="5"/>
+                <rect x="216" y="122" width="10" height="18" rx="5"/>
+                <rect x="228" y="122" width="10" height="30" rx="5"/>
+                <rect x="240" y="122" width="10" height="16" rx="5"/>
+                <rect x="252" y="122" width="10" height="22" rx="5"/>
+              </g>
+              <ellipse cx="182" cy="118" rx="30" ry="5" fill="#FFF6EC" opacity=".55"/>
+              <path d="M141 198H259" fill="none" stroke="#FFFDF8" stroke-width="7" stroke-dasharray="0.1 13" stroke-linecap="round"/>
+              <g fill="#E8B86D">
+                <rect x="150" y="180" width="6" height="3" rx="1.5" transform="rotate(18 153 181)"/>
+                <rect x="240" y="182" width="6" height="3" rx="1.5" transform="rotate(-22 243 183)"/>
+              </g>
+              <g transform="translate(146 132)">
+                <path d="M0 -8c7-4 12 2 10 8-2 8-7 13-10 15-3-2-8-7-10-15-2-6 3-12 10-8Z" fill="#E88FA0"/>
+                <path d="M-8-8c2-5 6-7 8-7s6 2 8 7c-3 2-5 2-8 2s-5 0-8-2Z" fill="#9CB89A"/>
+                <g fill="#FFF6EC" opacity=".85">
+                  <circle cx="-3" cy="0" r="1"/>
+                  <circle cx="3" cy="3" r="1"/>
+                  <circle cx="0" cy="8" r="1"/>
+                </g>
+              </g>
+              <g transform="translate(254 134)">
+                <path d="M0 -8c7-4 12 2 10 8-2 8-7 13-10 15-3-2-8-7-10-15-2-6 3-12 10-8Z" fill="#E88FA0"/>
+                <path d="M-8-8c2-5 6-7 8-7s6 2 8 7c-3 2-5 2-8 2s-5 0-8-2Z" fill="#9CB89A"/>
+                <g fill="#FFF6EC" opacity=".85">
+                  <circle cx="-3" cy="0" r="1"/>
+                  <circle cx="3" cy="3" r="1"/>
+                  <circle cx="0" cy="8" r="1"/>
+                </g>
+              </g>
+            </g>
+
+            <!-- Lilin pastel dengan api berkedip dan halo hangat -->
+            <g id="kue-lilin">
+              <g class="kue__lilin" transform="translate(166 124)">
+                <rect x="-5" y="-44" width="10" height="44" rx="5" fill="#F4B6C2"/>
+                <g fill="#FFF6EC" opacity=".55">
+                  <rect x="-5" y="-36" width="10" height="6"/>
+                  <rect x="-5" y="-24" width="10" height="6"/>
+                  <rect x="-5" y="-12" width="10" height="6"/>
+                </g>
+                <line x1="0" y1="-49" x2="0" y2="-43" stroke="#5A3E36" stroke-width="2" stroke-linecap="round"/>
+                <g class="kue__api">
+                  <circle class="kue__halo" cx="0" cy="-62" r="32" fill="url(#gradHalo)"/>
+                  <path class="kue__nyala" d="M0 -48C8 -58 8 -70 0 -80 -8 -70 -8 -58 0 -48Z" fill="url(#gradApi)"/>
+                  <path class="kue__nyala" d="M0 -51C4 -57 4 -65 0 -71 -4 -65 -4 -57 0 -51Z" fill="#FFF3D6"/>
+                </g>
+                <g class="kue__asap">
+                  <path d="M0 -50c6 -8 -6 -14 0 -24"/>
+                  <path d="M-5 -52c5 -9 -4 -13 2 -23"/>
+                </g>
+              </g>
+              <g class="kue__lilin" transform="translate(200 124)">
+                <rect x="-5" y="-44" width="10" height="44" rx="5" fill="#CDB4DB"/>
+                <g fill="#FFF6EC" opacity=".55">
+                  <rect x="-5" y="-36" width="10" height="6"/>
+                  <rect x="-5" y="-24" width="10" height="6"/>
+                  <rect x="-5" y="-12" width="10" height="6"/>
+                </g>
+                <line x1="0" y1="-49" x2="0" y2="-43" stroke="#5A3E36" stroke-width="2" stroke-linecap="round"/>
+                <g class="kue__api">
+                  <circle class="kue__halo" cx="0" cy="-62" r="32" fill="url(#gradHalo)"/>
+                  <path class="kue__nyala" d="M0 -48C8 -58 8 -70 0 -80 -8 -70 -8 -58 0 -48Z" fill="url(#gradApi)"/>
+                  <path class="kue__nyala" d="M0 -51C4 -57 4 -65 0 -71 -4 -65 -4 -57 0 -51Z" fill="#FFF3D6"/>
+                </g>
+                <g class="kue__asap">
+                  <path d="M0 -50c6 -8 -6 -14 0 -24"/>
+                  <path d="M-5 -52c5 -9 -4 -13 2 -23"/>
+                </g>
+              </g>
+              <g class="kue__lilin" transform="translate(234 124)">
+                <rect x="-5" y="-44" width="10" height="44" rx="5" fill="#FFD3B6"/>
+                <g fill="#FFF6EC" opacity=".55">
+                  <rect x="-5" y="-36" width="10" height="6"/>
+                  <rect x="-5" y="-24" width="10" height="6"/>
+                  <rect x="-5" y="-12" width="10" height="6"/>
+                </g>
+                <line x1="0" y1="-49" x2="0" y2="-43" stroke="#5A3E36" stroke-width="2" stroke-linecap="round"/>
+                <g class="kue__api">
+                  <circle class="kue__halo" cx="0" cy="-62" r="32" fill="url(#gradHalo)"/>
+                  <path class="kue__nyala" d="M0 -48C8 -58 8 -70 0 -80 -8 -70 -8 -58 0 -48Z" fill="url(#gradApi)"/>
+                  <path class="kue__nyala" d="M0 -51C4 -57 4 -65 0 -71 -4 -65 -4 -57 0 -51Z" fill="#FFF3D6"/>
+                </g>
+                <g class="kue__asap">
+                  <path d="M0 -50c6 -8 -6 -14 0 -24"/>
+                  <path d="M-5 -52c5 -9 -4 -13 2 -23"/>
+                </g>
+              </g>
+            </g>
+
+            <!-- Potongan kue terpisah, disiapkan untuk animasi potong di tahap 4B -->
+            <g id="kue-potongan" class="kue__potongan" transform="translate(320 350)" hidden>
+              <path d="M-24 44 0-6 24 44Z" fill="#FFEFE6" stroke="#E9C9B6" stroke-width="1.5" stroke-linejoin="round"/>
+              <g clip-path="url(#klipPotongan)">
+                <rect x="-26" y="4" width="52" height="9" fill="#F9C9D2"/>
+                <rect x="-26" y="21" width="52" height="6" fill="#F9C9D2" opacity=".7"/>
+                <rect x="-26" y="33" width="52" height="7" fill="#FFE3D2"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <p id="kueHarapan" class="kue__harapan tulisan-tangan" role="status" aria-live="polite"></p>
+        <div class="kue__aksi">
+          <button id="tombolTiup" class="btn btn--besar" type="button">Tiup Lilin</button>
+          <button id="tombolPotong" class="btn btn--besar" type="button" hidden>Potong Kue</button>
+        </div>
+      </div>
+    </section>
     <section id="galeri" class="bagian"></section>
     <section id="timeline" class="bagian"></section>
     <section id="counter" class="bagian"></section>
