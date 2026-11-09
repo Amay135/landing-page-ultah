@@ -155,7 +155,98 @@ main { overflow-x: clip; }
   padding: 64px 20px;
 }
 
-/* --- 8. Hormati preferensi gerak minimal --- */
+/* --- 8. Confetti global di belakang konten (F3) --- */
+.confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+main, footer { position: relative; z-index: 2; }
+
+/* --- 9. Hero (F2) --- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr; /* cegah kolom melebar melebihi layar */
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 40px 24px 56px;
+  text-align: center;
+}
+.hero__dalam {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 620px;
+}
+.hero__atas {
+  margin: 0;
+  font-size: clamp(1.15rem, 4vw, 1.5rem);
+}
+.hero__judul {
+  margin: 0;
+  font-size: clamp(2.2rem, 9.5vw, 3.6rem);
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+/* Kursor berkedip selama judul diketik */
+.hero__ketik::after {
+  content: "|";
+  margin-left: 2px;
+  opacity: 0.5;
+  animation: ketik-kedip 0.9s steps(1) infinite;
+}
+.hero__ketik--selesai::after { content: none; }
+@keyframes ketik-kedip { 50% { opacity: 0; } }
+
+.hero__nama {
+  padding: 0;
+  border: 0;
+  border-bottom: 3px dashed var(--emas);
+  background: none;
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8) rotate(-4deg);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hero__nama--tampil { opacity: 1; transform: none; }
+.hero__nama--tampil:hover,
+.hero__nama--tampil:focus-visible { transform: rotate(-3deg) scale(1.06); }
+
+.hero__subteks {
+  margin: 0;
+  font-size: clamp(1rem, 3.6vw, 1.15rem);
+  opacity: 0.85;
+}
+.hero__panah {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  margin-top: 10px;
+  color: var(--teks);
+  font-family: var(--font-tangan);
+  font-size: 1.15rem;
+  text-decoration: none;
+}
+.hero__panah svg {
+  width: 26px;
+  height: 26px;
+  animation: panah-turun 1.6s ease-in-out infinite;
+}
+@keyframes panah-turun {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* --- 10. Hormati preferensi gerak minimal --- */
 @media (prefers-reduced-motion: reduce) {
   :root { --transisi: 0.01s; }
   *, *::before, *::after {
@@ -163,4 +254,5 @@ main { overflow-x: clip; }
     animation-iteration-count: 1 !important;
   }
   .gate { transition-duration: 0.01s; }
+  .hero__nama { transition: none; }
 }

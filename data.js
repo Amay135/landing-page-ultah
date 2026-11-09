@@ -21,8 +21,10 @@ const DATA = {
   pesanSandiSalah: "Hmm, kayaknya belum tepat. Coba lagi ya.",
 
   // 4. Hero
+  heroJudul: "Selamat Ulang Tahun",
   heroAtas: "[CONTOH] Hari ini spesial banget",
   heroSubteks: "[CONTOH] Satu tahun lagi bersama kamu adalah hadiah terbaik buatku",
+  heroPanah: "scroll ke bawah",
   pesanRahasia: "[CONTOH] Kamu masih klik-klik aja ya. Aku sayang kamu, selalu.",
 
   // 5. Kue

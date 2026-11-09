@@ -33,8 +33,25 @@
     </form>
   </div>
 
+  <!-- Confetti global (F3): di belakang konten, tidak menghalangi klik -->
+  <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+
   <main>
-    <section id="hero" class="bagian"></section>
+    <!-- Hero (F2) -->
+    <section id="hero" class="bagian hero">
+      <div class="hero__dalam">
+        <p id="heroAtas" class="hero__atas tulisan-tangan"></p>
+        <h1 id="heroJudul" class="hero__judul">
+          <span id="heroKetik" class="hero__ketik" aria-hidden="true"></span>
+          <button id="heroNama" class="hero__nama" type="button" disabled></button>
+        </h1>
+        <p id="heroSubteks" class="hero__subteks"></p>
+        <a class="hero__panah" href="#kue" aria-label="Scroll ke bagian berikutnya">
+          <span id="heroPanah"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
     <section id="kue" class="bagian"></section>
     <section id="galeri" class="bagian"></section>
     <section id="timeline" class="bagian"></section>
