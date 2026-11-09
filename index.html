@@ -325,7 +325,10 @@
         <button id="tombolPotongLagi" class="btn btn--besar" type="button" hidden></button>
       </div>
     </section>
-    <section id="galeri" class="bagian"></section>
+    <!-- Galeri foto polaroid (F5). Foto diisi dari data.js oleh script.js. -->
+    <section id="galeri" class="bagian galeri" aria-label="Galeri foto kenangan">
+      <div id="galeriDaftar" class="galeri__daftar"></div>
+    </section>
     <section id="timeline" class="bagian"></section>
     <section id="counter" class="bagian"></section>
     <section id="alasan" class="bagian"></section>
@@ -335,6 +338,20 @@
   </main>
 
   <footer class="bagian"></footer>
+
+  <!-- Lightbox galeri (F5): Esc dan backdrop menutup lewat <dialog> -->
+  <dialog id="lightbox" class="lightbox" aria-label="Foto kenangan">
+    <div class="lightbox__kartu">
+      <img id="lightboxImg" class="lightbox__img" alt="">
+      <div class="lightbox__caption">
+        <p id="lightboxTeks" class="lightbox__teks"></p>
+        <p id="lightboxTanggal" class="lightbox__tanggal"></p>
+      </div>
+      <button id="lightboxTutup" class="lightbox__tombol lightbox__tombol--tutup" type="button" aria-label="Tutup foto">✕</button>
+      <button id="lightboxSebelum" class="lightbox__tombol lightbox__tombol--kiri" type="button" aria-label="Foto sebelumnya">‹</button>
+      <button id="lightboxSesudah" class="lightbox__tombol lightbox__tombol--kanan" type="button" aria-label="Foto berikutnya">›</button>
+    </div>
+  </dialog>
 
   <script src="data.js"></script>
   <script src="script.js"></script>

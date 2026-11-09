@@ -256,6 +256,160 @@ formPotongan.addEventListener("submit", (e) => {
   tombolPotongLagi.focus({ preventScroll: true });
 });
 
+// --- Galeri foto polaroid (F5) ---
+const galeriDaftar = document.getElementById("galeriDaftar");
+const WARNA_PLACEHOLDER = ["#F4B6C2", "#FFD3B6", "#CDB4DB", "#E8B86D"];
+const fotoImgGaleri = [];
+
+// Placeholder pastel bertanda [CONTOH] selama file di assets/foto belum ada.
+function srcPlaceholder(i) {
+  const svg =
+    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'>" +
+    `<rect width='320' height='320' fill='${WARNA_PLACEHOLDER[i % WARNA_PLACEHOLDER.length]}'/>` +
+    "<circle cx='160' cy='146' r='54' fill='#FFF6EC' opacity='.5'/>" +
+    "<path d='M138 188q22 16 44 0' fill='none' stroke='#5A3E36' stroke-width='4' stroke-linecap='round' opacity='.45'/>" +
+    "<text x='160' y='258' text-anchor='middle' font-family='Nunito, sans-serif' font-size='19' fill='#5A3E36'>[CONTOH]</text>" +
+    "</svg>";
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+DATA.foto.forEach((foto, i) => {
+  const kartuFoto = document.createElement("figure");
+  kartuFoto.className = "foto";
+  // Miring tipis acak saat diam; arah miring acak saat disentuh.
+  kartuFoto.style.setProperty("--rot", acak(-2.5, 2.5).toFixed(1) + "deg");
+  kartuFoto.style.setProperty("--tape-x", acak(28, 72).toFixed(0) + "%");
+  kartuFoto.style.setProperty("--tape-rot", acak(-9, 9).toFixed(0) + "deg");
+
+  const bingkai = document.createElement("button");
+  bingkai.type = "button";
+  bingkai.className = "foto__bingkai foto-hidup";
+  bingkai.style.setProperty("--rot-hidup", (Math.random() < 0.5 ? -3 : 3) + "deg");
+  bingkai.setAttribute("aria-label", "Buka foto: " + foto.caption + ", " + foto.tanggal);
+
+  const img = document.createElement("img");
+  img.className = "foto__img";
+  img.alt = foto.caption;
+  img.loading = "lazy";
+  img.decoding = "async";
+  img.addEventListener("error", () => { img.src = srcPlaceholder(i); }, { once: true });
+  img.src = foto.src;
+  fotoImgGaleri.push(img);
+
+  const caption = document.createElement("figcaption");
+  caption.className = "foto__caption";
+  const captionTeks = document.createElement("span");
+  captionTeks.className = "foto__captionTeks";
+  captionTeks.textContent = foto.caption;
+  const captionTanggal = document.createElement("span");
+  captionTanggal.className = "foto__tanggal";
+  captionTanggal.textContent = foto.tanggal;
+  caption.append(captionTeks, captionTanggal);
+
+  bingkai.addEventListener("click", () => bukaLightbox(i));
+  bingkai.append(img);
+  kartuFoto.append(bingkai, caption);
+  galeriDaftar.append(kartuFoto);
+});
+
+// Lightbox: satu foto besar, navigasi tombol/panah keyboard/swipe, Esc menutup.
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxTeks = document.getElementById("lightboxTeks");
+const lightboxTanggal = document.getElementById("lightboxTanggal");
+const lightboxTutup = document.getElementById("lightboxTutup");
+const lightboxSebelum = document.getElementById("lightboxSebelum");
+const lightboxSesudah = document.getElementById("lightboxSesudah");
+const adaBanyakFoto = DATA.foto.length > 1;
+lightboxSebelum.hidden = !adaBanyakFoto;
+lightboxSesudah.hidden = !adaBanyakFoto;
+
+let indeksLightbox = 0;
+
+function isiLightbox() {
+  const foto = DATA.foto[indeksLightbox];
+  const imgAsal = fotoImgGaleri[indeksLightbox];
+  lightboxImg.src = imgAsal.currentSrc || imgAsal.src;
+  lightboxImg.alt = foto.caption;
+  lightboxTeks.textContent = foto.caption;
+  lightboxTanggal.textContent = foto.tanggal;
+}
+
+function bukaLightbox(i) {
+  indeksLightbox = i;
+  isiLightbox();
+  lightbox.showModal();
+  document.body.classList.add("lightbox-terbuka");
+}
+
+// Geser satu foto; berputar kembali ke awal/akhir supaya tidak mentok.
+function geserLightbox(langkah) {
+  const jumlah = DATA.foto.length;
+  if (!jumlah) return;
+  indeksLightbox = (indeksLightbox + langkah + jumlah) % jumlah;
+  isiLightbox();
+}
+
+lightboxTutup.addEventListener("click", () => lightbox.close());
+lightboxSebelum.addEventListener("click", () => geserLightbox(-1));
+lightboxSesudah.addEventListener("click", () => geserLightbox(1));
+lightbox.addEventListener("close", () => document.body.classList.remove("lightbox-terbuka"));
+
+// Klik backdrop (di luar kartu) menutup.
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) lightbox.close();
+});
+
+// Panah kiri/kanan saat lightbox terbuka (Esc sudah ditangani <dialog>).
+lightbox.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") geserLightbox(-1);
+  else if (e.key === "ArrowRight") geserLightbox(1);
+});
+
+// Swipe kiri/kanan di HP; abaikan geser vertikal.
+let sentuhAwalX = 0;
+let sentuhAwalY = 0;
+lightbox.addEventListener("touchstart", (e) => {
+  sentuhAwalX = e.touches[0].clientX;
+  sentuhAwalY = e.touches[0].clientY;
+}, { passive: true });
+lightbox.addEventListener("touchend", (e) => {
+  const dx = e.changedTouches[0].clientX - sentuhAwalX;
+  const dy = e.changedTouches[0].clientY - sentuhAwalY;
+  if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) geserLightbox(dx < 0 ? 1 : -1);
+}, { passive: true });
+
+// Paralaks halus per foto: geser berlawanan arah scroll, dibatasi agar tak aneh.
+if (!mqGerakMinimal.matches) {
+  const fotoParalaks = [...galeriDaftar.querySelectorAll(".foto")];
+  let dasarParalaks = [];
+  let rafParalaksFoto = 0;
+
+  function ukurParalaksFoto() {
+    for (const el of fotoParalaks) el.style.transform = "";
+    dasarParalaks = fotoParalaks.map((el) => el.getBoundingClientRect().top + scrollY);
+    perbaruiParalaksFoto();
+  }
+
+  function perbaruiParalaksFoto() {
+    rafParalaksFoto = 0;
+    const tengahLayar = scrollY + innerHeight / 2;
+    fotoParalaks.forEach((el, i) => {
+      const jarak = tengahLayar - (dasarParalaks[i] + el.offsetHeight / 2);
+      const geser = Math.max(-16, Math.min(16, jarak * 0.05));
+      el.style.transform = `translate3d(0, ${geser.toFixed(1)}px, 0)`;
+    });
+  }
+
+  function mintaParalaksFoto() {
+    if (!rafParalaksFoto) rafParalaksFoto = requestAnimationFrame(perbaruiParalaksFoto);
+  }
+
+  addEventListener("scroll", mintaParalaksFoto, { passive: true });
+  addEventListener("resize", ukurParalaksFoto);
+  ukurParalaksFoto();
+}
+
 // --- Confetti global (F3) ---
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.
 const kanvasConfetti = document.getElementById("confetti");

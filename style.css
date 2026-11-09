@@ -467,7 +467,179 @@ body.kue-aktif::before { opacity: 1; }
   to { transform: translateY(9px) rotate(2deg); }
 }
 
-/* --- 12. Hormati preferensi gerak minimal --- */
+/* --- 12. Galeri foto polaroid (F5) --- */
+.galeri {
+  padding: 76px 20px;
+}
+.galeri__daftar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 30px 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.foto {
+  min-width: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+/* Kolom genap turun sedikit agar terasa scrapbook, bukan tabel */
+.foto:nth-child(even) { margin-top: 24px; }
+
+/* Efek hidup yang bisa dipakai ulang (galeri dan timeline):
+   miring tipis saat diam, membesar + miring acak saat hover/sentuh. */
+.foto-hidup {
+  box-shadow: 0 6px 16px rgba(90, 62, 54, 0.16);
+  transform: rotate(var(--rot, 0deg));
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+@media (hover: hover) {
+  .foto-hidup:hover {
+    box-shadow: 0 16px 34px rgba(90, 62, 54, 0.26);
+    transform: rotate(var(--rot-hidup, 3deg)) scale(1.05);
+  }
+}
+.foto-hidup:active,
+.foto-hidup:focus-visible {
+  box-shadow: 0 16px 34px rgba(90, 62, 54, 0.26);
+  transform: rotate(var(--rot-hidup, 3deg)) scale(1.05);
+}
+
+.foto__bingkai {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 9px;
+  border: 0;
+  border-radius: 3px;
+  background: #FFFDF8;
+  cursor: zoom-in;
+}
+/* Washi tape: posisi dan miring acak dari variabel inline */
+.foto__bingkai::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: var(--tape-x, 50%);
+  width: 58px;
+  height: 20px;
+  background: repeating-linear-gradient(90deg, rgba(255, 211, 182, 0.95) 0 7px, rgba(244, 182, 194, 0.95) 7px 14px);
+  box-shadow: 0 2px 4px rgba(90, 62, 54, 0.14);
+  opacity: 0.92;
+  transform: translateX(-50%) rotate(var(--tape-rot, -4deg));
+  pointer-events: none;
+}
+/* Stiker bintang di sebagian foto */
+.foto:nth-child(3n + 1) .foto__bingkai::after {
+  content: "";
+  position: absolute;
+  right: -9px;
+  bottom: -9px;
+  width: 26px;
+  height: 26px;
+  background: var(--emas);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  filter: drop-shadow(0 2px 3px rgba(90, 62, 54, 0.25));
+  transform: rotate(14deg);
+  pointer-events: none;
+}
+.foto__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: var(--peach);
+}
+.foto__caption {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  text-align: center;
+  line-height: 1.15;
+}
+.foto__captionTeks {
+  font-family: var(--font-tangan);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.foto__tanggal {
+  font-size: 0.78rem;
+  opacity: 0.65;
+}
+
+@media (min-width: 700px) {
+  .galeri { padding: 96px 32px; }
+  .galeri__daftar { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 38px 26px; }
+  .foto__captionTeks { font-size: 1.45rem; }
+  .foto__tanggal { font-size: 0.85rem; }
+}
+@media (min-width: 1000px) {
+  .galeri__daftar { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* --- 13. Lightbox galeri (F5) --- */
+body.lightbox-terbuka { overflow: hidden; }
+.lightbox {
+  width: min(94vw, 560px);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.lightbox::backdrop { background: rgba(59, 42, 38, 0.76); }
+.lightbox[open] { animation: lightbox-muncul 0.25s ease-out; }
+@keyframes lightbox-muncul {
+  from { opacity: 0; transform: scale(0.96); }
+}
+.lightbox__kartu {
+  position: relative;
+  padding: 12px 12px 16px;
+  border-radius: 6px;
+  background: #FFFDF8;
+  box-shadow: 0 24px 60px rgba(40, 25, 20, 0.45);
+  text-align: center;
+}
+.lightbox__img {
+  width: 100%;
+  max-height: 64vh;
+  object-fit: contain;
+  background: var(--krem);
+}
+.lightbox__caption { margin-top: 10px; }
+.lightbox__teks {
+  margin: 0;
+  font-family: var(--font-tangan);
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.lightbox__tanggal {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+.lightbox__tombol {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 246, 236, 0.92);
+  box-shadow: 0 4px 12px rgba(90, 62, 54, 0.25);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox__tombol--tutup { top: 20px; right: 20px; font-size: 1.05rem; }
+.lightbox__tombol--kiri { left: 20px; top: 40%; }
+.lightbox__tombol--kanan { right: 20px; top: 40%; }
+
+/* --- 14. Hormati preferensi gerak minimal --- */
 @media (prefers-reduced-motion: reduce) {
   :root { --transisi: 0.01s; }
   *, *::before, *::after {
@@ -481,4 +653,6 @@ body.kue-aktif::before { opacity: 1; }
   .kue__lucu { transition: none; }
   .dekor { display: none; }
   .bagian { opacity: 1; transform: none; transition: none; }
+  .foto-hidup { transition: none; }
+  .lightbox[open] { animation: none; }
 }
