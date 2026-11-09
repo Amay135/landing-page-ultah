@@ -1,0 +1,166 @@
+/* style.css - tema dan gaya dasar. Mobile-first. */
+
+/* --- 1. Variabel warna dan ukuran --- */
+:root {
+  --krem: #FFF6EC;
+  --pink: #F4B6C2;
+  --peach: #FFD3B6;
+  --lavender: #CDB4DB;
+  --emas: #E8B86D;
+  --teks: #5A3E36;
+  --radius: 20px;
+  --bayangan: 0 8px 24px rgba(90, 62, 54, 0.12);
+  --transisi: 0.4s ease;
+  --font-judul: "Pacifico", cursive;
+  --font-tangan: "Caveat", cursive;
+  --font-isi: "Nunito", system-ui, sans-serif;
+}
+
+/* --- 2. Reset --- */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+img { display: block; max-width: 100%; }
+button, input { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+/* --- 3. Tipografi dasar --- */
+body {
+  font-family: var(--font-isi);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--teks);
+  background: var(--krem);
+  -webkit-tap-highlight-color: transparent;
+}
+h1, h2, h3 {
+  font-family: var(--font-judul);
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 0.5em;
+}
+.tulisan-tangan { font-family: var(--font-tangan); }
+
+/* Fokus keyboard harus terlihat */
+:focus-visible {
+  outline: 3px solid var(--emas);
+  outline-offset: 3px;
+}
+
+/* --- 4. Kelas dasar tombol, kartu, input --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 28px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--pink);
+  color: var(--teks);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--bayangan);
+  transition: transform var(--transisi), box-shadow var(--transisi);
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(0.97); }
+
+.btn--besar {
+  font-size: 1.15rem;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, var(--pink), var(--peach));
+}
+
+.card {
+  padding: 16px;
+  border-radius: var(--radius);
+  background: #FFFAF4;
+  box-shadow: var(--bayangan);
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 2px solid var(--pink);
+  border-radius: var(--radius);
+  background: #FFFAF4;
+  text-align: center;
+}
+
+/* --- 5. Gate pembuka --- */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  gap: 24px;
+  padding: 24px;
+  text-align: center;
+  color: var(--krem);
+  background:
+    radial-gradient(circle at 50% 30%, rgba(232, 184, 109, 0.18), transparent 60%),
+    #3B2A26;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0.6s;
+}
+.gate--pergi {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.gate__teks {
+  margin: 0;
+  font-family: var(--font-judul);
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+}
+.gate__form {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+}
+.gate__label { font-size: 0.9rem; opacity: 0.85; }
+.gate__pesan {
+  min-height: 1.6em;
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--peach);
+}
+
+/* Halaman tidak bisa di-scroll selama gate masih terbuka */
+body.gate-tertutup { overflow: hidden; }
+
+/* --- 6. Tombol mute musik --- */
+.mute {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 246, 236, 0.9);
+  box-shadow: var(--bayangan);
+  font-size: 1.15rem;
+  cursor: pointer;
+}
+
+/* --- 7. Kerangka bagian (sementara sampai tiap fitur diisi) --- */
+main { overflow-x: clip; }
+.bagian {
+  min-height: 60vh;
+  padding: 64px 20px;
+}
+
+/* --- 8. Hormati preferensi gerak minimal --- */
+@media (prefers-reduced-motion: reduce) {
+  :root { --transisi: 0.01s; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .gate { transition-duration: 0.01s; }
+}

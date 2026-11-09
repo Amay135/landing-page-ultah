@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kejutan Ulang Tahun</title>
+  <meta name="description" content="Sebuah kejutan kecil untukmu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gate-tertutup">
+  <!-- Tanpa JavaScript gate jangan sampai mengunci halaman -->
+  <noscript>
+    <style>#gate{display:none}body.gate-tertutup{overflow:auto}</style>
+  </noscript>
+
+  <!-- Musik: src diisi dari data.js -->
+  <audio id="musik" loop preload="none"></audio>
+
+  <!-- Tombol mute/unmute, baru tampil setelah musik mulai -->
+  <button id="tombolMute" class="mute" type="button" hidden aria-pressed="false" aria-label="Matikan musik">🔊</button>
+
+  <!-- Gate pembuka (F1) -->
+  <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gateJudul">
+    <p id="gateJudul" class="gate__teks"></p>
+    <form id="formGate" class="gate__form" novalidate>
+      <label id="labelSandi" class="gate__label" for="sandi">Kata sandi</label>
+      <input id="sandi" class="input" type="password" autocomplete="off" hidden>
+      <button id="tombolBuka" class="btn btn--besar" type="submit"></button>
+      <p id="pesanGate" class="gate__pesan" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <main>
+    <section id="hero" class="bagian"></section>
+    <section id="kue" class="bagian"></section>
+    <section id="galeri" class="bagian"></section>
+    <section id="timeline" class="bagian"></section>
+    <section id="counter" class="bagian"></section>
+    <section id="alasan" class="bagian"></section>
+    <section id="surat" class="bagian"></section>
+    <section id="lampion" class="bagian"></section>
+    <section id="hadiah" class="bagian"></section>
+  </main>
+
+  <footer class="bagian"></footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
