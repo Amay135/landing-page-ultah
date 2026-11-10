@@ -65,18 +65,22 @@ Selesai jika:
 
 ### F4. Kue interaktif
 
-- Kue 3 tingkat bergaya ilustrasi manis, tulisan "Happy Birthday, [Nama]", lilin menyala berkedip, cahaya hangat.
+- Kue 3 tingkat pastel (krem, pink, peach, emas) dengan krim menetes, stroberi, taburan, dan lilin menyala. Sisi kanan kue menyusut secara visual setiap kali dipotong.
 - Tombol "Tiup Lilin": api padam, asap kecil, confetti, teks "Make a wish".
-- Tombol "Potong Kue": satu potongan terpisah dengan animasi.
-- Input "Potongan pertama untuk siapa?" dan tombol "Kasih": potongan geser ke piring, tampil "Potongan pertama untuk [nama]".
+- Tombol "Potong Kue": pisau turun di tepi kue, garis potong tumbuh, lalu potongan terpisah dan terangkat.
+- Input "Potongan pertama untuk siapa?" dan tombol "Kasih": potongan melengkung ke piring, mendarat dengan remah dan confetti, lalu tampil "Potongan pertama untuk [nama] ❤️".
 - Jika nama yang diketik mengandung nama saya (tidak peka huruf besar-kecil): pesan lucu "Jawaban paling benar!".
-- Tombol "Potong lagi": potongan berikutnya, daftar penerima tampil.
+- Tombol "Potong lagi 🔪🍰": potongan berikutnya untuk nama lain. Pesan penerima berikutnya "Satu potong kue untuk [nama] 💗". Tidak ada nomor urutan.
+- Daftar penerima berupa badge scrapbook berjajar ke kanan, bisa digeser sendiri bila nama sudah banyak.
+- Kue cukup untuk 5 potongan (batas visual ilustrasi). Setelah habis, tombol potong disembunyikan dan muncul pesan penutup manis.
 
 Selesai jika:
 - [ ] Nama kosong ditolak dengan pesan ramah.
 - [ ] Nama maksimal 30 karakter, tampil aman (tanpa HTML).
-- [ ] Daftar penerima menampilkan semua nama berurutan.
-- [ ] Animasi potong dan geser berjalan mulus di HP.
+- [ ] Daftar penerima tampil sebagai badge horizontal, tidak memotong nama, dan tidak membuat halaman bergeser ke samping.
+- [ ] Kue utama terlihat berkurang setiap potongan; tiap penerima mendapat tepat satu potongan.
+- [ ] Animasi potong, terbang, dan mendarat berjalan mulus di HP serta menghormati `prefers-reduced-motion`.
+- [ ] Setelah 5 potongan, muncul pesan penutup dan tidak ada potongan baru.
 
 ### F5. Galeri foto (polaroid)
 

@@ -325,12 +325,16 @@ body.kue-aktif::before { opacity: 1; }
   z-index: 1;
   display: grid;
   justify-items: center;
+  align-self: start; /* cegah kue bergeser saat kartu/daftar muncul */
   gap: 8px;
   width: 100%;
   max-width: 460px;
 }
 .kue__panggung { width: min(100%, 400px); }
 .kue__svg { display: block; width: 100%; height: auto; }
+@media (min-width: 900px) {
+  .kue__panggung { width: min(100%, 460px); }
+}
 
 /* Ruang teks harapan dipesan agar tombol tidak melompat saat teks muncul */
 .kue__harapan {
@@ -367,7 +371,8 @@ body.kue-aktif::before { opacity: 1; }
   color: #A8555F;
 }
 .kue__penerima,
-.kue__lucu {
+.kue__lucu,
+.kue__habis {
   margin: 0;
   line-height: 1.2;
   opacity: 0;
@@ -376,55 +381,124 @@ body.kue-aktif::before { opacity: 1; }
 }
 .kue__penerima { min-height: 2.1rem; font-size: 1.5rem; }
 .kue__lucu { min-height: 1.6rem; font-size: 1.35rem; }
+.kue__habis { max-width: 380px; font-size: 1.45rem; text-align: center; }
 .kue__penerima:not(:empty),
-.kue__lucu:not(:empty) { opacity: 1; transform: none; }
+.kue__lucu:not(:empty),
+.kue__habis:not(:empty) { opacity: 1; transform: none; }
+
+/* Penerima: badge scrapbook berjajar ke kanan, scroll sendiri bila panjang */
 .kue__daftar {
+  display: flex;
+  gap: 8px;
   width: 100%;
-  max-width: 300px;
+  max-width: 380px;
   margin: 0;
-  padding-left: 1.5rem;
-  text-align: left;
+  padding: 2px 2px 8px;
+  overflow-x: auto;
+  list-style: none;
   font-size: 0.95rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.kue__badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px 7px;
+  border: 1.5px dashed rgba(232, 184, 109, 0.9);
+  border-radius: 999px 14px 999px 14px;
+  background: linear-gradient(135deg, #FFF9F0, #FDE4EA);
+  box-shadow: 0 2px 6px rgba(90, 62, 54, 0.1);
+  color: var(--teks);
+  line-height: 1.25;
+  white-space: nowrap;
+  animation: badge-muncul 0.35s ease-out;
+}
+.kue__badge:nth-child(2n) { background: linear-gradient(135deg, #FFF6EC, #F3E6F5); }
+.kue__badge-hati { color: #E88FA0; font-size: 0.9em; }
+@keyframes badge-muncul {
+  from { opacity: 0; transform: translateY(5px) scale(0.92); }
+  to { opacity: 1; transform: none; }
 }
 
-/* Potongan di kue, terpisah, lalu geser ke piring */
+/* Potongan di kue: terpisah di tepi kanan, terangkat, lalu terbang ke piring */
 .kue__potongan {
   transform-box: fill-box;
   transform-origin: 50% 50%;
-  transform: translate(318px, 336px);
+  transform: translate(var(--mulai-x, 343px), var(--mulai-y, 318px)) rotate(14deg);
   opacity: 0;
-  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.25s ease;
+  transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1), opacity 0.3s ease;
 }
-.kue__potongan--tampil { opacity: 1; transform: translate(368px, 302px) rotate(8deg); }
-.kue__potongan--piring { opacity: 1; transform: translate(350px, 404px) rotate(-4deg); }
+.kue__potongan--tampil {
+  opacity: 1;
+  transform: translate(var(--mulai-x, 343px), calc(var(--mulai-y, 318px) - 12px)) rotate(6deg);
+}
+.kue__potongan--piring {
+  opacity: 1;
+  animation: potongan-terbang 0.95s cubic-bezier(0.32, 0.72, 0.36, 1) forwards;
+}
+@keyframes potongan-terbang {
+  0% { transform: translate(var(--mulai-x), calc(var(--mulai-y) - 12px)) rotate(6deg); }
+  35% { transform: translate(calc(var(--mulai-x) + 14px), calc(var(--mulai-y) - 60px)) rotate(2deg); }
+  75% { transform: translate(340px, 356px) rotate(-5deg); }
+  90% { transform: translate(345px, 411px) rotate(-4deg); }
+  100% { transform: translate(344px, 407px) rotate(-4deg); }
+}
 
-/* Garis bekas pisau, muncul setelah pisau turun */
+/* Garis potong tumbuh mengikuti turunnya pisau, lalu memudar */
 .kue__garis-potong {
-  stroke: #E9C9B6;
+  stroke: #B07A5C;
   stroke-width: 2.5;
   stroke-linecap: round;
   opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
 }
-.kue--potong .kue__garis-potong { animation: garis-potong 1s ease-in-out forwards; }
+.kue--potong .kue__garis-potong {
+  animation: garis-potong 1.05s cubic-bezier(0.4, 0, 0.3, 1) forwards;
+}
 @keyframes garis-potong {
-  0%, 35% { opacity: 0; }
-  50%, 100% { opacity: 0.9; }
+  0%, 30% { opacity: 0; transform: scaleY(0); }
+  45% { opacity: 0.75; transform: scaleY(0.35); }
+  68% { opacity: 0.85; transform: scaleY(1); }
+  85% { opacity: 0.7; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(1); }
 }
 
-/* Pisau: turun memotong lalu terangkat */
+/* Pisau: turun memotong (x mengikuti tepi kue yang sedang dipotong), lalu terangkat */
 .kue__pisau {
   transform-box: fill-box;
-  transform-origin: 50% 100%;
-  transform: translate(322px, -100px);
+  transform-origin: 50% 8%;
+  transform: translate(var(--pisau-x, 313px), -70px);
   opacity: 0;
 }
-.kue--potong .kue__pisau { animation: pisau-potong 1s ease-in-out forwards; }
+.kue--potong .kue__pisau {
+  animation: pisau-potong 1.05s cubic-bezier(0.45, 0.05, 0.35, 1) forwards;
+}
 @keyframes pisau-potong {
-  0% { opacity: 0; transform: translate(322px, -100px) rotate(-18deg); }
-  20% { opacity: 1; transform: translate(322px, 40px) rotate(-8deg); }
-  55% { opacity: 1; transform: translate(322px, 240px) rotate(0deg); }
-  70% { opacity: 1; transform: translate(322px, 200px) rotate(0deg); }
-  100% { opacity: 0; transform: translate(322px, -60px) rotate(10deg); }
+  0% { opacity: 0; transform: translate(var(--pisau-x, 313px), -70px) rotate(-12deg); }
+  14% { opacity: 1; transform: translate(var(--pisau-x, 313px), -10px) rotate(-9deg); }
+  45% { opacity: 1; transform: translate(var(--pisau-x, 313px), 250px) rotate(-2deg); }
+  62% { opacity: 1; transform: translate(var(--pisau-x, 313px), 305px) rotate(0deg); }
+  72% { opacity: 1; transform: translate(var(--pisau-x, 313px), 296px) rotate(1deg); }
+  100% { opacity: 0; transform: translate(var(--pisau-x, 313px), -40px) rotate(8deg); }
+}
+
+/* Remah dan taburan memecah saat potongan mendarat di piring */
+.kue__remah-butir {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+.kue--mendarat .kue__remah-butir {
+  animation: remah-pecah 0.7s ease-out var(--delay, 0s) forwards;
+}
+@keyframes remah-pecah {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--rx, 0px), var(--ry, 0px)) scale(1); }
 }
 
 /* Api berkedip dan halo cahaya hangat */
@@ -1697,7 +1771,10 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   .hero__nama { transition: none; }
   .kue__potongan,
   .kue__penerima,
-  .kue__lucu { transition: none; }
+  .kue__lucu,
+  .kue__habis { transition: none; }
+  .kue__garis-potong,
+  .kue__remah-butir { animation: none !important; }
   .dekor { display: none; }
   .bagian { opacity: 1; transform: none; transition: none; }
   .foto-hidup { transition: none; }

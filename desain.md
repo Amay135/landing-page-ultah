@@ -59,14 +59,15 @@ Alur:
 
 1. Kue tampil dengan lilin menyala.
 2. Klik lilin atau tombol "Tiup": api padam, confetti meledak, muncul teks "Make a wish".
-3. Klik kue atau tombol "Potong": pisau animasi, satu potongan terpisah.
+3. Klik tombol "Potong": pisau turun di tepi kanan kue, garis potong tumbuh mengikuti pisau, potongan terpisah dan sedikit terangkat.
 4. Muncul input: "Potongan pertama untuk siapa?".
-5. Dia ketik nama, potongan geser ke piring dengan animasi.
-6. Tampil teks: "Potongan pertama untuk [Nama]".
+5. Dia ketik nama, potongan melengkung ke piring, mendarat dengan remah dan confetti kecil.
+6. Tampil teks: "Potongan pertama untuk [Nama] ❤️", badge penerima di baris horizontal.
 7. Pesan kejutan jika nama sama dengan nama kamu: "Jawaban paling benar!".
-8. Tombol "Potong lagi" untuk potongan berikutnya, tiap potongan bisa untuk nama berbeda.
+8. Tombol "Potong lagi 🔪🍰" untuk potongan berikutnya; pesan berikutnya "Satu potong kue untuk [Nama] 💗", tanpa nomor urutan.
+9. Tiap potongan menyusutkan sisi kanan kue. Setelah 5 potongan, muncul pesan penutup manis dan interaksi berhenti dengan rapi.
 
-Teknis: kue digambar dengan SVG atau CSS agar bisa dianimasikan. Potongan adalah elemen terpisah.
+Teknis: kue digambar dengan SVG; mask memotong sisi kanan kue tiap potongan, potongan adalah elemen terpisah, dan badge penerima berjajar horizontal dengan scroll sendiri di HP.
 
 ### 3.4 Galeri foto
 
