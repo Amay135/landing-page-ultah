@@ -14,6 +14,7 @@ const DATA = {
   // 2. WhatsApp (tombol pelukan)
   nomorWA: "6281234567890", // [CONTOH] format internasional tanpa + dan tanpa spasi
   pesanWA: "[CONTOH] Aku sudah lihat semuanya dan aku terharu. Ini pelukan balik buat kamu!",
+  waTombol: "Kirim Pelukan Balik ke Kamu 🤗",
 
   // 3. Gate
   gateTeks: "Ada kejutan buat kamu...",

@@ -1394,3 +1394,24 @@ maskot.addEventListener("click", () => {
   maskot.classList.add("maskot--lambai");
 });
 maskot.addEventListener("animationend", () => maskot.classList.remove("maskot--lambai"));
+
+// --- Footer: tombol pelukan WhatsApp (F12) ---
+const footer = document.getElementById("footer");
+const waBar = document.getElementById("waBar");
+const waTombol = document.getElementById("waTombol");
+const footerTeks = document.getElementById("footerTeks");
+
+waTombol.textContent = DATA.waTombol;
+waTombol.href = "https://wa.me/" + DATA.nomorWA + "?text=" + encodeURIComponent(DATA.pesanWA);
+footerTeks.textContent = DATA.footerTeks;
+footerTeks.hidden = !DATA.footerTeks;
+
+// Peringatan di console selama data WhatsApp masih contoh.
+if (/\[CONTOH\]/.test(DATA.nomorWA + DATA.pesanWA)) {
+  console.warn("F12: nomorWA/pesanWA di data.js masih [CONTOH]. Ganti sebelum dibagikan.");
+}
+
+// Bar hanya tampil saat pengguna mencapai dasar halaman.
+new IntersectionObserver(([entri]) => {
+  waBar.hidden = !entri.isIntersecting;
+}, { threshold: 0.15 }).observe(footer);

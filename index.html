@@ -564,7 +564,13 @@
     </section>
   </main>
 
-  <footer class="bagian"></footer>
+  <!-- Footer (F12): tombol pelukan WhatsApp mengambang, muncul saat dasar halaman terlihat -->
+  <footer id="footer" class="footer">
+    <div id="waBar" class="wa" hidden>
+      <a id="waTombol" class="wa__tombol" target="_blank" rel="noopener"></a>
+      <p id="footerTeks" class="wa__teks tulisan-tangan"></p>
+    </div>
+  </footer>
 
   <!-- Lightbox galeri (F5): Esc dan backdrop menutup lewat <dialog> -->
   <dialog id="lightbox" class="lightbox" aria-label="Foto kenangan">
