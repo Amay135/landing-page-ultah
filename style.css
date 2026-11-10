@@ -395,8 +395,21 @@ body.kue-aktif::before { opacity: 1; }
   opacity: 0;
   transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.25s ease;
 }
-.kue__potongan--tampil { opacity: 1; transform: translate(356px, 320px) rotate(8deg); }
+.kue__potongan--tampil { opacity: 1; transform: translate(368px, 302px) rotate(8deg); }
 .kue__potongan--piring { opacity: 1; transform: translate(350px, 404px) rotate(-4deg); }
+
+/* Garis bekas pisau, muncul setelah pisau turun */
+.kue__garis-potong {
+  stroke: #E9C9B6;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0;
+}
+.kue--potong .kue__garis-potong { animation: garis-potong 1s ease-in-out forwards; }
+@keyframes garis-potong {
+  0%, 35% { opacity: 0; }
+  50%, 100% { opacity: 0.9; }
+}
 
 /* Pisau: turun memotong lalu terangkat */
 .kue__pisau {

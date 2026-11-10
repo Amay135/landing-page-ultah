@@ -209,8 +209,9 @@ function mulaiPotong() {
   namaPenerima.value = "";
   labelPenerima.textContent = jumlahPenerima === 0 ? DATA.kueTanyaPenerima : DATA.kueTanyaPenerimaLagi;
 
-  piringKue.hidden = false;
-  potonganKue.hidden = false;
+  // Elemen SVG tidak punya properti .hidden; atur atributnya langsung.
+  piringKue.removeAttribute("hidden");
+  potonganKue.removeAttribute("hidden");
   potonganKue.classList.remove("kue__potongan--tampil", "kue__potongan--piring");
 
   // Ulang animasi pisau dari awal.
@@ -234,6 +235,7 @@ tombolPotongLagi.addEventListener("click", mulaiPotong);
 
 formPotongan.addEventListener("submit", (e) => {
   e.preventDefault();
+  if (jumlahPenerima > 0) return; // satu potongan pertama, satu penerima
   const nama = namaPenerima.value.trim().slice(0, 30);
   if (!nama) {
     pesanPenerima.textContent = DATA.kuePesanNamaKosong;
@@ -260,11 +262,9 @@ formPotongan.addEventListener("submit", (e) => {
   potonganKue.classList.remove("kue__potongan--tampil");
   potonganKue.classList.add("kue__potongan--piring");
 
+  // Piring sudah tampil (atribut hidden dilepas), jadi rect berisi posisi nyata.
   const kotakPiring = piringKue.getBoundingClientRect();
   burst(kotakPiring.left + kotakPiring.width / 2, kotakPiring.top + kotakPiring.height / 2, 40);
-
-  tombolPotongLagi.hidden = false;
-  tombolPotongLagi.focus({ preventScroll: true });
 });
 
 // --- Galeri foto polaroid (F5) ---
@@ -1015,8 +1015,9 @@ function resetKue() {
   harapanKue.textContent = "";
   harapanKue.classList.remove("kue__harapan--tampil");
   kartuPotongan.hidden = true;
-  piringKue.hidden = true;
-  potonganKue.hidden = true;
+  // Elemen SVG: sembunyikan lewat atribut, bukan properti .hidden.
+  piringKue.setAttribute("hidden", "");
+  potonganKue.setAttribute("hidden", "");
   potonganKue.classList.remove("kue__potongan--tampil", "kue__potongan--piring");
   penerimaTeks.textContent = "";
   penerimaLucu.textContent = "";
