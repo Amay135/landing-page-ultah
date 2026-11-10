@@ -7,6 +7,7 @@
   --peach: #FFD3B6;
   --lavender: #CDB4DB;
   --emas: #E8B86D;
+  --emas-tua: #8A5A1F; /* emas versi gelap untuk teks kecil agar kontras cukup */
   --teks: #5A3E36;
   --radius: 20px;
   --bayangan: 0 8px 24px rgba(90, 62, 54, 0.12);
@@ -43,12 +44,6 @@ h1, h2, h3 {
   margin: 0 0 0.5em;
 }
 .tulisan-tangan { font-family: var(--font-tangan); }
-
-/* Fokus keyboard harus terlihat */
-:focus-visible {
-  outline: 3px solid var(--emas);
-  outline-offset: 3px;
-}
 
 /* --- 4. Kelas dasar tombol, kartu, input --- */
 .btn {
@@ -569,7 +564,7 @@ body.kue-aktif::before { opacity: 1; }
 }
 .foto__tanggal {
   font-size: 0.78rem;
-  opacity: 0.65;
+  opacity: 0.8;
 }
 
 @media (min-width: 700px) {
@@ -623,7 +618,7 @@ body.lightbox-terbuka { overflow: hidden; }
 .lightbox__tanggal {
   margin: 0;
   font-size: 0.9rem;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .lightbox__tombol {
   position: absolute;
@@ -693,7 +688,7 @@ body.lightbox-terbuka { overflow: hidden; }
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--emas);
+  color: var(--emas-tua);
 }
 .timeline__judul { margin: 0 0 6px; font-size: 1.25rem; }
 .timeline__teks { margin: 0; font-size: 0.95rem; opacity: 0.85; }
@@ -750,7 +745,7 @@ body.lightbox-terbuka { overflow: hidden; }
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.08em;
-  color: var(--emas);
+  color: var(--emas-tua);
 }
 .counter__bawah {
   max-width: 460px;
@@ -1216,7 +1211,7 @@ body.surat-terbuka { overflow: hidden; }
   font-size: clamp(0.78rem, 3.2vw, 1.05rem);
   font-weight: 700;
   line-height: 1.05;
-  color: #6B3A1E;
+  color: #4A2410;
   text-align: center;
   overflow-wrap: anywhere;
   pointer-events: none;
@@ -1388,7 +1383,7 @@ body.lampion-terbuka { overflow: hidden; }
   margin: 0 2px 6px;
   font-size: 0.82rem;
   text-align: right;
-  color: #8A6A5F;
+  color: #7A5A4F;
 }
 .lampion-modal__pesan {
   min-height: 1.4em;
@@ -1528,7 +1523,7 @@ body.lampion-terbuka { overflow: hidden; }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #A9705C;
+  color: var(--emas-tua);
 }
 .hadiah__teks {
   margin: 0;
@@ -1537,7 +1532,7 @@ body.lampion-terbuka { overflow: hidden; }
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
-.hadiah__berlaku { margin: 0; font-size: 0.85rem; color: #8A6A5F; }
+.hadiah__berlaku { margin: 0; font-size: 0.85rem; color: #7A5A4F; }
 
 .hadiah__media {
   width: 100%;
@@ -1583,6 +1578,9 @@ body.lampion-terbuka { overflow: hidden; }
 }
 
 /* --- 21. Maskot dan pesan rahasia (F15) --- */
+/* Sembunyikan maskot saat bar WhatsApp tampil agar tidak saling menutupi. */
+body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
+
 .maskot {
   position: fixed;
   left: 12px;
@@ -1646,7 +1644,8 @@ body.lampion-terbuka { overflow: hidden; }
   min-height: 56px;
   padding: 14px 24px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #D96C86, #E29B6E);
+  /* Versi lebih pekat: kontras putih ≥ 3:1 di kedua ujung gradien */
+  background: linear-gradient(135deg, #C9597A, #C9824A);
   color: #fff;
   font-size: 1.2rem;
   font-weight: 700;
@@ -1711,4 +1710,12 @@ body.lampion-terbuka { overflow: hidden; }
   .hero__rahasia { transition: none; }
   .maskot--lambai .maskot__tangan { animation: none; }
   .wa__tombol { animation: none; transition: none; }
+}
+
+/* Fokus keyboard harus terlihat. Diletakkan paling akhir agar menang atas
+   bayangan komponen; halo terang menjaga kontras di latar gelap. */
+:focus-visible {
+  outline: 3px solid var(--emas-tua);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(255, 246, 236, 0.95);
 }

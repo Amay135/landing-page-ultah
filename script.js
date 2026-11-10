@@ -23,6 +23,13 @@ labelSandi.hidden = !pakaiSandi;
 sandi.hidden = !pakaiSandi;
 (pakaiSandi ? sandi : tombolBuka).focus();
 
+// Latar di belakang gate tidak bisa difokus atau diklik selama gate terbuka.
+const latarTerkunci = ["main", "footer", "#maskot"].map((s) => document.querySelector(s));
+function kunciLatar(terkunci) {
+  for (const el of latarTerkunci) el.toggleAttribute("inert", terkunci);
+}
+kunciLatar(true);
+
 formGate.addEventListener("submit", (e) => {
   e.preventDefault();
   if (pakaiSandi && sandi.value.trim() !== DATA.kataSandi) {
@@ -36,6 +43,8 @@ formGate.addEventListener("submit", (e) => {
 
 // Gate memudar, musik mulai, confetti pertama jatuh, halaman bisa di-scroll.
 function bukaGate() {
+  if (gate.classList.contains("gate--pergi")) return; // cegah submit ganda saat transisi
+  kunciLatar(false);
   gate.classList.add("gate--pergi");
   document.body.classList.remove("gate-tertutup");
   setTimeout(() => gate.remove(), 700);
@@ -1411,7 +1420,9 @@ if (!/^62\d{8,13}$/.test(DATA.nomorWA) || DATA.nomorWA === "6281234567890" || /\
   console.warn("F12: nomorWA di data.js belum valid atau masih contoh. Gunakan format 62 tanpa +, spasi, atau tanda hubung.");
 }
 
-// Bar hanya tampil saat pengguna mencapai dasar halaman.
+// Bar hanya tampil saat pengguna mencapai dasar halaman. Maskot disembunyikan
+// selama bar tampil agar tidak saling menutupi (kelas dibaca CSS).
 new IntersectionObserver(([entri]) => {
   waBar.hidden = !entri.isIntersecting;
+  document.body.classList.toggle("wa-tampil", entri.isIntersecting);
 }, { threshold: 0.15 }).observe(footer);
