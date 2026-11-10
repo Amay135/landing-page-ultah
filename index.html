@@ -343,7 +343,36 @@
     <section id="alasan" class="bagian alasan" aria-label="Alasan aku sayang kamu">
       <ul id="alasanDaftar" class="alasan__daftar"></ul>
     </section>
-    <section id="surat" class="bagian"></section>
+    <!-- Surat cinta (F9). Klik amplop: amplop terbuka dan modal surat muncul. -->
+    <section id="surat" class="bagian surat" aria-label="Surat cinta">
+      <button id="amplop" class="surat__amplop" type="button" aria-haspopup="dialog">
+        <span class="surat__sampul" aria-hidden="true">
+          <span class="surat__badan"></span>
+          <span class="surat__kertas"></span>
+          <span class="surat__depan"></span>
+          <span class="surat__tutup"></span>
+          <span class="surat__segel">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21C5.5 16.5 2 13.2 2 9.3 2 6.1 4.4 4 7 4c2 0 3.7 1.1 5 3.2C13.3 5.1 15 4 17 4c2.6 0 5 2.1 5 5.3 0 3.9-3.5 7.2-10 11.7Z" fill="currentColor"/></svg>
+          </span>
+          <!-- Ranting bunga kering, dekorasi di sudut amplop -->
+          <svg class="surat__ranting" viewBox="0 0 90 130" aria-hidden="true" focusable="false">
+            <path d="M48 126C46 96 50 66 62 34" fill="none" stroke="#A9705C" stroke-width="2.4" stroke-linecap="round"/>
+            <g fill="#CDB4DB">
+              <ellipse cx="50" cy="104" rx="13" ry="5.5" transform="rotate(-24 50 104)"/>
+              <ellipse cx="48" cy="82" rx="12" ry="5" transform="rotate(210 48 82)"/>
+              <ellipse cx="54" cy="62" rx="10" ry="4.5" transform="rotate(-30 54 62)"/>
+            </g>
+            <g fill="#E5A9B4">
+              <circle cx="62" cy="34" r="4"/>
+              <circle cx="55" cy="28" r="4"/>
+              <circle cx="67" cy="25" r="4"/>
+              <circle cx="60" cy="19" r="4"/>
+            </g>
+            <circle cx="61" cy="27" r="3.4" fill="#E8B86D"/>
+          </svg>
+        </span>
+      </button>
+    </section>
     <section id="lampion" class="bagian"></section>
     <section id="hadiah" class="bagian"></section>
   </main>
@@ -361,6 +390,31 @@
       <button id="lightboxTutup" class="lightbox__tombol lightbox__tombol--tutup" type="button" aria-label="Tutup foto">✕</button>
       <button id="lightboxSebelum" class="lightbox__tombol lightbox__tombol--kiri" type="button" aria-label="Foto sebelumnya">‹</button>
       <button id="lightboxSesudah" class="lightbox__tombol lightbox__tombol--kanan" type="button" aria-label="Foto berikutnya">›</button>
+    </div>
+  </dialog>
+
+  <!-- Modal surat cinta (F9). Teks dan tombol diisi dari data.js oleh script.js. -->
+  <dialog id="suratModal" class="surat-modal" aria-label="Surat cinta">
+    <div class="surat-modal__kertas" id="suratKertas" tabindex="-1">
+      <!-- Bunga tekan di sudut kertas -->
+      <svg class="surat-modal__bunga" viewBox="0 0 80 110" aria-hidden="true" focusable="false">
+        <path d="M38 108C40 84 38 62 44 36" fill="none" stroke="#B08A72" stroke-width="1.6" stroke-linecap="round"/>
+        <ellipse cx="36" cy="86" rx="12" ry="4.5" fill="#CDB4DB" opacity=".85" transform="rotate(24 36 86)"/>
+        <ellipse cx="49" cy="70" rx="10" ry="4" fill="#CDB4DB" opacity=".8" transform="rotate(-28 49 70)"/>
+        <g fill="#EBC3CE" opacity=".9">
+          <circle cx="44" cy="20" r="7"/>
+          <circle cx="53" cy="27" r="7"/>
+          <circle cx="50" cy="38" r="7"/>
+          <circle cx="38" cy="38" r="7"/>
+          <circle cx="35" cy="27" r="7"/>
+        </g>
+        <circle cx="44" cy="29" r="5" fill="#E8B86D"/>
+      </svg>
+      <p class="surat-modal__teks"><span id="suratIsi"></span><span id="suratKursor" class="surat-modal__kursor" aria-hidden="true"></span></p>
+      <div class="surat-modal__aksi">
+        <button id="suratLewati" class="surat-modal__lewati" type="button"></button>
+        <button id="suratTutup" class="btn surat-modal__tutup" type="button"></button>
+      </div>
     </div>
   </dialog>
 

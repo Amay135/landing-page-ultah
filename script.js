@@ -632,6 +632,89 @@ function lepasHati(kartu) {
   }
 }
 
+// --- Surat cinta (F9) ---
+const amplop = document.getElementById("amplop");
+const suratModal = document.getElementById("suratModal");
+const suratKertas = document.getElementById("suratKertas");
+const suratIsi = document.getElementById("suratIsi");
+const suratKursor = document.getElementById("suratKursor");
+const suratLewati = document.getElementById("suratLewati");
+const suratTutup = document.getElementById("suratTutup");
+
+amplop.setAttribute("aria-label", DATA.suratAriaBuka);
+suratLewati.textContent = DATA.suratLabelLewati;
+suratTutup.textContent = DATA.suratLabelTutup;
+
+// Salam, paragraf, penutup, dan tanda tangan dipisah baris kosong.
+const teksSuratLengkap = [DATA.salamSurat, DATA.teksSurat, DATA.penutupSurat, DATA.tandaTangan]
+  .filter(Boolean)
+  .join("\n\n");
+
+let timerSurat = 0;
+let jedaBukaSurat = 0;
+
+function hentikanKetikSurat() {
+  clearInterval(timerSurat);
+  timerSurat = 0;
+}
+
+// Tampilkan semua teks seketika (tombol Lewati atau selesai mengetik).
+function tampilkanSuratLengkap() {
+  hentikanKetikSurat();
+  suratIsi.textContent = teksSuratLengkap;
+  suratKursor.hidden = true;
+  suratLewati.hidden = true;
+}
+
+// Ketik dari awal; timer lama dibatalkan dulu agar teks tidak dobel.
+function mulaiKetikSurat() {
+  hentikanKetikSurat();
+  suratIsi.textContent = "";
+  if (mqGerakMinimal.matches) {
+    tampilkanSuratLengkap();
+    return;
+  }
+  suratKursor.hidden = false;
+  suratLewati.hidden = false;
+  let i = 0;
+  timerSurat = setInterval(() => {
+    i += 1;
+    suratIsi.textContent = teksSuratLengkap.slice(0, i);
+    if (i >= teksSuratLengkap.length) tampilkanSuratLengkap();
+  }, DATA.suratKecepatanMs);
+}
+
+// Klik amplop: tutup terlipat dulu, lalu modal surat muncul dan mengetik.
+amplop.addEventListener("click", () => {
+  if (jedaBukaSurat) return; // klik ganda saat amplop sedang membuka
+  amplop.classList.add("surat--buka");
+  jedaBukaSurat = setTimeout(() => {
+    jedaBukaSurat = 0;
+    suratModal.showModal();
+    suratKertas.scrollTop = 0;
+    suratKertas.focus({ preventScroll: true }); // hindari fokus otomatis ke "Lewati"
+    document.body.classList.add("surat-terbuka");
+    mulaiKetikSurat();
+  }, mqGerakMinimal.matches ? 0 : 480);
+});
+
+suratLewati.addEventListener("click", tampilkanSuratLengkap);
+suratTutup.addEventListener("click", () => suratModal.close());
+
+// Esc menutup dialog; timer ketik ikut dihentikan di sini (tidak bocor saat dibuka lagi).
+suratModal.addEventListener("close", () => {
+  clearTimeout(jedaBukaSurat);
+  jedaBukaSurat = 0;
+  hentikanKetikSurat();
+  document.body.classList.remove("surat-terbuka");
+  amplop.classList.remove("surat--buka");
+});
+
+// Klik di luar kertas (backdrop) menutup.
+suratModal.addEventListener("click", (e) => {
+  if (e.target === suratModal) suratModal.close();
+});
+
 // --- Confetti global (F3) ---
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.
 const kanvasConfetti = document.getElementById("confetti");

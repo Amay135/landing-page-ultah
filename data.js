@@ -107,6 +107,10 @@ const DATA = {
   ],
 
   // 10. Surat cinta
+  suratAriaBuka: "Buka surat cinta",
+  suratLabelLewati: "Lewati",
+  suratLabelTutup: "Tutup surat",
+  suratKecepatanMs: 48, // jeda efek ketik per karakter (40-60 ms)
   salamSurat: "[CONTOH] Untuk Sayang, cintaku,",
   teksSurat: [
     "[CONTOH] Selamat ulang tahun, sayang. Hari ini aku mau kamu tahu betapa bersyukurnya aku kamu ada di hidupku.",

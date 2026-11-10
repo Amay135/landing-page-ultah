@@ -883,7 +883,210 @@ body.lightbox-terbuka { overflow: hidden; }
   .alasan__daftar { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-/* --- 17. Hormati preferensi gerak minimal --- */
+/* --- 17. Surat cinta (F9) --- */
+.surat {
+  display: grid;
+  place-items: center;
+  min-height: 90vh;
+  padding: 76px 20px;
+  text-align: center;
+}
+
+.surat__amplop {
+  width: min(84vw, 340px);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: transform var(--transisi);
+}
+.surat__amplop:hover { transform: translateY(-3px) rotate(-1deg); }
+.surat__amplop:active { transform: scale(0.98); }
+
+.surat__sampul {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 8 / 5.6;
+  perspective: 900px;
+  filter: drop-shadow(0 14px 20px rgba(90, 62, 54, 0.22));
+}
+
+/* Lapisan amplop: belakang, surat di dalam, kantong depan, tutup, segel. */
+.surat__badan,
+.surat__depan,
+.surat__tutup {
+  position: absolute;
+  display: block;
+}
+.surat__badan {
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #FFF9EF, #F3E2C9);
+}
+.surat__kertas {
+  position: absolute;
+  top: 8%;
+  left: 7%;
+  right: 7%;
+  height: 84%;
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(0deg, rgba(232, 184, 109, 0.1) 0 1px, transparent 1px 10px),
+    #FFFDF7;
+  box-shadow: 0 2px 6px rgba(90, 62, 54, 0.14);
+  transition: transform 0.5s ease;
+}
+.surat--buka .surat__kertas { transform: translateY(-16%); }
+.surat__depan {
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #FFF9EF, #F7E8D0);
+  clip-path: polygon(0 0, 50% 46%, 100% 0, 100% 100%, 0 100%);
+}
+.surat__tutup {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 46%;
+  background: linear-gradient(180deg, #FFF3E0, #F1DCC0);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: 50% 0;
+  transition: transform 0.55s ease;
+}
+.surat--buka .surat__tutup { transform: rotateX(180deg); }
+
+/* Segel hati menutup ujung tutup amplop. */
+.surat__segel {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #F7C6CE, #D97B8C);
+  box-shadow: 0 4px 8px rgba(90, 62, 54, 0.3);
+  color: #FFF6EC;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+.surat__segel svg { width: 26px; height: 26px; }
+.surat--buka .surat__segel {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+}
+.surat__ranting {
+  position: absolute;
+  bottom: -18px;
+  left: -14px;
+  width: 74px;
+  height: auto;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+/* Modal surat: kertas krem bertekstur, vignette hangat, bisa di-scroll. */
+body.surat-terbuka { overflow: hidden; }
+.surat-modal {
+  width: min(94vw, 620px);
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.surat-modal::backdrop { background: rgba(59, 42, 38, 0.7); }
+.surat-modal[open] { animation: lightbox-muncul 0.25s ease-out; }
+.surat-modal__kertas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: min(86svh, 680px);
+  max-height: 86svh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 30px 22px 0;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.55), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(232, 184, 109, 0.055) 0 1px, transparent 1px 9px),
+    #FFF9EE;
+  box-shadow:
+    inset 0 0 70px rgba(232, 184, 109, 0.3),
+    0 24px 60px rgba(40, 25, 20, 0.45);
+}
+.surat-modal__bunga {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 58px;
+  height: auto;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.surat-modal__teks {
+  flex: 1 0 auto;
+  min-height: 3em;
+  margin: 0 0 18px;
+  font-family: var(--font-tangan);
+  font-size: clamp(1.4rem, 5.6vw, 1.7rem);
+  line-height: 1.7;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+/* Ruang untuk bunga tekan hanya di baris-baris awal, tanpa menyempitkan seluruh surat. */
+.surat-modal__teks::before {
+  content: "";
+  float: right;
+  width: 54px;
+  height: 74px;
+}
+.surat-modal__kursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--teks);
+  animation: ketik-kedip 0.9s steps(1) infinite;
+}
+
+/* Tombol menempel di bawah kertas agar tetap terjangkau saat surat panjang. */
+.surat-modal__aksi {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 -22px;
+  padding: 18px 22px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(180deg, rgba(255, 249, 238, 0.88), #FFF9EE 38%);
+}
+.surat-modal__lewati {
+  min-height: 48px;
+  padding: 10px 4px;
+  border: 0;
+  background: none;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+.surat-modal__tutup { margin-left: auto; font-size: 1rem; }
+
+@media (min-width: 700px) {
+  .surat { padding: 96px 32px; }
+  .surat__amplop { width: 380px; }
+  .surat-modal__kertas { padding: 38px 34px 0; }
+  .surat-modal__aksi { margin: 0 -34px; padding: 20px 34px; }
+}
+
+/* --- 18. Hormati preferensi gerak minimal --- */
 @media (prefers-reduced-motion: reduce) {
   :root { --transisi: 0.01s; }
   *, *::before, *::after {
@@ -899,6 +1102,10 @@ body.lightbox-terbuka { overflow: hidden; }
   .bagian { opacity: 1; transform: none; transition: none; }
   .foto-hidup { transition: none; }
   .lightbox[open] { animation: none; }
+  .surat-modal[open] { animation: none; }
+  .surat__tutup,
+  .surat__kertas,
+  .surat__segel { transition: none; }
   .timeline__daftar::before { transform: none; }
   .timeline__item,
   .timeline__item:nth-child(even) { opacity: 1; transform: none; transition: none; }
