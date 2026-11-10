@@ -137,10 +137,15 @@ const DATA = {
   ],
 
   // 12. Hadiah penutup
+  hadiahJudul: "Satu hadiah lagi buat kamu",
+  hadiahKet: "Sentuh kadonya untuk membuka",
+  hadiahAriaBuka: "Buka kotak hadiah",
+  hadiahBerlakuLabel: "Berlaku:",
+  hadiahLabelMainLagi: "Mainkan lagi",
   isiHadiah: {
     jenis: "[CONTOH] voucher kencan",
     teks: "[CONTOH] Voucher makan malam di tempat pilihanmu, berlaku seumur hidup.",
-    media: "", // nama file di assets/foto, opsional
+    media: "", // nama file gambar (assets/foto) atau video (mp4/webm), opsional
     berlaku: "[CONTOH] seumur hidup",
   },
 

@@ -184,6 +184,8 @@ const jedaPisau = mqGerakMinimal.matches ? 0 : 450;
 const jedaKartu = mqGerakMinimal.matches ? 0 : 1000;
 let jumlahPenerima = 0;
 let sedangPotong = false;
+let timerPotongPisau = 0;
+let timerPotongKartu = 0;
 
 // Animasi pisau, potongan terpisah, lalu kartu nama penerima.
 function mulaiPotong() {
@@ -207,12 +209,12 @@ function mulaiPotong() {
   void kue.offsetWidth;
   kue.classList.add("kue--potong");
 
-  setTimeout(() => {
+  timerPotongPisau = setTimeout(() => {
     potonganKue.classList.add("kue__potongan--tampil");
     sedangPotong = false;
   }, jedaPisau);
 
-  setTimeout(() => {
+  timerPotongKartu = setTimeout(() => {
     kartuPotongan.hidden = false;
     namaPenerima.focus({ preventScroll: true });
   }, jedaKartu);
@@ -822,6 +824,7 @@ formLampion.addEventListener("submit", (e) => {
 });
 
 let sedangTerbang = false;
+let timerTerbang = 0;
 
 // Lampion naik pelan; setelah selesai lampion baru muncul dari bawah.
 function lepasLampion(harapan) {
@@ -843,10 +846,11 @@ function lepasLampion(harapan) {
   lampionBesar.classList.add("lampion__besar--terbang");
   mulaiJejakEmas();
   taburLampionKecil();
-  setTimeout(selesaiTerbang, DURASI_TERBANG);
+  timerTerbang = setTimeout(selesaiTerbang, DURASI_TERBANG);
 }
 
 function selesaiTerbang() {
+  timerTerbang = 0;
   sedangTerbang = false;
   lampionBesar.classList.remove("lampion__besar--terbang");
   lampionBesar.disabled = false;
@@ -899,6 +903,156 @@ function taburLampionKecil() {
     panggungLampion.append(el);
   }
 }
+
+// --- Hadiah penutup (F11) ---
+const kado = document.getElementById("kado");
+const hadiahJudul = document.getElementById("hadiahJudul");
+const hadiahKet = document.getElementById("hadiahKet");
+const hadiahIsi = document.getElementById("hadiahIsi");
+const hadiahTiket = document.getElementById("hadiahTiket");
+const hadiahJenis = document.getElementById("hadiahJenis");
+const hadiahTeks = document.getElementById("hadiahTeks");
+const hadiahBerlaku = document.getElementById("hadiahBerlaku");
+const hadiahMedia = document.getElementById("hadiahMedia");
+const mainkanLagi = document.getElementById("mainkanLagi");
+
+const isiHadiah = DATA.isiHadiah || {};
+
+hadiahJudul.textContent = DATA.hadiahJudul;
+hadiahJudul.hidden = !DATA.hadiahJudul;
+hadiahKet.textContent = DATA.hadiahKet;
+hadiahKet.hidden = !DATA.hadiahKet;
+kado.setAttribute("aria-label", DATA.hadiahAriaBuka);
+mainkanLagi.textContent = DATA.hadiahLabelMainLagi;
+
+// Isi tiket: baris kosong disembunyikan, teks tetap aman lewat textContent.
+hadiahJenis.textContent = isiHadiah.jenis || "";
+hadiahJenis.hidden = !isiHadiah.jenis;
+hadiahTeks.textContent = isiHadiah.teks || "";
+hadiahTeks.hidden = !isiHadiah.teks;
+hadiahBerlaku.textContent = isiHadiah.berlaku
+  ? [DATA.hadiahBerlakuLabel, isiHadiah.berlaku].filter(Boolean).join(" ")
+  : "";
+hadiahBerlaku.hidden = !isiHadiah.berlaku;
+hadiahTiket.hidden = !(isiHadiah.jenis || isiHadiah.teks || isiHadiah.berlaku);
+
+// Media hadiah: gambar lazy-load, atau video dengan kontrol (tanpa autoplay).
+if (isiHadiah.media) {
+  if (/\.(mp4|webm|ogv|mov)(\?|#|$)/i.test(isiHadiah.media)) {
+    const video = document.createElement("video");
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.src = isiHadiah.media;
+    hadiahMedia.append(video);
+  } else {
+    const img = document.createElement("img");
+    img.alt = isiHadiah.jenis || "Hadiah";
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.addEventListener("error", () => { img.src = srcPlaceholder(0); }, { once: true });
+    img.src = isiHadiah.media;
+    hadiahMedia.append(img);
+  }
+} else {
+  hadiahMedia.hidden = true;
+}
+
+let kadoTerbuka = false;
+
+// Klik kado: tutup terbuka, confetti besar, lalu isi muncul dari dalam kado.
+kado.addEventListener("click", () => {
+  if (kadoTerbuka) return;
+  kadoTerbuka = true;
+  kado.classList.add("hadiah__kado--buka");
+  kado.setAttribute("aria-expanded", "true");
+
+  const kotak = kado.getBoundingClientRect();
+  burst(kotak.left + kotak.width / 2, kotak.top + kotak.height / 2, 240);
+
+  setTimeout(() => {
+    hadiahIsi.hidden = false;
+    hadiahIsi.classList.add("hadiah__isi--tampil");
+    mainkanLagi.hidden = false;
+    hadiahIsi.scrollIntoView({
+      behavior: mqGerakMinimal.matches ? "auto" : "smooth",
+      block: "center",
+    });
+  }, mqGerakMinimal.matches ? 0 : 650);
+});
+
+// Kembalikan kue, kartu alasan, surat, dan lampion ke keadaan awal.
+function resetKue() {
+  clearTimeout(timerPotongPisau);
+  clearTimeout(timerPotongKartu);
+  lilinPadam = false;
+  sedangPotong = false;
+  jumlahPenerima = 0;
+  kue.classList.remove("kue--padam", "kue--potong");
+  kueSvg.setAttribute("aria-label", DATA.kueAria);
+  tombolTiup.hidden = false;
+  tombolPotong.hidden = true;
+  tombolPotongLagi.hidden = true;
+  harapanKue.textContent = "";
+  harapanKue.classList.remove("kue__harapan--tampil");
+  kartuPotongan.hidden = true;
+  piringKue.hidden = true;
+  potonganKue.hidden = true;
+  potonganKue.classList.remove("kue__potongan--tampil", "kue__potongan--piring");
+  penerimaTeks.textContent = "";
+  penerimaLucu.textContent = "";
+  pesanPenerima.textContent = "";
+  namaPenerima.value = "";
+  daftarPenerima.textContent = "";
+  daftarPenerima.hidden = true;
+}
+
+function resetAlasan() {
+  alasanDaftar.querySelectorAll(".alasan__item").forEach((item, i) => {
+    const nomor = i + 1;
+    const tombol = item.querySelector(".alasan__kartu");
+    const belakang = item.querySelector(".alasan__belakang");
+    item.classList.remove("alasan__item--dibuka");
+    tombol.setAttribute("aria-expanded", "false");
+    tombol.setAttribute("aria-label", "Buka alasan nomor " + nomor);
+    belakang.setAttribute("aria-hidden", "true");
+  });
+}
+
+function resetSurat() {
+  if (suratModal.open) suratModal.close(); // handler close ikut menghentikan efek ketik
+  clearTimeout(jedaBukaSurat);
+  jedaBukaSurat = 0;
+  hentikanKetikSurat();
+  amplop.classList.remove("surat--buka");
+  suratIsi.textContent = "";
+  suratKursor.hidden = true;
+  suratLewati.hidden = false;
+  suratKertas.scrollTop = 0;
+}
+
+function resetLampion() {
+  clearTimeout(timerTerbang);
+  clearInterval(timerJejak);
+  timerTerbang = 0;
+  sedangTerbang = false;
+  if (lampionModal.open) lampionModal.close();
+  lampionBesar.classList.remove("lampion__besar--terbang", "lampion__besar--baru");
+  lampionBesar.disabled = false;
+  teksLampion.textContent = "";
+  lampionTerbang.textContent = "";
+  lampionTerbang.classList.remove("lampion__terbang--tampil");
+  lampionLain.hidden = true;
+  panggungLampion.querySelectorAll(".lampion__jejak, .lampion__lahir").forEach((el) => el.remove());
+}
+
+mainkanLagi.addEventListener("click", () => {
+  resetKue();
+  resetAlasan();
+  resetSurat();
+  resetLampion();
+  scrollTo({ top: 0, behavior: mqGerakMinimal.matches ? "auto" : "smooth" });
+});
 
 // --- Confetti global (F3) ---
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.

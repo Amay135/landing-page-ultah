@@ -1421,7 +1421,142 @@ body.lampion-terbuka { overflow: hidden; }
   .lampion__kecil { width: 54px; }
 }
 
-/* --- 19. Hormati preferensi gerak minimal --- */
+/* --- 19. Hadiah penutup (F11) --- */
+.hadiah {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 80px 20px 72px;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(244, 182, 194, 0.28), transparent 42%),
+    radial-gradient(circle at 84% 74%, rgba(205, 180, 219, 0.24), transparent 44%);
+}
+.hadiah__dalam {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 560px;
+}
+.hadiah__judul {
+  margin: 0;
+  font-size: clamp(1.7rem, 7vw, 2.6rem);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.hadiah__ket { margin: 0; font-size: 1.3rem; opacity: 0.8; }
+
+.hadiah__kado {
+  width: min(72vw, 280px);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 14px 26px rgba(90, 62, 54, 0.18));
+  transition: transform var(--transisi), filter var(--transisi);
+}
+.hadiah__kado:hover { transform: translateY(-4px) rotate(-1deg); }
+.hadiah__kado--buka,
+.hadiah__kado--buka:hover { cursor: default; transform: none; }
+.hadiah__svg { display: block; width: 100%; height: auto; }
+
+/* Tutup kado terangkat dan miring saat dibuka */
+.hadiah__tutup-kado {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 0.7s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+.hadiah__kado--buka .hadiah__tutup-kado {
+  transform: translate(-18px, -56px) rotate(-14deg);
+}
+.hadiah__kilau circle { animation: hadiah-kelip 2.4s ease-in-out infinite alternate; }
+.hadiah__kilau circle:nth-child(2) { animation-delay: -0.7s; }
+.hadiah__kilau circle:nth-child(3) { animation-delay: -1.3s; }
+.hadiah__kilau circle:nth-child(4) { animation-delay: -1.9s; }
+@keyframes hadiah-kelip {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+
+/* Isi hadiah muncul dari dalam kado */
+.hadiah__isi { width: 100%; }
+.hadiah__isi--tampil { animation: hadiah-muncul 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes hadiah-muncul {
+  from { opacity: 0; transform: translateY(-36px) scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+.hadiah__kartu {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  width: 100%;
+  padding: 20px 18px;
+}
+
+/* Voucher bergaya tiket dengan lubang di kiri-kanan */
+.hadiah__tiket {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  width: 100%;
+  padding: 22px 18px;
+  border: 2px dashed var(--emas);
+  border-radius: 14px;
+  background: #FFF9EE;
+}
+.hadiah__tiket::before,
+.hadiah__tiket::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFFAF4;
+  transform: translateY(-50%);
+}
+.hadiah__tiket::before { left: -11px; }
+.hadiah__tiket::after { right: -11px; }
+.hadiah__jenis {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #A9705C;
+}
+.hadiah__teks {
+  margin: 0;
+  font-family: var(--font-tangan);
+  font-size: clamp(1.35rem, 5.5vw, 1.6rem);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.hadiah__berlaku { margin: 0; font-size: 0.85rem; color: #8A6A5F; }
+
+.hadiah__media {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #FFF9EE;
+  box-shadow: var(--bayangan);
+}
+.hadiah__media img,
+.hadiah__media video { display: block; width: 100%; height: auto; }
+
+#mainkanLagi { margin-top: 8px; }
+
+@media (min-width: 700px) {
+  .hadiah { padding: 112px 32px 96px; }
+  .hadiah__kado { width: min(40vw, 300px); }
+}
+
+/* --- 20. Hormati preferensi gerak minimal --- */
 @media (prefers-reduced-motion: reduce) {
   :root { --transisi: 0.01s; }
   *, *::before, *::after {
@@ -1449,6 +1584,8 @@ body.lampion-terbuka { overflow: hidden; }
   .surat__tutup,
   .surat__kertas,
   .surat__segel { transition: none; }
+  .hadiah__tutup-kado { transition: none; }
+  .hadiah__isi--tampil { animation: none; }
   .timeline__daftar::before { transform: none; }
   .timeline__item,
   .timeline__item:nth-child(even) { opacity: 1; transform: none; transition: none; }

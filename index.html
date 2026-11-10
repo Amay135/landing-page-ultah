@@ -462,7 +462,68 @@
         <ul id="lampionKecilDaftar" class="lampion__kecil-daftar" aria-label="Harapan dariku"></ul>
       </div>
     </section>
-    <section id="hadiah" class="bagian"></section>
+    <!-- Hadiah penutup (F11). Klik kado: tutup terbuka, confetti, isi dari data.js. -->
+    <section id="hadiah" class="bagian hadiah" aria-labelledby="hadiahJudul">
+      <div class="hadiah__dalam">
+        <h2 id="hadiahJudul" class="hadiah__judul"></h2>
+        <p id="hadiahKet" class="hadiah__ket tulisan-tangan"></p>
+
+        <button id="kado" class="hadiah__kado" type="button" aria-expanded="false">
+          <svg class="hadiah__svg" viewBox="0 0 260 280" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="gradKadoBadan" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F9C9D2"/>
+                <stop offset="1" stop-color="#F4B6C2"/>
+              </linearGradient>
+              <linearGradient id="gradKadoTutup" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFD3B6"/>
+                <stop offset="1" stop-color="#F7BE9C"/>
+              </linearGradient>
+            </defs>
+
+            <ellipse cx="130" cy="264" rx="92" ry="12" fill="#D9BFC9" opacity=".45"/>
+
+            <!-- Badan kado dengan pita vertikal -->
+            <g class="hadiah__badan">
+              <rect x="54" y="156" width="152" height="100" rx="10" fill="url(#gradKadoBadan)" stroke="#E39BA9" stroke-width="2"/>
+              <rect x="118" y="156" width="24" height="100" fill="#E8B86D"/>
+              <rect x="118" y="156" width="24" height="100" fill="none" stroke="#D9A452" stroke-width="1.5"/>
+              <path d="M66 168v76" stroke="#FFF6EC" stroke-width="4" stroke-linecap="round" opacity=".35"/>
+            </g>
+
+            <!-- Tutup dan pita kupu-kupu: digeser ke atas saat kado dibuka -->
+            <g class="hadiah__tutup-kado">
+              <rect x="42" y="108" width="176" height="52" rx="10" fill="url(#gradKadoTutup)" stroke="#E7A67F" stroke-width="2"/>
+              <rect x="118" y="108" width="24" height="52" fill="#E8B86D"/>
+              <path d="M130 110C112 84 78 84 82 104c3 14 30 12 48 6Z" fill="#CDB4DB" stroke="#B79BC8" stroke-width="1.5"/>
+              <path d="M130 110c18-26 52-26 48-6-3 14-30 12-48 6Z" fill="#CDB4DB" stroke="#B79BC8" stroke-width="1.5"/>
+              <circle cx="130" cy="110" r="10" fill="#E8B86D" stroke="#D9A452" stroke-width="1.5"/>
+            </g>
+
+            <!-- Kilau kecil di sekitar kado -->
+            <g class="hadiah__kilau" fill="#E8B86D">
+              <circle cx="32" cy="92" r="3.2"/>
+              <circle cx="228" cy="72" r="2.6"/>
+              <circle cx="240" cy="196" r="3"/>
+              <circle cx="18" cy="206" r="2.4"/>
+            </g>
+          </svg>
+        </button>
+
+        <div id="hadiahIsi" class="hadiah__isi" hidden>
+          <article class="hadiah__kartu card">
+            <div id="hadiahTiket" class="hadiah__tiket">
+              <p id="hadiahJenis" class="hadiah__jenis"></p>
+              <p id="hadiahTeks" class="hadiah__teks"></p>
+              <p id="hadiahBerlaku" class="hadiah__berlaku"></p>
+            </div>
+            <div id="hadiahMedia" class="hadiah__media"></div>
+          </article>
+        </div>
+
+        <button id="mainkanLagi" class="btn btn--besar" type="button" hidden></button>
+      </div>
+    </section>
   </main>
 
   <footer class="bagian"></footer>
