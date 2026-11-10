@@ -12,8 +12,8 @@ const DATA = {
   petunjukSandi: "[CONTOH] Tanggal pertama kita ketemu",
 
   // 2. WhatsApp (tombol pelukan)
-  nomorWA: "6281234567890", // [CONTOH] format internasional tanpa + dan tanpa spasi
-  pesanWA: "[CONTOH] Aku sudah lihat semuanya dan aku terharu. Ini pelukan balik buat kamu!",
+  nomorWA: "6285748631950", // format internasional tanpa + dan tanpa spasi
+  pesanWA: "Sayang mau pelukan 🤗❤️",
   waTombol: "Kirim Pelukan Balik ke Kamu 🤗",
 
   // 3. Gate

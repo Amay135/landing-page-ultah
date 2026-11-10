@@ -1406,9 +1406,9 @@ waTombol.href = "https://wa.me/" + DATA.nomorWA + "?text=" + encodeURIComponent(
 footerTeks.textContent = DATA.footerTeks;
 footerTeks.hidden = !DATA.footerTeks;
 
-// Peringatan di console selama data WhatsApp masih contoh.
-if (/\[CONTOH\]/.test(DATA.nomorWA + DATA.pesanWA)) {
-  console.warn("F12: nomorWA/pesanWA di data.js masih [CONTOH]. Ganti sebelum dibagikan.");
+// Peringatan hanya untuk nomor: format 62 tanpa +/spasi/tanda hubung, dan bukan data contoh.
+if (!/^62\d{8,13}$/.test(DATA.nomorWA) || DATA.nomorWA === "6281234567890" || /\[CONTOH\]/.test(DATA.nomorWA)) {
+  console.warn("F12: nomorWA di data.js belum valid atau masih contoh. Gunakan format 62 tanpa +, spasi, atau tanda hubung.");
 }
 
 // Bar hanya tampil saat pengguna mencapai dasar halaman.
