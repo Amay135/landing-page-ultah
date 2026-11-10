@@ -410,6 +410,151 @@ if (!mqGerakMinimal.matches) {
   ukurParalaksFoto();
 }
 
+// --- Timeline kisah kita (F6) ---
+const timelineDaftar = document.getElementById("timelineDaftar");
+const formatTanggal = new Intl.DateTimeFormat("id-ID", {
+  day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+});
+
+// "2023-01-10" -> "10 Januari 2023"; tanggal tak dikenal ditampilkan apa adanya.
+function tanggalPanjang(tanggal) {
+  const cocok = /^(\d{4})-(\d{2})-(\d{2})$/.exec(tanggal);
+  if (!cocok) return tanggal;
+  return formatTanggal.format(Date.UTC(+cocok[1], +cocok[2] - 1, +cocok[3]));
+}
+
+const itemTimeline = DATA.timeline.map((momen, i) => {
+  const item = document.createElement("li");
+  item.className = "timeline__item";
+
+  const titik = document.createElement("span");
+  titik.className = "timeline__titik";
+  titik.setAttribute("aria-hidden", "true");
+
+  const kartu = document.createElement("div");
+  kartu.className = "timeline__kartu card";
+
+  const tanggal = document.createElement("p");
+  tanggal.className = "timeline__tanggal";
+  tanggal.textContent = tanggalPanjang(momen.tanggal);
+
+  const judul = document.createElement("h3");
+  judul.className = "timeline__judul";
+  judul.textContent = momen.judul;
+
+  kartu.append(tanggal, judul);
+
+  if (momen.teks) {
+    const teks = document.createElement("p");
+    teks.className = "timeline__teks";
+    teks.textContent = momen.teks;
+    kartu.append(teks);
+  }
+
+  // Foto opsional: efek hidup yang sama dengan galeri (F5).
+  if (momen.foto) {
+    const foto = document.createElement("img");
+    foto.className = "timeline__foto foto-hidup";
+    foto.alt = momen.judul;
+    foto.loading = "lazy";
+    foto.decoding = "async";
+    foto.addEventListener("error", () => { foto.src = srcPlaceholder(i); }, { once: true });
+    foto.src = momen.foto;
+    kartu.append(foto);
+  }
+
+  item.append(titik, kartu);
+  timelineDaftar.append(item);
+  return item;
+});
+
+if (!mqGerakMinimal.matches) {
+  // Momen muncul satu per satu saat masuk layar.
+  const pengamatTimeline = new IntersectionObserver((entri, pengamat) => {
+    for (const e of entri) {
+      if (!e.isIntersecting) continue;
+      e.target.classList.add("timeline__item--tampil");
+      pengamat.unobserve(e.target);
+    }
+  }, { threshold: 0.25 });
+  itemTimeline.forEach((item) => pengamatTimeline.observe(item));
+
+  // Garis tumbuh mengikuti scroll (--progres dipakai CSS).
+  let rafGarisTimeline = 0;
+  function perbaruiGarisTimeline() {
+    rafGarisTimeline = 0;
+    const kotak = timelineDaftar.getBoundingClientRect();
+    if (!kotak.height) return;
+    const progres = Math.max(0, Math.min(1, (innerHeight * 0.65 - kotak.top) / kotak.height));
+    timelineDaftar.style.setProperty("--progres", progres.toFixed(3));
+  }
+  function mintaGarisTimeline() {
+    if (!rafGarisTimeline) rafGarisTimeline = requestAnimationFrame(perbaruiGarisTimeline);
+  }
+  addEventListener("scroll", mintaGarisTimeline, { passive: true });
+  addEventListener("resize", mintaGarisTimeline);
+  perbaruiGarisTimeline();
+}
+
+// --- Counter kebersamaan (F7) ---
+const counterHari = document.getElementById("counterHari");
+const counterJam = document.getElementById("counterJam");
+const counterBawah = document.getElementById("counterBawah");
+
+counterBawah.textContent = DATA.counterBawah;
+counterBawah.hidden = !DATA.counterBawah;
+
+// Selisih hari kalender di Asia/Jakarta, bukan zona waktu perangkat.
+function jumlahHariBersama() {
+  const cocok = /^(\d{4})-(\d{2})-(\d{2})$/.exec(DATA.tanggalJadian);
+  if (!cocok) return 0;
+  const [y, m, d] = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" })
+    .format(new Date())
+    .split("-")
+    .map(Number);
+  const selisih = Date.UTC(y, m - 1, d) - Date.UTC(+cocok[1], +cocok[2] - 1, +cocok[3]);
+  return Math.max(0, Math.round(selisih / 86400000));
+}
+
+const hariBersama = jumlahHariBersama();
+
+function tampilHari(nilai) {
+  counterHari.textContent = DATA.counterTeks.replace("{hari}", () => nilai.toLocaleString("id-ID"));
+}
+
+// Angka naik dari 0 saat counter masuk layar.
+if (mqGerakMinimal.matches) {
+  tampilHari(hariBersama);
+} else {
+  tampilHari(0);
+  const pengamatCounter = new IntersectionObserver(([entri]) => {
+    if (!entri.isIntersecting) return;
+    pengamatCounter.disconnect();
+    const mulai = performance.now();
+    const naik = (waktu) => {
+      const t = Math.min((waktu - mulai) / 1400, 1);
+      tampilHari(Math.round(hariBersama * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) requestAnimationFrame(naik);
+    };
+    requestAnimationFrame(naik);
+  }, { threshold: 0.5 });
+  pengamatCounter.observe(counterHari);
+}
+
+// Jam:menit:detik Asia/Jakarta, diperbarui tiap detik.
+const formatJam = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Jakarta", hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+});
+
+function perbaruiJam() {
+  const bagian = {};
+  for (const p of formatJam.formatToParts(new Date())) bagian[p.type] = p.value;
+  counterJam.textContent = bagian.hour + ":" + bagian.minute + ":" + bagian.second;
+}
+
+perbaruiJam();
+setInterval(perbaruiJam, 1000);
+
 // --- Confetti global (F3) ---
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.
 const kanvasConfetti = document.getElementById("confetti");
