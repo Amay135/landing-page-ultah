@@ -555,6 +555,83 @@ function perbaruiJam() {
 perbaruiJam();
 setInterval(perbaruiJam, 1000);
 
+// --- Kartu alasan (F8) ---
+const alasanDaftar = document.getElementById("alasanDaftar");
+const HATI_SVG = "<svg class=\"alasan__hati\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M12 21C5.5 16.5 2 13.2 2 9.3 2 6.1 4.4 4 7 4c2 0 3.7 1.1 5 3.2C13.3 5.1 15 4 17 4c2.6 0 5 2.1 5 5.3 0 3.9-3.5 7.2-10 11.7Z\" fill=\"currentColor\"/></svg>";
+
+DATA.alasan.forEach((alasan, i) => {
+  const nomor = i + 1;
+  const idTeks = "alasanTeks" + nomor;
+
+  const item = document.createElement("li");
+  item.className = "alasan__item";
+
+  // <button> sudah menangani Enter dan Space sendiri.
+  const tombol = document.createElement("button");
+  tombol.type = "button";
+  tombol.className = "alasan__kartu";
+  tombol.setAttribute("aria-expanded", "false");
+  tombol.setAttribute("aria-controls", idTeks);
+  tombol.setAttribute("aria-describedby", idTeks);
+  tombol.setAttribute("aria-label", "Buka alasan nomor " + nomor);
+
+  const isi = document.createElement("span");
+  isi.className = "alasan__isi";
+
+  // Depan: nomor dan hati, dekoratif untuk pembaca layar.
+  const depan = document.createElement("span");
+  depan.className = "alasan__depan";
+  depan.setAttribute("aria-hidden", "true");
+  const labelNomor = document.createElement("span");
+  labelNomor.className = "alasan__nomor";
+  labelNomor.textContent = String(nomor).padStart(2, "0");
+  depan.append(labelNomor);
+  depan.insertAdjacentHTML("beforeend", HATI_SVG); // SVG statis, bukan masukan pengguna
+
+  // Belakang: alasan dari data.js, aman lewat textContent.
+  const belakang = document.createElement("span");
+  belakang.className = "alasan__belakang";
+  belakang.id = idTeks;
+  belakang.setAttribute("aria-hidden", "true");
+  const teksAlasan = document.createElement("span");
+  teksAlasan.className = "alasan__teks";
+  teksAlasan.textContent = alasan;
+  belakang.append(teksAlasan);
+
+  isi.append(depan, belakang);
+  tombol.append(isi);
+
+  tombol.addEventListener("click", () => {
+    const terbuka = tombol.getAttribute("aria-expanded") === "true";
+    tombol.setAttribute("aria-expanded", String(!terbuka));
+    tombol.setAttribute("aria-label", (terbuka ? "Buka" : "Tutup") + " alasan nomor " + nomor);
+    belakang.toggleAttribute("aria-hidden", terbuka);
+    if (terbuka) return; // kartu ditutup lagi
+    item.classList.add("alasan__item--dibuka");
+    if (!mqGerakMinimal.matches) lepasHati(tombol);
+  });
+
+  item.append(tombol);
+  alasanDaftar.append(item);
+});
+
+// Hati kecil terbang keluar dari kartu saat dibuka. Jumlahnya kecil dan dibuang
+// setelah animasi selesai agar tidak menumpuk.
+function lepasHati(kartu) {
+  for (let i = 0; i < 6; i++) {
+    const hati = document.createElement("span");
+    hati.className = "alasan__hati-terbang";
+    hati.textContent = "♥";
+    hati.setAttribute("aria-hidden", "true");
+    hati.style.setProperty("--x", acak(-46, 46).toFixed(0) + "px");
+    hati.style.setProperty("--y", acak(-100, -55).toFixed(0) + "px");
+    hati.style.setProperty("--rot", acak(-40, 40).toFixed(0) + "deg");
+    hati.style.setProperty("--dur", acak(0.7, 1.1).toFixed(2) + "s");
+    hati.addEventListener("animationend", () => hati.remove(), { once: true });
+    kartu.append(hati);
+  }
+}
+
 // --- Confetti global (F3) ---
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.
 const kanvasConfetti = document.getElementById("confetti");
