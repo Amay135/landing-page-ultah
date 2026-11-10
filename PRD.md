@@ -155,6 +155,7 @@ Selesai jika:
 Selesai jika:
 - [ ] Isi hadiah sesuai `data.js`.
 - [ ] "Mainkan lagi" mereset kue, kartu, dan lampion.
+- [ ] "Mainkan lagi" juga menutup kembali kotak kado.
 
 ### F12. Footer: tombol pelukan WhatsApp
 

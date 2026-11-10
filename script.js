@@ -982,6 +982,16 @@ kado.addEventListener("click", () => {
 });
 
 // Kembalikan kue, kartu alasan, surat, dan lampion ke keadaan awal.
+function resetKado() {
+  kadoTerbuka = false;
+  kado.classList.remove("hadiah__kado--buka");
+  kado.setAttribute("aria-expanded", "false");
+  hadiahIsi.hidden = true;
+  hadiahIsi.classList.remove("hadiah__isi--tampil");
+  mainkanLagi.hidden = true;
+  hadiahMedia.querySelectorAll("video").forEach((video) => video.pause());
+}
+
 function resetKue() {
   clearTimeout(timerPotongPisau);
   clearTimeout(timerPotongKartu);
@@ -1047,6 +1057,7 @@ function resetLampion() {
 }
 
 mainkanLagi.addEventListener("click", () => {
+  resetKado();
   resetKue();
   resetAlasan();
   resetSurat();
