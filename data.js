@@ -124,6 +124,11 @@ const DATA = {
   // 11. Lampion harapan
   judulLampion: "Lepaskan Lampion Harapan Ini",
   lampionKeterangan: "Sentuh lampionnya untuk menulis harapanmu",
+  lampionPlaceholder: "Tulis harapanmu di sini...",
+  lampionLabelLepas: "Lepaskan Lampion 🏮",
+  lampionLabelLain: "Tulis harapan lain",
+  lampionLabelTutup: "Tutup",
+  lampionPesanKosong: "Harapannya masih kosong, tulis dulu ya 🥺",
   lampionTerbangTeks: "Harapanmu sudah terbang ke langit ✨",
   harapan: [
     "[CONTOH] Semoga kamu selalu sehat dan bahagia.",

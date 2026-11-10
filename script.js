@@ -715,6 +715,191 @@ suratModal.addEventListener("click", (e) => {
   if (e.target === suratModal) suratModal.close();
 });
 
+// --- Lampion harapan (F10) ---
+const lampion = document.getElementById("lampion");
+const lampionJudul = document.getElementById("lampionJudul");
+const lampionKet = document.getElementById("lampionKet");
+const lampionBesar = document.getElementById("lampionBesar");
+const teksLampion = document.getElementById("lampionTeks");
+const lampionTerbang = document.getElementById("lampionTerbang");
+const lampionLain = document.getElementById("lampionLain");
+const lampionKecilDaftar = document.getElementById("lampionKecilDaftar");
+const lampionModal = document.getElementById("lampionModal");
+const formLampion = document.getElementById("formLampion");
+const harapanInput = document.getElementById("harapanInput");
+const harapanHitung = document.getElementById("harapanHitung");
+const pesanLampion = document.getElementById("pesanLampion");
+const lampionLepas = document.getElementById("lampionLepas");
+const lampionTutup = document.getElementById("lampionTutup");
+const lampionModalIsi = document.getElementById("lampionModalIsi");
+const panggungLampion = lampion.querySelector(".lampion__panggung");
+
+const BATAS_HARAPAN = 120;
+const DURASI_TERBANG = mqGerakMinimal.matches ? 0 : 4200;
+
+lampionJudul.textContent = DATA.judulLampion;
+lampionKet.textContent = DATA.lampionKeterangan;
+lampionBesar.setAttribute("aria-label", DATA.lampionKeterangan);
+lampionLain.textContent = DATA.lampionLabelLain;
+lampionLepas.textContent = DATA.lampionLabelLepas;
+lampionTutup.textContent = DATA.lampionLabelTutup;
+lampionModal.setAttribute("aria-label", DATA.judulLampion);
+harapanInput.placeholder = DATA.lampionPlaceholder;
+harapanInput.setAttribute("aria-label", DATA.lampionPlaceholder);
+harapanInput.maxLength = BATAS_HARAPAN;
+
+// Lampion kecil (harapan dari data.js): SVG statis, teks tetap lewat textContent.
+const SVG_LAMPION_KECIL =
+  '<svg viewBox="0 0 60 84" aria-hidden="true" focusable="false">' +
+  '<ellipse cx="30" cy="36" rx="22" ry="24" fill="#F6B26B"/>' +
+  '<rect x="20" y="10" width="20" height="5" rx="2.5" fill="#B9793F"/>' +
+  '<rect x="20" y="58" width="20" height="5" rx="2.5" fill="#B9793F"/>' +
+  '<path d="M30 63v8" stroke="#B9793F" stroke-width="2"/>' +
+  '<rect x="26" y="71" width="8" height="6" rx="2" fill="#E8B86D"/>' +
+  '<path d="M30 22c-6 8-6 20 0 28" fill="none" stroke="#FFF3D6" stroke-width="2" opacity=".5"/>' +
+  "</svg>";
+
+DATA.harapan.forEach((isiHarapan) => {
+  const item = document.createElement("li");
+  const tombol = document.createElement("button");
+  tombol.type = "button";
+  tombol.className = "lampion__kecil";
+  tombol.setAttribute("aria-label", "Baca harapan: " + isiHarapan);
+  tombol.innerHTML = SVG_LAMPION_KECIL; // hanya SVG statis di atas
+  tombol.addEventListener("click", () => bukaBacaHarapan(isiHarapan));
+  item.append(tombol);
+  lampionKecilDaftar.append(item);
+});
+lampionKecilDaftar.hidden = !DATA.harapan.length;
+
+function perbaruiHitungHarapan() {
+  harapanHitung.textContent = harapanInput.value.length + "/" + BATAS_HARAPAN;
+}
+harapanInput.addEventListener("input", perbaruiHitungHarapan);
+
+// Mode tulis: form tampil, teks bacaan disembunyikan.
+function bukaTulisHarapan() {
+  lampionModalIsi.hidden = true;
+  formLampion.hidden = false;
+  harapanInput.value = "";
+  pesanLampion.textContent = "";
+  perbaruiHitungHarapan();
+  lampionModal.showModal();
+  document.body.classList.add("lampion-terbuka");
+  harapanInput.focus({ preventScroll: true });
+}
+
+// Mode baca: harapan dari data.js tampil aman lewat textContent.
+function bukaBacaHarapan(isiHarapan) {
+  formLampion.hidden = true;
+  lampionModalIsi.hidden = false;
+  lampionModalIsi.textContent = isiHarapan;
+  if (!lampionModal.open) lampionModal.showModal();
+  document.body.classList.add("lampion-terbuka");
+  lampionTutup.focus({ preventScroll: true });
+}
+
+lampionBesar.addEventListener("click", bukaTulisHarapan);
+lampionLain.addEventListener("click", bukaTulisHarapan);
+lampionTutup.addEventListener("click", () => lampionModal.close());
+lampionModal.addEventListener("close", () => document.body.classList.remove("lampion-terbuka"));
+
+// Klik di luar kertas (backdrop) menutup.
+lampionModal.addEventListener("click", (e) => {
+  if (e.target === lampionModal) lampionModal.close();
+});
+
+formLampion.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const harapan = harapanInput.value.trim().slice(0, BATAS_HARAPAN);
+  if (!harapan) {
+    pesanLampion.textContent = DATA.lampionPesanKosong;
+    harapanInput.focus({ preventScroll: true });
+    return;
+  }
+  lampionModal.close();
+  lepasLampion(harapan);
+});
+
+let sedangTerbang = false;
+
+// Lampion naik pelan; setelah selesai lampion baru muncul dari bawah.
+function lepasLampion(harapan) {
+  if (sedangTerbang) return;
+  sedangTerbang = true;
+  lampionBesar.disabled = true;
+  lampionLain.hidden = true;
+  lampionTerbang.textContent = "";
+  lampionTerbang.classList.remove("lampion__terbang--tampil");
+  teksLampion.textContent = harapan; // aman: bukan innerHTML
+
+  if (mqGerakMinimal.matches) {
+    selesaiTerbang();
+    return;
+  }
+
+  lampionBesar.classList.remove("lampion__besar--baru");
+  void lampionBesar.offsetWidth;
+  lampionBesar.classList.add("lampion__besar--terbang");
+  mulaiJejakEmas();
+  taburLampionKecil();
+  setTimeout(selesaiTerbang, DURASI_TERBANG);
+}
+
+function selesaiTerbang() {
+  sedangTerbang = false;
+  lampionBesar.classList.remove("lampion__besar--terbang");
+  lampionBesar.disabled = false;
+  teksLampion.textContent = "";
+  lampionTerbang.textContent = DATA.lampionTerbangTeks;
+  lampionTerbang.classList.add("lampion__terbang--tampil");
+  lampionLain.hidden = false;
+  if (!mqGerakMinimal.matches) {
+    void lampionBesar.offsetWidth;
+    lampionBesar.classList.add("lampion__besar--baru");
+    setTimeout(() => lampionBesar.classList.remove("lampion__besar--baru"), 1100);
+  }
+  lampionLain.focus({ preventScroll: true });
+}
+
+// Jejak percikan emas mengikuti lampion selama terbang. Jumlahnya kecil
+// dan tiap percik dibuang setelah animasinya selesai.
+let timerJejak = 0;
+
+function mulaiJejakEmas() {
+  clearInterval(timerJejak);
+  const mulai = performance.now();
+  timerJejak = setInterval(() => {
+    const kotak = lampionBesar.getBoundingClientRect();
+    const induk = panggungLampion.getBoundingClientRect();
+    for (let i = 0; i < 2; i++) {
+      const percik = document.createElement("span");
+      percik.className = "lampion__jejak";
+      percik.style.left = (kotak.left - induk.left + kotak.width / 2 + acak(-kotak.width * 0.24, kotak.width * 0.24)).toFixed(1) + "px";
+      percik.style.top = (kotak.top - induk.top + kotak.height * 0.78).toFixed(1) + "px";
+      percik.style.setProperty("--dx", acak(-14, 14).toFixed(0) + "px");
+      percik.addEventListener("animationend", () => percik.remove(), { once: true });
+      panggungLampion.append(percik);
+    }
+    if (performance.now() - mulai >= DURASI_TERBANG) clearInterval(timerJejak);
+  }, 130);
+}
+
+// Lampion kecil dan bintang bermunculan di sekitar lampion yang terbang.
+function taburLampionKecil() {
+  for (let i = 0; i < 8; i++) {
+    const el = document.createElement("span");
+    el.className = "lampion__lahir" + (i % 3 === 0 ? " lampion__lahir--bintang" : "");
+    el.style.left = acak(10, 90).toFixed(1) + "%";
+    el.style.top = acak(22, 78).toFixed(1) + "%";
+    el.style.setProperty("--dx", acak(-34, 34).toFixed(0) + "px");
+    el.style.setProperty("--dy", acak(-130, -50).toFixed(0) + "px");
+    el.style.setProperty("--dur", acak(1.4, 2.6).toFixed(2) + "s");
+    el.addEventListener("animationend", () => el.remove(), { once: true });
+    panggungLampion.append(el);
+  }
+}
+
 // --- Confetti global (F3) ---
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.
 const kanvasConfetti = document.getElementById("confetti");

@@ -373,7 +373,95 @@
         </span>
       </button>
     </section>
-    <section id="lampion" class="bagian"></section>
+    <!-- Lampion harapan (F10). Langit malam, lampion besar, lampion kecil dari data.js. -->
+    <section id="lampion" class="bagian lampion" aria-labelledby="lampionJudul">
+      <svg class="lampion__langit" viewBox="0 0 400 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <g fill="#FFF6EC">
+          <circle class="lampion__kelip" cx="34" cy="52" r="1.7"/>
+          <circle class="lampion__kelip" cx="86" cy="112" r="1.2"/>
+          <circle class="lampion__kelip" cx="148" cy="40" r="2"/>
+          <circle class="lampion__kelip" cx="210" cy="96" r="1.4"/>
+          <circle class="lampion__kelip" cx="256" cy="34" r="1.8"/>
+          <circle class="lampion__kelip" cx="300" cy="180" r="1.2"/>
+          <circle class="lampion__kelip" cx="60" cy="230" r="1.5"/>
+          <circle class="lampion__kelip" cx="120" cy="300" r="1.1"/>
+          <circle class="lampion__kelip" cx="360" cy="280" r="1.6"/>
+          <circle class="lampion__kelip" cx="28" cy="420" r="1.3"/>
+          <circle class="lampion__kelip" cx="250" cy="400" r="1.8"/>
+          <circle class="lampion__kelip" cx="332" cy="470" r="1.2"/>
+          <circle class="lampion__kelip" cx="90" cy="560" r="1.5"/>
+          <circle class="lampion__kelip" cx="190" cy="620" r="1.3"/>
+          <circle class="lampion__kelip" cx="370" cy="600" r="1.7"/>
+        </g>
+        <g class="lampion__awan" fill="#FFF6EC" opacity=".07">
+          <ellipse cx="90" cy="210" rx="96" ry="9"/>
+          <ellipse cx="310" cy="330" rx="112" ry="8"/>
+          <ellipse cx="150" cy="500" rx="84" ry="7"/>
+        </g>
+      </svg>
+      <div class="lampion__bulan" aria-hidden="true"></div>
+
+      <div class="lampion__dalam">
+        <h2 id="lampionJudul" class="lampion__judul"></h2>
+        <p id="lampionKet" class="lampion__ket tulisan-tangan"></p>
+
+        <div class="lampion__panggung">
+          <button id="lampionBesar" class="lampion__besar" type="button" aria-haspopup="dialog">
+            <svg class="lampion__svg" viewBox="0 0 240 360" aria-hidden="true" focusable="false">
+              <defs>
+                <radialGradient id="gradLampionCahaya">
+                  <stop offset="0" stop-color="#FFD98A" stop-opacity=".75"/>
+                  <stop offset="55%" stop-color="#F5A65B" stop-opacity=".26"/>
+                  <stop offset="100%" stop-color="#F5A65B" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="gradLampionBadan" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#FFD591"/>
+                  <stop offset=".55" stop-color="#F8B56A"/>
+                  <stop offset="1" stop-color="#E8914F"/>
+                </linearGradient>
+                <clipPath id="klipLampion">
+                  <path d="M78 96C58 140 58 208 78 252h84c20-44 20-112 0-156Z"/>
+                </clipPath>
+              </defs>
+
+              <!-- Cahaya lembut di sekitar lampion -->
+              <circle class="lampion__cahaya" cx="120" cy="176" r="118" fill="url(#gradLampionCahaya)"/>
+
+              <!-- Badan kertas lampion, serat kertas, dan kilau -->
+              <path d="M78 96C58 140 58 208 78 252h84c20-44 20-112 0-156Z" fill="url(#gradLampionBadan)" stroke="#D98A46" stroke-width="2"/>
+              <g clip-path="url(#klipLampion)" fill="none" stroke="#C97A3B" stroke-width="1.4" opacity=".26">
+                <path d="M96 92c-8 52-8 108 4 164"/>
+                <path d="M120 90v168"/>
+                <path d="M144 92c8 52 8 108-4 164"/>
+              </g>
+              <ellipse cx="98" cy="152" rx="9" ry="34" fill="#FFF3D6" opacity=".32" transform="rotate(-12 98 152)"/>
+
+              <!-- Cincin atas dan bawah -->
+              <rect x="94" y="78" width="52" height="16" rx="6" fill="#E8B86D" stroke="#C98F45" stroke-width="1.5"/>
+              <rect x="94" y="252" width="52" height="14" rx="6" fill="#E8B86D" stroke="#C98F45" stroke-width="1.5"/>
+
+              <!-- Rumbai di bawah -->
+              <path d="M120 266v22" stroke="#C98F45" stroke-width="3" stroke-linecap="round"/>
+              <path d="M112 288h16l-3 18h-10Z" fill="#E8B86D"/>
+
+              <!-- Percikan api kecil -->
+              <g class="lampion__percik" fill="#FFD98A">
+                <circle cx="70" cy="130" r="2.4"/>
+                <circle cx="180" cy="196" r="2"/>
+                <circle cx="152" cy="84" r="1.8"/>
+                <circle cx="84" cy="266" r="2.2"/>
+              </g>
+            </svg>
+            <span id="lampionTeks" class="lampion__teks tulisan-tangan"></span>
+          </button>
+        </div>
+        <p id="lampionTerbang" class="lampion__terbang tulisan-tangan" role="status" aria-live="polite"></p>
+
+        <button id="lampionLain" class="btn btn--besar" type="button" hidden></button>
+
+        <ul id="lampionKecilDaftar" class="lampion__kecil-daftar" aria-label="Harapan dariku"></ul>
+      </div>
+    </section>
     <section id="hadiah" class="bagian"></section>
   </main>
 
@@ -415,6 +503,20 @@
         <button id="suratLewati" class="surat-modal__lewati" type="button"></button>
         <button id="suratTutup" class="btn surat-modal__tutup" type="button"></button>
       </div>
+    </div>
+  </dialog>
+
+  <!-- Modal lampion harapan (F10): tulis harapan atau baca harapan dari data.js. -->
+  <dialog id="lampionModal" class="lampion-modal" aria-label="Lampion harapan">
+    <div class="lampion-modal__kertas">
+      <p id="lampionModalIsi" class="lampion-modal__isi tulisan-tangan" hidden></p>
+      <form id="formLampion" class="lampion-modal__form" novalidate>
+        <textarea id="harapanInput" class="lampion-modal__input" rows="3" maxlength="120" autocomplete="off"></textarea>
+        <p id="harapanHitung" class="lampion-modal__hitung" aria-hidden="true">0/120</p>
+        <p id="pesanLampion" class="lampion-modal__pesan" role="status" aria-live="polite"></p>
+        <button id="lampionLepas" class="btn btn--besar" type="submit"></button>
+      </form>
+      <button id="lampionTutup" class="lampion-modal__tutup" type="button"></button>
     </div>
   </dialog>
 
