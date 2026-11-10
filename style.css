@@ -1556,7 +1556,71 @@ body.lampion-terbuka { overflow: hidden; }
   .hadiah__kado { width: min(40vw, 300px); }
 }
 
-/* --- 20. Hormati preferensi gerak minimal --- */
+/* --- 20. Sparkle saat tap/klik (F14) --- */
+/* Lapisan di atas konten tapi tidak menangkap klik; jumlah partikel dibatasi di script.js. */
+.sparkle {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sparkle__partikel {
+  position: absolute;
+  width: var(--ukuran);
+  height: var(--ukuran);
+  background: var(--warna);
+  animation: sparkle-jatuh var(--dur) ease-out forwards;
+}
+.sparkle__partikel--bintang {
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.sparkle__partikel--titik { border-radius: 50%; }
+@keyframes sparkle-jatuh {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  70% { opacity: 0.7; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.4) rotate(var(--rot)); }
+}
+
+/* --- 21. Maskot dan pesan rahasia (F15) --- */
+.maskot {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 80;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(0 3px 6px rgba(90, 62, 54, 0.22));
+}
+.maskot__svg { display: block; width: 100%; height: auto; }
+.maskot__tangan {
+  transform-box: fill-box;
+  transform-origin: 0% 0%;
+}
+.maskot--lambai .maskot__tangan { animation: maskot-lambai 0.85s ease-in-out; }
+@keyframes maskot-lambai {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-38deg); }
+  55% { transform: rotate(10deg); }
+  80% { transform: rotate(-26deg); }
+}
+
+.hero__rahasia {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.hero__rahasia--tampil { opacity: 1; transform: none; }
+
+/* --- 22. Hormati preferensi gerak minimal --- */
 @media (prefers-reduced-motion: reduce) {
   :root { --transisi: 0.01s; }
   *, *::before, *::after {
@@ -1590,4 +1654,6 @@ body.lampion-terbuka { overflow: hidden; }
   .timeline__item,
   .timeline__item:nth-child(even) { opacity: 1; transform: none; transition: none; }
   .alasan__isi { transition: none; }
+  .hero__rahasia { transition: none; }
+  .maskot--lambai .maskot__tangan { animation: none; }
 }

@@ -22,6 +22,40 @@
   <!-- Tombol mute/unmute, baru tampil setelah musik mulai -->
   <button id="tombolMute" class="mute" type="button" hidden aria-pressed="false" aria-label="Matikan musik">🔊</button>
 
+  <!-- Maskot kucing orisinal di pojok (F15). Klik: melambai. -->
+  <button id="maskot" class="maskot" type="button" aria-label="Maskot kucing, klik untuk melambai">
+    <svg class="maskot__svg" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+      <ellipse cx="40" cy="74" rx="22" ry="4" fill="#D9BFC9" opacity=".5"/>
+      <!-- Badan dan ekor -->
+      <path d="M24 74c-2-16 4-27 16-27s18 11 16 27Z" fill="#FFD3B6"/>
+      <path d="M62 71c8-3 10-10 6-14" fill="none" stroke="#FFD3B6" stroke-width="6" stroke-linecap="round"/>
+      <!-- Kepala, telinga, dan dalam telinga -->
+      <path d="M24 22 22 8l13 6Z" fill="#FFD3B6"/>
+      <path d="M56 22 58 8 45 14Z" fill="#FFD3B6"/>
+      <path d="M26 19l-1.5-6 6 2.6Z" fill="#F4B6C2"/>
+      <path d="M54 19l1.5-6-6 2.6Z" fill="#F4B6C2"/>
+      <circle cx="40" cy="32" r="19" fill="#FFD3B6"/>
+      <!-- Mata, pipi, hidung, mulut, kumis -->
+      <circle cx="33" cy="31" r="2.6" fill="#5A3E36"/>
+      <circle cx="47" cy="31" r="2.6" fill="#5A3E36"/>
+      <circle cx="28" cy="37" r="3.2" fill="#F4B6C2" opacity=".7"/>
+      <circle cx="52" cy="37" r="3.2" fill="#F4B6C2" opacity=".7"/>
+      <path d="M38 36h4l-2 2.4Z" fill="#E88FA0"/>
+      <path d="M40 38.4c-1.4 2-4 1.6-4.6 0M40 38.4c1.4 2 4 1.6 4.6 0" fill="none" stroke="#5A3E36" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M22 33h-7M22 37l-7 2M58 33h7M58 37l7 2" stroke="#A9705C" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+      <!-- Tangan yang melambai saat diklik -->
+      <g class="maskot__tangan">
+        <path d="M54 54c7 1 10 7 8 13" fill="none" stroke="#FFD3B6" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="62" cy="68" r="5.2" fill="#FFD3B6"/>
+        <g fill="#F4B6C2">
+          <circle cx="60" cy="65" r="1.1"/>
+          <circle cx="64" cy="66" r="1.1"/>
+          <circle cx="62" cy="70" r="1.1"/>
+        </g>
+      </g>
+    </svg>
+  </button>
+
   <!-- Gate pembuka (F1) -->
   <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gateJudul">
     <p id="gateJudul" class="gate__teks"></p>
@@ -36,6 +70,9 @@
   <!-- Confetti global (F3): di belakang konten, tidak menghalangi klik -->
   <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
 
+  <!-- Sparkle saat tap/klik (F14): di atas konten, tidak menangkap klik -->
+  <div id="sparkle" class="sparkle" aria-hidden="true"></div>
+
   <main>
     <!-- Hero (F2) -->
     <section id="hero" class="bagian hero">
@@ -46,6 +83,7 @@
           <button id="heroNama" class="hero__nama" type="button" disabled></button>
         </h1>
         <p id="heroSubteks" class="hero__subteks"></p>
+        <p id="heroRahasia" class="hero__rahasia tulisan-tangan" role="status" aria-live="polite" hidden></p>
         <a class="hero__panah" href="#kue" aria-label="Scroll ke bagian berikutnya">
           <span id="heroPanah"></span>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>

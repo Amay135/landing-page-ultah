@@ -1335,3 +1335,56 @@ if (!mqGerakMinimal.matches) {
   }, { threshold: 0.1 });
   document.querySelectorAll(".bagian").forEach((el) => pemantauBagian.observe(el));
 }
+
+// --- Sparkle saat tap/klik (F14) ---
+// Satu lapisan fixed dengan pointer-events: none; tiap partikel dibuang setelah animasinya.
+// Maks 30 elemen aktif sekaligus agar tetap ringan di HP.
+const lapisanSparkle = document.getElementById("sparkle");
+const BATAS_SPARKLE = 30;
+const WARNA_SPARKLE = ["#E8B86D", "#F4B6C2"];
+
+document.addEventListener("pointerup", (e) => {
+  if (mqGerakMinimal.matches) return;
+  if (e.pointerType === "mouse" && e.button !== 0) return; // klik kiri saja
+  const sisa = BATAS_SPARKLE - lapisanSparkle.childElementCount;
+  if (sisa <= 0) return;
+  const jumlah = Math.min(Math.floor(acak(8, 13)), sisa);
+  for (let i = 0; i < jumlah; i++) {
+    const partikel = document.createElement("span");
+    partikel.className = "sparkle__partikel sparkle__partikel--" + (Math.random() < 0.4 ? "bintang" : "titik");
+    partikel.style.left = e.clientX + "px";
+    partikel.style.top = e.clientY + "px";
+    partikel.style.setProperty("--dx", acak(-34, 34).toFixed(0) + "px");
+    partikel.style.setProperty("--dy", acak(18, 54).toFixed(0) + "px");
+    partikel.style.setProperty("--rot", acak(-160, 160).toFixed(0) + "deg");
+    partikel.style.setProperty("--dur", acak(0.8, 1.1).toFixed(2) + "s");
+    partikel.style.setProperty("--ukuran", acak(4, 10).toFixed(1) + "px");
+    partikel.style.setProperty("--warna", WARNA_SPARKLE[i % 2]);
+    partikel.addEventListener("animationend", () => partikel.remove(), { once: true });
+    lapisanSparkle.append(partikel);
+  }
+}, { passive: true });
+
+// --- Interaksi lucu (F15) ---
+const heroRahasia = document.getElementById("heroRahasia");
+let klikJudul = 0;
+
+// Klik judul hero ke-5: pesan rahasia dari data.js tampil.
+heroJudul.addEventListener("click", () => {
+  if (!heroRahasia.hidden) return; // sudah tampil
+  klikJudul += 1;
+  if (klikJudul < 5) return;
+  heroRahasia.textContent = DATA.pesanRahasia;
+  heroRahasia.hidden = false;
+  void heroRahasia.offsetWidth;
+  heroRahasia.classList.add("hero__rahasia--tampil");
+});
+
+// Maskot melambai sekali tiap klik.
+const maskot = document.getElementById("maskot");
+maskot.addEventListener("click", () => {
+  maskot.classList.remove("maskot--lambai");
+  void maskot.offsetWidth; // ulang animasi walau diklik beruntun
+  maskot.classList.add("maskot--lambai");
+});
+maskot.addEventListener("animationend", () => maskot.classList.remove("maskot--lambai"));
