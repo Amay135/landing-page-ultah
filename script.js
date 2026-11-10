@@ -1346,6 +1346,12 @@ const WARNA_SPARKLE = ["#E8B86D", "#F4B6C2"];
 document.addEventListener("pointerup", (e) => {
   if (mqGerakMinimal.matches) return;
   if (e.pointerType === "mouse" && e.button !== 0) return; // klik kiri saja
+
+  // <dialog> modal ada di top layer: pindahkan lapisan sparkle ke dalamnya agar tetap terlihat.
+  const dialogTerbuka = document.querySelector("dialog[open]");
+  const indukSparkle = dialogTerbuka || document.body;
+  if (lapisanSparkle.parentElement !== indukSparkle) indukSparkle.append(lapisanSparkle);
+
   const sisa = BATAS_SPARKLE - lapisanSparkle.childElementCount;
   if (sisa <= 0) return;
   const jumlah = Math.min(Math.floor(acak(8, 13)), sisa);
