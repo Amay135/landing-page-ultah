@@ -386,19 +386,19 @@ body.kue-aktif::before { opacity: 1; }
 .kue__lucu:not(:empty),
 .kue__habis:not(:empty) { opacity: 1; transform: none; }
 
-/* Penerima: badge scrapbook berjajar ke kanan, scroll sendiri bila panjang */
+/* Penerima: badge scrapbook mengalir kiri ke kanan, turun ke baris baru */
 .kue__daftar {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
   gap: 8px;
   width: 100%;
   max-width: 380px;
   margin: 0;
   padding: 2px 2px 8px;
-  overflow-x: auto;
   list-style: none;
   font-size: 0.95rem;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
 }
 .kue__badge {
   flex: 0 0 auto;
@@ -413,7 +413,7 @@ body.kue-aktif::before { opacity: 1; }
   color: var(--teks);
   line-height: 1.25;
   white-space: nowrap;
-  animation: badge-muncul 0.35s ease-out;
+  animation: badge-muncul 0.45s cubic-bezier(0.34, 1.25, 0.64, 1);
 }
 .kue__badge:nth-child(2n) { background: linear-gradient(135deg, #FFF6EC, #F3E6F5); }
 .kue__badge-hati { color: #E88FA0; font-size: 0.9em; }
@@ -422,28 +422,29 @@ body.kue-aktif::before { opacity: 1; }
   to { opacity: 1; transform: none; }
 }
 
-/* Potongan di kue: terpisah di tepi kanan, terangkat, lalu terbang ke piring */
+/* Potongan di kue: muncul di garis potong, bergeser keluar, lalu terbang ke piring.
+   Tiap potongan punya elemen sendiri, jadi --mulai-x dan --tumpuk-* tidak bertabrakan. */
 .kue__potongan {
   transform-box: fill-box;
   transform-origin: 50% 50%;
-  transform: translate(var(--mulai-x, 343px), var(--mulai-y, 318px)) rotate(14deg);
+  transform: translate(var(--mulai-x, 337px), var(--mulai-y, 318px));
   opacity: 0;
-  transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1), opacity 0.3s ease;
+  transition: transform 0.55s cubic-bezier(0.34, 1.3, 0.64, 1), opacity 0.3s ease;
 }
 .kue__potongan--tampil {
   opacity: 1;
-  transform: translate(var(--mulai-x, 343px), calc(var(--mulai-y, 318px) - 12px)) rotate(6deg);
+  transform: translate(calc(var(--mulai-x, 337px) + 32px), calc(var(--mulai-y, 318px) - 10px)) rotate(7deg);
 }
 .kue__potongan--piring {
   opacity: 1;
   animation: potongan-terbang 0.95s cubic-bezier(0.32, 0.72, 0.36, 1) forwards;
 }
 @keyframes potongan-terbang {
-  0% { transform: translate(var(--mulai-x), calc(var(--mulai-y) - 12px)) rotate(6deg); }
-  35% { transform: translate(calc(var(--mulai-x) + 14px), calc(var(--mulai-y) - 60px)) rotate(2deg); }
-  75% { transform: translate(340px, 356px) rotate(-5deg); }
-  90% { transform: translate(345px, 411px) rotate(-4deg); }
-  100% { transform: translate(344px, 407px) rotate(-4deg); }
+  0% { transform: translate(calc(var(--mulai-x) + 32px), calc(var(--mulai-y) - 10px)) rotate(7deg); }
+  35% { transform: translate(calc(var(--mulai-x) + 46px), calc(var(--mulai-y) - 58px)) rotate(3deg); }
+  75% { transform: translate(calc(340px + var(--tumpuk-x, 0px)), 356px) rotate(calc(-5deg + var(--tumpuk-r, 0deg))); }
+  90% { transform: translate(calc(345px + var(--tumpuk-x, 0px)), 411px) rotate(calc(-4deg + var(--tumpuk-r, 0deg))); }
+  100% { transform: translate(calc(344px + var(--tumpuk-x, 0px)), 407px) rotate(calc(-4deg + var(--tumpuk-r, 0deg))); }
 }
 
 /* Garis potong tumbuh mengikuti turunnya pisau, lalu memudar */
@@ -477,13 +478,17 @@ body.kue-aktif::before { opacity: 1; }
 .kue--potong .kue__pisau {
   animation: pisau-potong 1.05s cubic-bezier(0.45, 0.05, 0.35, 1) forwards;
 }
+/* Turun dari atas (memudar masuk), menembus kue dengan gerakan menggergaji,
+   lalu terangkat dan memudar keluar. */
 @keyframes pisau-potong {
-  0% { opacity: 0; transform: translate(var(--pisau-x, 313px), -70px) rotate(-12deg); }
-  14% { opacity: 1; transform: translate(var(--pisau-x, 313px), -10px) rotate(-9deg); }
-  45% { opacity: 1; transform: translate(var(--pisau-x, 313px), 250px) rotate(-2deg); }
-  62% { opacity: 1; transform: translate(var(--pisau-x, 313px), 305px) rotate(0deg); }
-  72% { opacity: 1; transform: translate(var(--pisau-x, 313px), 296px) rotate(1deg); }
-  100% { opacity: 0; transform: translate(var(--pisau-x, 313px), -40px) rotate(8deg); }
+  0% { opacity: 0; transform: translate(calc(var(--pisau-x, 313px) - 24px), -80px) rotate(-14deg); }
+  16% { opacity: 1; transform: translate(calc(var(--pisau-x, 313px) - 8px), -12px) rotate(-9deg); }
+  44% { opacity: 1; transform: translate(calc(var(--pisau-x, 313px) + 3px), 246px) rotate(-4deg); }
+  56% { opacity: 1; transform: translate(calc(var(--pisau-x, 313px) - 3px), 306px) rotate(-1deg); }
+  63% { opacity: 1; transform: translate(calc(var(--pisau-x, 313px) + 2px), 300px) rotate(0.5deg); }
+  71% { opacity: 1; transform: translate(calc(var(--pisau-x, 313px) - 2px), 306px) rotate(0deg); }
+  83% { opacity: 1; transform: translate(calc(var(--pisau-x, 313px) - 8px), 170px) rotate(-2deg); }
+  100% { opacity: 0; transform: translate(calc(var(--pisau-x, 313px) - 28px), -60px) rotate(6deg); }
 }
 
 /* Remah dan taburan memecah saat potongan mendarat di piring */
@@ -499,6 +504,22 @@ body.kue-aktif::before { opacity: 1; }
   0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
   15% { opacity: 1; }
   100% { opacity: 0; transform: translate(var(--rx, 0px), var(--ry, 0px)) scale(1); }
+}
+
+/* Serpihan kue beterbangan di garis potong saat pisau menembus kue */
+.kue__serpihan { transform: translate(var(--pisau-x, 313px), 382px); }
+.kue__serpihan > * {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+.kue--potong .kue__serpihan > * {
+  animation: serpihan-jatuh 0.6s ease-out calc(0.4s + var(--delay, 0s)) forwards;
+}
+@keyframes serpihan-jatuh {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--rx, 0px), var(--ry, 20px)) scale(1); }
 }
 
 /* Api berkedip dan halo cahaya hangat */
@@ -1774,7 +1795,8 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   .kue__lucu,
   .kue__habis { transition: none; }
   .kue__garis-potong,
-  .kue__remah-butir { animation: none !important; }
+  .kue__remah-butir,
+  .kue__serpihan > * { animation: none !important; }
   .dekor { display: none; }
   .bagian { opacity: 1; transform: none; transition: none; }
   .foto-hidup { transition: none; }

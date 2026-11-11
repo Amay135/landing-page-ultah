@@ -132,7 +132,8 @@ const namaPenerima = document.getElementById("namaPenerima");
 const pesanPenerima = document.getElementById("pesanPenerima");
 const tombolKasih = document.getElementById("tombolKasih");
 const tombolPotongLagi = document.getElementById("tombolPotongLagi");
-const potonganKue = document.getElementById("kue-potongan");
+const templatePotongan = document.getElementById("kue-potongan");
+const wadahPotongan = document.getElementById("kue-potongan-wadah");
 const piringKue = document.getElementById("kue-piring");
 const penerimaTeks = document.getElementById("kuePenerimaTeks");
 const penerimaLucu = document.getElementById("kueLucu");
@@ -189,11 +190,13 @@ tombolTiup.addEventListener("click", () => {
 });
 
 // --- Kue (F4B): potong berkali-kali, beri potongan, daftar penerima ---
-// Kapasitas mengikuti lebar kue di ilustrasi: tiap potongan menyusutkan sisi kanan 22 unit.
-const KAPASITAS_POTONGAN = 5;
+// Kapasitas mengikuti gambar: tiap potongan menyusutkan sisi kanan 22 unit,
+// dan kue berhenti dipotong tepat di tepi lilin paling kanan (x=225).
 const LEBAR_POTONGAN = 22;
 const TEPI_KANAN_KUE = 335;
-const TEPI_TINGKAT = [335, 302, 274]; // tepi kanan tingkat bawah, tengah, atas
+const TEPI_TINGKAT = [335, 302, 269]; // tepi kanan tingkat bawah, tengah, atas
+const TEPI_LILIN_KANAN = 225; // tepi kanan lilin ketiga
+const KAPASITAS_POTONGAN = Math.floor((TEPI_KANAN_KUE - TEPI_LILIN_KANAN) / LEBAR_POTONGAN);
 const jedaPisau = mqGerakMinimal.matches ? 0 : 780;
 const jedaKartu = mqGerakMinimal.matches ? 0 : 1150;
 const durasiSajian = mqGerakMinimal.matches ? 0 : 950;
@@ -207,10 +210,11 @@ const bekasKue = [
 ];
 const kueHabis = document.getElementById("kueHabis");
 
-let jumlahPenerima = 0;
+const daftarPotongan = []; // semua potongan tersimpan, tidak ada yang ditimpa
+let idPotongan = 0;
 let sedangPotong = false;
 let sedangMenyajikan = false;
-let potonganSiap = false;
+let potonganSiap = null; // potongan yang sedang menunggu nama penerima
 let timerPotongPisau = 0;
 let timerPotongKartu = 0;
 let timerSajian = 0;
@@ -223,6 +227,8 @@ function batasPotongan(n) {
 // Mask menyusutkan kue; bekas potongan digeser menempel di tepi yang baru.
 function terapkanSisaKue(n) {
   const batas = batasPotongan(n);
+  // Tulisan tetap di tengah permukaan tingkat tengah yang belum terpotong.
+  kueTeks.setAttribute("x", (88 + Math.min(302, batas)) / 2);
   sisaKueNotch.setAttribute("x", batas);
   sisaKueNotch.setAttribute("width", 400 - batas);
   bekasKue.forEach((bekas, i) => {
@@ -237,13 +243,12 @@ function terapkanSisaKue(n) {
 }
 terapkanSisaKue(0);
 
-// Animasi pisau, potongan terpisah di tepi kue, lalu kartu nama penerima.
+// Animasi pisau, satu potongan baru di tepi kue, lalu kartu nama penerima.
 function mulaiPotong() {
   if (sedangPotong || sedangMenyajikan || potonganSiap) return;
-  if (jumlahPenerima >= KAPASITAS_POTONGAN) return;
+  if (daftarPotongan.length >= KAPASITAS_POTONGAN) return;
   sedangPotong = true;
-  potonganSiap = false;
-  const nomor = jumlahPenerima + 1;
+  const nomor = daftarPotongan.length + 1;
   const batas = batasPotongan(nomor);
 
   tombolPotong.hidden = true;
@@ -254,29 +259,38 @@ function mulaiPotong() {
   penerimaLucu.textContent = "";
   pesanPenerima.textContent = "";
   namaPenerima.value = "";
-  labelPenerima.textContent = jumlahPenerima === 0 ? DATA.kueTanyaPenerima : DATA.kueTanyaPenerimaLagi;
+  labelPenerima.textContent = nomor === 1 ? DATA.kueTanyaPenerima : DATA.kueTanyaPenerimaLagi;
 
-  // Posisi potongan dan pisau mengikuti tepi kue yang sedang dipotong.
-  kue.style.setProperty("--mulai-x", batas + 30 + "px");
-  kue.style.setProperty("--mulai-y", "318px");
+  // Posisi pisau mengikuti tepi kue yang sedang dipotong.
   kue.style.setProperty("--pisau-x", batas + "px");
   garisPotong.setAttribute("x1", batas);
   garisPotong.setAttribute("x2", batas);
 
-  // Elemen SVG tidak punya properti .hidden; atur atributnya langsung.
-  piringKue.removeAttribute("hidden");
-  potonganKue.removeAttribute("hidden");
-  potonganKue.classList.remove("kue__potongan--tampil", "kue__potongan--piring");
+  // Salin cetakan: tiap potongan jadi elemen unik, potongan lama tidak disentuh.
+  const irisan = templatePotongan.cloneNode(true);
+  irisan.removeAttribute("id");
+  irisan.removeAttribute("hidden");
+  irisan.dataset.id = String(++idPotongan);
+  const tumpuk = daftarPotongan.length;
+  irisan.style.setProperty("--mulai-x", batas + 24 + "px");
+  irisan.style.setProperty("--mulai-y", "318px");
+  irisan.style.setProperty("--tumpuk-x", tumpuk * 9 - 18 + "px");
+  irisan.style.setProperty("--tumpuk-r", tumpuk * 5 - 10 + "deg");
+  wadahPotongan.appendChild(irisan);
+  const potongan = { id: idPotongan, elemen: irisan, nama: "" };
+  daftarPotongan.push(potongan);
 
-  // Ulang animasi pisau dari awal.
+  piringKue.removeAttribute("hidden");
+
+  // Ulang animasi pisau dan serpihan dari awal.
   kue.classList.remove("kue--mendarat", "kue--potong");
   void kue.offsetWidth;
   kue.classList.add("kue--potong");
 
   timerPotongPisau = setTimeout(() => {
     terapkanSisaKue(nomor);
-    potonganKue.classList.add("kue__potongan--tampil");
-    potonganSiap = true;
+    irisan.classList.add("kue__potongan--tampil");
+    potonganSiap = potongan;
     sedangPotong = false;
   }, jedaPisau);
 
@@ -299,21 +313,21 @@ formPotongan.addEventListener("submit", (e) => {
     return;
   }
   pesanPenerima.textContent = "";
-  potonganSiap = false;
+  const potongan = potonganSiap;
+  potonganSiap = null;
+  potongan.nama = nama;
   sedangMenyajikan = true;
   kartuPotongan.hidden = true;
-  potonganKue.classList.remove("kue__potongan--tampil");
-  potonganKue.classList.add("kue__potongan--piring");
+  potongan.elemen.classList.remove("kue__potongan--tampil");
+  potongan.elemen.classList.add("kue__potongan--piring");
 
   // Setelah potongan mendarat: pesan, badge penerima, remah, confetti di piring.
   timerSajian = setTimeout(() => {
-    jumlahPenerima += 1;
-
     // Bandingkan tanpa peduli huruf besar-kecil; tampil dengan textContent, tanpa HTML.
     const namaSaya = DATA.namaSaya.trim().toLowerCase();
     const cocok = namaSaya !== "" && nama.toLowerCase().includes(namaSaya);
 
-    const pola = jumlahPenerima === 1 ? DATA.kueTeksPenerima : DATA.kueTeksPenerimaLagi;
+    const pola = daftarPotongan.length === 1 ? DATA.kueTeksPenerima : DATA.kueTeksPenerimaLagi;
     penerimaTeks.textContent = pola.replace("{nama}", () => nama);
     penerimaLucu.textContent = cocok ? DATA.potonganLucuTeks : "";
 
@@ -328,14 +342,13 @@ formPotongan.addEventListener("submit", (e) => {
     badge.append(hati, teksNama);
     daftarPenerima.appendChild(badge);
     daftarPenerima.hidden = false;
-    daftarPenerima.scrollLeft = daftarPenerima.scrollWidth; // badge terbaru tetap terlihat
 
     // Piring sudah tampil (atribut hidden dilepas), jadi rect berisi posisi nyata.
     const kotakPiring = piringKue.getBoundingClientRect();
     burst(kotakPiring.left + kotakPiring.width / 2, kotakPiring.top + kotakPiring.height / 2, 40);
     kue.classList.add("kue--mendarat");
 
-    if (jumlahPenerima >= KAPASITAS_POTONGAN) {
+    if (daftarPotongan.length >= KAPASITAS_POTONGAN) {
       kueHabis.textContent = DATA.kueHabisTeks;
     } else {
       tombolPotongLagi.hidden = false;
@@ -1086,12 +1099,11 @@ function resetKue() {
   lilinPadam = false;
   sedangPotong = false;
   sedangMenyajikan = false;
-  potonganSiap = false;
-  jumlahPenerima = 0;
+  potonganSiap = null;
+  daftarPotongan.length = 0;
+  idPotongan = 0;
   terapkanSisaKue(0);
   kue.classList.remove("kue--padam", "kue--potong", "kue--mendarat");
-  kue.style.removeProperty("--mulai-x");
-  kue.style.removeProperty("--mulai-y");
   kue.style.removeProperty("--pisau-x");
   kueSvg.setAttribute("aria-label", DATA.kueAria);
   tombolTiup.hidden = false;
@@ -1102,15 +1114,13 @@ function resetKue() {
   kartuPotongan.hidden = true;
   // Elemen SVG: sembunyikan lewat atribut, bukan properti .hidden.
   piringKue.setAttribute("hidden", "");
-  potonganKue.setAttribute("hidden", "");
-  potonganKue.classList.remove("kue__potongan--tampil", "kue__potongan--piring");
+  wadahPotongan.textContent = ""; // buang semua potongan yang pernah dibuat
   penerimaTeks.textContent = "";
   penerimaLucu.textContent = "";
   kueHabis.textContent = "";
   pesanPenerima.textContent = "";
   namaPenerima.value = "";
   daftarPenerima.textContent = "";
-  daftarPenerima.scrollLeft = 0;
   daftarPenerima.hidden = true;
 }
 
