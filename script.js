@@ -147,12 +147,12 @@ daftarPenerima.setAttribute("aria-label", DATA.kueDaftarAria);
 kueSvg.setAttribute("aria-label", DATA.kueAria);
 
 // Tulisan di tingkat tengah: muat di bagian kue yang tersisa sampai potongan terakhir.
+let lebarTeksMaks = 115; // menyusut bersama tingkat tengah
 function aturTeksKue() {
-  const lebarMaks = 115; // satuan viewBox; sisi kanan kue menyusut sampai x=225
   let ukuran = 20;
   kueTeks.textContent = DATA.kueTulisan;
   kueTeks.setAttribute("font-size", ukuran);
-  while (ukuran > 8 && kueTeks.getComputedTextLength() > lebarMaks) {
+  while (ukuran > 6 && kueTeks.getComputedTextLength() > lebarTeksMaks) {
     ukuran -= 1;
     kueTeks.setAttribute("font-size", ukuran);
   }
@@ -190,19 +190,21 @@ tombolTiup.addEventListener("click", () => {
 });
 
 // --- Kue (F4B): potong berkali-kali, beri potongan, daftar penerima ---
-// Kapasitas mengikuti gambar: tiap potongan menyusutkan sisi kanan 22 unit,
-// dan kue berhenti dipotong tepat di tepi lilin paling kanan (x=225).
-const LEBAR_POTONGAN = 22;
+// Tiap potongan memangkas 14 unit. Kue boleh terus dipotong selama tingkat atas
+// masih cukup lebar untuk tiga lilin yang ikut mengecil; tidak ada angka tetap.
+const LEBAR_POTONGAN = 14;
 const TEPI_KANAN_KUE = 335;
 const TEPI_TINGKAT = [335, 302, 269]; // tepi kanan tingkat bawah, tengah, atas
-const TEPI_LILIN_KANAN = 225; // tepi kanan lilin ketiga
-const KAPASITAS_POTONGAN = Math.floor((TEPI_KANAN_KUE - TEPI_LILIN_KANAN) / LEBAR_POTONGAN);
+const TEPI_ATAS_KIRI = 121;
+const LEBAR_ATAS_MIN = 46; // ruang minimum tingkat atas untuk tiga lilin
 const jedaPisau = mqGerakMinimal.matches ? 0 : 780;
 const jedaKartu = mqGerakMinimal.matches ? 0 : 1150;
 const durasiSajian = mqGerakMinimal.matches ? 0 : 950;
 
 const garisPotong = document.getElementById("kue-garis-potong");
 const sisaKueNotch = document.getElementById("kueSisaNotch");
+const lilinKue = document.getElementById("kue-lilin");
+const kueGeser = document.getElementById("kue-geser");
 const bekasKue = [
   document.getElementById("kue-bekas-bawah"),
   document.getElementById("kue-bekas-tengah"),
@@ -224,17 +226,45 @@ function batasPotongan(n) {
   return n === 0 ? 400 : TEPI_KANAN_KUE - n * LEBAR_POTONGAN;
 }
 
-// Mask menyusutkan kue; bekas potongan digeser menempel di tepi yang baru.
-function terapkanSisaKue(n) {
+// Geser kue setengah dari bagian yang dipangkas supaya tetap di tengah alas.
+function geometriPotongan(n) {
   const batas = batasPotongan(n);
-  // Tulisan tetap di tengah permukaan tingkat tengah yang belum terpotong.
+  const kanan = Math.min(TEPI_KANAN_KUE, batas);
+  const geser = n === 0 ? 0 : (TEPI_KANAN_KUE - kanan) / 2;
+  return { batas, kanan, geser, tepi: n === 0 ? 400 : kanan + geser };
+}
+
+// Berhenti saat tingkat atas tidak lagi cukup menampung tiga lilin.
+function bisaPotongLagi() {
+  const { batas } = geometriPotongan(daftarPotongan.length + 1);
+  return Math.min(TEPI_TINGKAT[2], batas) - TEPI_ATAS_KIRI >= LEBAR_ATAS_MIN;
+}
+
+// Mask menyusutkan kue; lilin dan tulisan ikut menyesuaikan ruang yang tersisa.
+function terapkanSisaKue(n) {
+  const { batas, geser, tepi } = geometriPotongan(n);
+  const kananAtas = Math.min(TEPI_TINGKAT[2], batas);
+  const lebarAtas = Math.max(0, kananAtas - TEPI_ATAS_KIRI);
+
+  kueGeser.setAttribute("transform", `translate(${geser} 0)`);
+  sisaKueNotch.setAttribute("x", tepi);
+  sisaKueNotch.setAttribute("width", 400 - tepi);
+
+  // Lilin selalu di tengah permukaan tingkat atas, lalu mengecil bersama kue.
+  const skalaLilin = Math.min(1, (lebarAtas * 0.55) / 60);
+  const pusatLilin = (TEPI_ATAS_KIRI + kananAtas) / 2 + geser;
+  lilinKue.style.transform =
+    `translate(${pusatLilin}px, 140px) scale(${skalaLilin}) translate(-195px, -140px)`;
+
+  // Tulisan menyusut agar tetap muat di tingkat tengah yang tersisa.
+  lebarTeksMaks = Math.max(30, Math.min(115, Math.min(302, batas) - 88 - 16));
   kueTeks.setAttribute("x", (88 + Math.min(302, batas)) / 2);
-  sisaKueNotch.setAttribute("x", batas);
-  sisaKueNotch.setAttribute("width", 400 - batas);
+  aturTeksKue();
+
   bekasKue.forEach((bekas, i) => {
-    const geser = batas - TEPI_TINGKAT[i];
-    if (n > 0 && geser < 0) {
-      bekas.setAttribute("transform", `translate(${geser} 0)`);
+    const sisa = batas - TEPI_TINGKAT[i];
+    if (n > 0 && sisa < 0) {
+      bekas.setAttribute("transform", `translate(${sisa} 0)`);
       bekas.removeAttribute("hidden");
     } else {
       bekas.setAttribute("hidden", "");
@@ -246,10 +276,10 @@ terapkanSisaKue(0);
 // Animasi pisau, satu potongan baru di tepi kue, lalu kartu nama penerima.
 function mulaiPotong() {
   if (sedangPotong || sedangMenyajikan || potonganSiap) return;
-  if (daftarPotongan.length >= KAPASITAS_POTONGAN) return;
+  if (!bisaPotongLagi()) return;
   sedangPotong = true;
   const nomor = daftarPotongan.length + 1;
-  const batas = batasPotongan(nomor);
+  const { tepi } = geometriPotongan(nomor);
 
   tombolPotong.hidden = true;
   tombolPotongLagi.hidden = true;
@@ -262,9 +292,9 @@ function mulaiPotong() {
   labelPenerima.textContent = nomor === 1 ? DATA.kueTanyaPenerima : DATA.kueTanyaPenerimaLagi;
 
   // Posisi pisau mengikuti tepi kue yang sedang dipotong.
-  kue.style.setProperty("--pisau-x", batas + "px");
-  garisPotong.setAttribute("x1", batas);
-  garisPotong.setAttribute("x2", batas);
+  kue.style.setProperty("--pisau-x", tepi + "px");
+  garisPotong.setAttribute("x1", tepi);
+  garisPotong.setAttribute("x2", tepi);
 
   // Salin cetakan: tiap potongan jadi elemen unik, potongan lama tidak disentuh.
   const irisan = templatePotongan.cloneNode(true);
@@ -272,10 +302,12 @@ function mulaiPotong() {
   irisan.removeAttribute("hidden");
   irisan.dataset.id = String(++idPotongan);
   const tumpuk = daftarPotongan.length;
-  irisan.style.setProperty("--mulai-x", batas + 24 + "px");
+  // Lima posisi tumpukan saja agar tumpukan tetap di piring walau potongan banyak.
+  const posisiTumpuk = (tumpuk % 5) - 2;
+  irisan.style.setProperty("--mulai-x", tepi + 24 + "px");
   irisan.style.setProperty("--mulai-y", "318px");
-  irisan.style.setProperty("--tumpuk-x", tumpuk * 9 - 18 + "px");
-  irisan.style.setProperty("--tumpuk-r", tumpuk * 5 - 10 + "deg");
+  irisan.style.setProperty("--tumpuk-x", posisiTumpuk * 9 + "px");
+  irisan.style.setProperty("--tumpuk-r", posisiTumpuk * 5 + "deg");
   wadahPotongan.appendChild(irisan);
   const potongan = { id: idPotongan, elemen: irisan, nama: "" };
   daftarPotongan.push(potongan);
@@ -348,7 +380,7 @@ formPotongan.addEventListener("submit", (e) => {
     burst(kotakPiring.left + kotakPiring.width / 2, kotakPiring.top + kotakPiring.height / 2, 40);
     kue.classList.add("kue--mendarat");
 
-    if (daftarPotongan.length >= KAPASITAS_POTONGAN) {
+    if (!bisaPotongLagi()) {
       kueHabis.textContent = DATA.kueHabisTeks;
     } else {
       tombolPotongLagi.hidden = false;
@@ -1102,7 +1134,11 @@ function resetKue() {
   potonganSiap = null;
   daftarPotongan.length = 0;
   idPotongan = 0;
+  // Reset tanpa animasi: kue dan lilin langsung kembali ke bentuk penuh.
+  lilinKue.style.transition = "none";
   terapkanSisaKue(0);
+  void lilinKue.getBoundingClientRect();
+  lilinKue.style.transition = "";
   kue.classList.remove("kue--padam", "kue--potong", "kue--mendarat");
   kue.style.removeProperty("--pisau-x");
   kueSvg.setAttribute("aria-label", DATA.kueAria);
