@@ -65,9 +65,9 @@ Alur:
 6. Tampil teks: "Potongan pertama untuk [Nama] ❤️", badge penerima di baris horizontal.
 7. Pesan kejutan jika nama sama dengan nama kamu: "Jawaban paling benar!".
 8. Tombol "Potong lagi 🔪🍰" untuk potongan berikutnya; pesan berikutnya "Satu potong kue untuk [Nama] 💗", tanpa nomor urutan.
-9. Tiap potongan menyusutkan sisi kanan kue. Setelah 5 potongan, muncul pesan penutup manis dan interaksi berhenti dengan rapi.
+9. Tiap potongan menyusutkan sisi kanan kue; kue digeser agar tetap di tengah dan lilin mengecil mengikuti ruang tingkat atas. Kue bisa dipotong terus selama tingkat atas masih cukup lebar untuk tiga lilin, dan setiap potongan tersusun bertingkat di piring. Setelah batas geometri tercapai, muncul pesan penutup manis dan interaksi berhenti dengan rapi.
 
-Teknis: kue digambar dengan SVG; mask memotong sisi kanan kue tiap potongan, potongan adalah elemen terpisah, dan badge penerima berjajar horizontal dengan scroll sendiri di HP.
+Teknis: kue digambar dengan SVG; mask memotong sisi kanan kue tiap potongan, potongan adalah elemen terpisah yang tetap tersimpan di piring, dan badge penerima mengalir kiri ke kanan lalu membungkus ke baris berikutnya di HP.
 
 ### 3.4 Galeri foto
 

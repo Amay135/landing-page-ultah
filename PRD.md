@@ -65,22 +65,23 @@ Selesai jika:
 
 ### F4. Kue interaktif
 
-- Kue 3 tingkat pastel (krem, pink, peach, emas) dengan krim menetes, stroberi, taburan, dan lilin menyala. Sisi kanan kue menyusut secara visual setiap kali dipotong.
+- Kue 3 tingkat pastel (krem, pink, peach, emas) dengan krim menetes, stroberi, taburan, dan lilin menyala. Sisi kanan kue menyusut secara visual setiap kali dipotong; kue digeser agar tetap di tengah alas dan lilin ikut mengecil mengikuti ruang tingkat atas.
 - Tombol "Tiup Lilin": api padam, asap kecil, confetti, teks "Make a wish".
 - Tombol "Potong Kue": pisau turun di tepi kue, garis potong tumbuh, lalu potongan terpisah dan terangkat.
-- Input "Potongan pertama untuk siapa?" dan tombol "Kasih": potongan melengkung ke piring, mendarat dengan remah dan confetti, lalu tampil "Potongan pertama untuk [nama] ❤️".
+- Input "Potongan pertama untuk siapa?" dan tombol "Kasih": potongan melengkung ke piring, mengecil saat mendarat, lalu tersusun bertingkat agar tetap terlihat; mendarat dengan remah dan confetti, lalu tampil "Potongan pertama untuk [nama] ❤️".
 - Jika nama yang diketik mengandung nama saya (tidak peka huruf besar-kecil): pesan lucu "Jawaban paling benar!".
 - Tombol "Potong lagi 🔪🍰": potongan berikutnya untuk nama lain. Pesan penerima berikutnya "Satu potong kue untuk [nama] 💗". Tidak ada nomor urutan.
-- Daftar penerima berupa badge scrapbook berjajar ke kanan, bisa digeser sendiri bila nama sudah banyak.
-- Kue cukup untuk 5 potongan (batas visual ilustrasi). Setelah habis, tombol potong disembunyikan dan muncul pesan penutup manis.
+- Daftar penerima berupa badge scrapbook berjajar ke kanan dan membungkus ke baris berikutnya bila nama sudah banyak.
+- Kue bisa dipotong terus selama tingkat atas masih cukup lebar untuk tiga lilin (sekitar 12 potongan pada ilustrasi saat ini), bukan angka tetap. Setiap potongan disimpan di piring dan tidak dihapus. Setelah batas geometri tercapai, tombol potong disembunyikan dan muncul pesan penutup manis.
 
 Selesai jika:
 - [ ] Nama kosong ditolak dengan pesan ramah.
 - [ ] Nama maksimal 30 karakter, tampil aman (tanpa HTML).
-- [ ] Daftar penerima tampil sebagai badge horizontal, tidak memotong nama, dan tidak membuat halaman bergeser ke samping.
-- [ ] Kue utama terlihat berkurang setiap potongan; tiap penerima mendapat tepat satu potongan.
+- [ ] Daftar penerima tampil sebagai badge yang membungkus ke baris berikutnya, tidak memotong nama, dan tidak membuat halaman bergeser ke samping.
+- [ ] Kue utama terlihat berkurang setiap potongan; tiap penerima mendapat tepat satu potongan; potongan lama tetap tersimpan di piring.
+- [ ] Potongan tersusun bertingkat di piring dan tidak saling menutupi sepenuhnya.
 - [ ] Animasi potong, terbang, dan mendarat berjalan mulus di HP serta menghormati `prefers-reduced-motion`.
-- [ ] Setelah 5 potongan, muncul pesan penutup dan tidak ada potongan baru.
+- [ ] Setelah batas geometri potong tercapai (tingkat atas tidak cukup untuk tiga lilin), muncul pesan penutup dan tidak ada potongan baru.
 
 ### F5. Galeri foto (polaroid)
 

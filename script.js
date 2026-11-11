@@ -199,7 +199,7 @@ const TEPI_ATAS_KIRI = 121;
 const LEBAR_ATAS_MIN = 46; // ruang minimum tingkat atas untuk tiga lilin
 const jedaPisau = mqGerakMinimal.matches ? 0 : 780;
 const jedaKartu = mqGerakMinimal.matches ? 0 : 1150;
-const durasiSajian = mqGerakMinimal.matches ? 0 : 950;
+const durasiSajian = mqGerakMinimal.matches ? 0 : 1100;
 
 const garisPotong = document.getElementById("kue-garis-potong");
 const sisaKueNotch = document.getElementById("kueSisaNotch");
@@ -302,12 +302,18 @@ function mulaiPotong() {
   irisan.removeAttribute("hidden");
   irisan.dataset.id = String(++idPotongan);
   const tumpuk = daftarPotongan.length;
-  // Lima posisi tumpukan saja agar tumpukan tetap di piring walau potongan banyak.
-  const posisiTumpuk = (tumpuk % 5) - 2;
+  // Dua baris x enam kolom, diisi dari tengah ke tepi. Baris depan digeser
+  // setengah kolom dan diturunkan, jadi tiap potongan tetap terlihat utuh.
+  const urutanKolom = [2, 3, 1, 4, 0, 5];
+  const goyang = [1.5, -1, 2, -2, 0.5, -1.5]; // variasi kecil agar tidak kaku
+  const baris = Math.floor(tumpuk / 6) % 2;
+  const kolom = urutanKolom[tumpuk % 6];
   irisan.style.setProperty("--mulai-x", tepi + 24 + "px");
   irisan.style.setProperty("--mulai-y", "318px");
-  irisan.style.setProperty("--tumpuk-x", posisiTumpuk * 9 + "px");
-  irisan.style.setProperty("--tumpuk-r", posisiTumpuk * 5 + "deg");
+  irisan.style.setProperty("--tumpuk-x", (kolom - 2.5) * 12 + baris * 6 - 3 + "px");
+  irisan.style.setProperty("--tumpuk-y", 414 + baris * 15 + "px");
+  irisan.style.setProperty("--tumpuk-r", (kolom - 2.5) * 4 + baris * 3 + goyang[tumpuk % 6] + "deg");
+  irisan.style.setProperty("--tumpuk-s", "0.62");
   wadahPotongan.appendChild(irisan);
   const potongan = { id: idPotongan, elemen: irisan, nama: "" };
   daftarPotongan.push(potongan);
