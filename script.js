@@ -337,6 +337,9 @@ function mulaiPotong() {
   timerPotongPisau = setTimeout(() => {
     terapkanSisaKue(nomor);
     irisan.classList.add("kue__potongan--tampil");
+    // Pisau selesai memotong: ledakan kecil di atas kue.
+    const kotakKue = kueSvg.getBoundingClientRect();
+    burst(kotakKue.left + kotakKue.width / 2, kotakKue.top + kotakKue.height * 0.55, 50);
     potonganSiap = potongan;
     sedangPotong = false;
   }, jedaPisau);
@@ -802,6 +805,7 @@ const teksSuratLengkap = [DATA.salamSurat, DATA.teksSurat, DATA.penutupSurat, DA
 
 let timerSurat = 0;
 let jedaBukaSurat = 0;
+let timerConfettiSurat = 0;
 
 function hentikanKetikSurat() {
   clearInterval(timerSurat);
@@ -845,6 +849,14 @@ amplop.addEventListener("click", () => {
     suratKertas.focus({ preventScroll: true }); // hindari fokus otomatis ke "Lewati"
     document.body.classList.add("surat-terbuka");
     mulaiKetikSurat();
+    pindahkanKanvasConfetti(suratModal); // modal ada di top layer
+    burst(innerWidth / 2, innerHeight * 0.3, 60);
+    // Setelah ledakan, kembalikan confetti ke belakang agar teks surat tidak tertutup.
+    clearTimeout(timerConfettiSurat);
+    timerConfettiSurat = setTimeout(() => {
+      if (!suratModal.open) return;
+      pindahkanKanvasConfetti(document.body);
+    }, 1600);
   }, mqGerakMinimal.matches ? 0 : 480);
 });
 
@@ -858,6 +870,8 @@ suratModal.addEventListener("close", () => {
   hentikanKetikSurat();
   document.body.classList.remove("surat-terbuka");
   amplop.classList.remove("surat--buka");
+  clearTimeout(timerConfettiSurat);
+  pindahkanKanvasConfetti(document.body);
 });
 
 // Klik di luar kertas (backdrop) menutup.
@@ -1228,8 +1242,8 @@ mainkanLagi.addEventListener("click", () => {
 // Canvas fixed di belakang konten. Partikel dibatasi agar tetap lancar di HP.
 const kanvasConfetti = document.getElementById("confetti");
 const ctxConfetti = kanvasConfetti.getContext("2d");
-const WARNA_CONFETTI = ["#F4B6C2", "#FFD3B6", "#CDB4DB", "#E8B86D"];
-const BATAS_PARTIKEL = 160; // batas total, termasuk ledakan
+const WARNA_CONFETTI = ["#F4B6C2", "#FFD3B6", "#CDB4DB", "#E8B86D", "#FFF1DF"];
+const BATAS_PARTIKEL = 80; // batas total, termasuk ledakan
 const DURASI_LEBAT = 4000; // ms, sesuai PRD 3-5 detik
 
 let partikelConfetti = [];
@@ -1252,9 +1266,15 @@ function ukurKanvasConfetti() {
 ukurKanvasConfetti();
 addEventListener("resize", ukurKanvasConfetti);
 
-// Batas jumlah saat hujan lebat dan saat looping ringan.
-const batasHujan = () => (lebarKanvas < 700 ? 64 : 90);
-const targetRingan = () => (lebarKanvas < 700 ? 18 : 28);
+// <dialog> ada di top layer: pindahkan canvas ke dalamnya saat surat terbuka,
+// lalu kembalikan ke body saat ditutup agar confetti tetap terlihat.
+function pindahkanKanvasConfetti(induk) {
+  if (kanvasConfetti.parentElement !== induk) induk.append(kanvasConfetti);
+}
+
+// Batas jumlah saat hujan lebat dan saat looping ringan (total tetap <= 80).
+const batasHujan = () => (lebarKanvas < 700 ? 60 : 80);
+const targetRingan = () => (lebarKanvas < 700 ? 14 : 20);
 
 function acak(min, maks) {
   return min + Math.random() * (maks - min);
@@ -1265,7 +1285,8 @@ function warnaAcak() {
 }
 
 // Partikel jatuh dari atas layar (hujan lebat dan looping ringan).
-function buatPartikelJatuh() {
+// Saat ringan, gerak dibuat lebih lambat dan tenang agar latar tidak ramai.
+function buatPartikelJatuh(ringan) {
   const pita = Math.random() < 0.3;
   return {
     jenis: pita ? "pita" : "kertas",
@@ -1273,8 +1294,8 @@ function buatPartikelJatuh() {
     y: acak(-80, -12),
     lebar: pita ? acak(20, 34) : acak(7, 13),
     tinggi: pita ? acak(5, 8) : acak(5, 9),
-    vx: acak(-14, 14),
-    vy: acak(55, 120),
+    vx: acak(-14, 14) * (ringan ? 0.5 : 1),
+    vy: ringan ? acak(32, 62) : acak(55, 120),
     rotasi: acak(0, Math.PI * 2),
     putaran: acak(-4, 4),
     ayunFase: acak(0, Math.PI * 2),
@@ -1319,11 +1340,24 @@ function burst(x, y, jumlah) {
   mulaiLoopConfetti();
 }
 
+// Ledakan pembuka: kertas melompat dari sepanjang tepi atas lalu ikut jatuh.
+function ledakanAtas(jumlah) {
+  for (let i = 0; i < jumlah && partikelConfetti.length < BATAS_PARTIKEL; i++) {
+    const p = buatPartikelJatuh(false);
+    p.x = acak(0, lebarKanvas);
+    p.y = acak(-24, -6);
+    p.vx = acak(-150, 150);
+    p.vy = acak(30, 210);
+    partikelConfetti.push(p);
+  }
+}
+
 // Mulai hujan lebat 4 detik, lalu lanjut ringan terus (kecuali gerak minimal).
 function mulaiConfetti() {
   ukurKanvasConfetti();
   if (mqGerakMinimal.matches) return;
   sisaLebat = DURASI_LEBAT;
+  ledakanAtas(72);
   mulaiLoopConfetti();
 }
 
@@ -1344,12 +1378,17 @@ function langkahConfetti(waktu) {
 
   // Spawn partikel baru dari atas layar.
   if (!mqGerakMinimal.matches) {
+    const sebelumnyaLebat = sisaLebat > 0;
     if (sisaLebat > 0) sisaLebat = Math.max(0, sisaLebat - dt * 1000);
+    // Perayaan utama usai: partikel sisanya memudar agar latar kembali tenang.
+    if (sebelumnyaLebat && sisaLebat === 0) {
+      for (let i = targetRingan(); i < partikelConfetti.length; i++) partikelConfetti[i].pudar = true;
+    }
     const batas = sisaLebat > 0 ? batasHujan() : targetRingan();
-    timbunanSpawn = Math.min(timbunanSpawn + (sisaLebat > 0 ? 220 : 22) * dt, 8);
+    timbunanSpawn = Math.min(timbunanSpawn + (sisaLebat > 0 ? 220 : 12) * dt, 8);
     while (timbunanSpawn >= 1 && partikelConfetti.length < batas) {
       timbunanSpawn -= 1;
-      partikelConfetti.push(buatPartikelJatuh());
+      partikelConfetti.push(buatPartikelJatuh(sisaLebat === 0));
     }
   }
 
@@ -1360,6 +1399,13 @@ function langkahConfetti(waktu) {
     p.x += (p.vx + Math.sin(p.ayunFase) * p.ayunAmp) * dt;
     p.y += p.vy * dt;
     p.rotasi += p.putaran * dt;
+    if (p.pudar) {
+      p.alpha -= dt / 0.8;
+      if (p.alpha <= 0) {
+        partikelConfetti.splice(i, 1);
+        continue;
+      }
+    }
     if (p.umur !== Infinity) {
       p.vy += 620 * dt; // gravitasi untuk partikel ledakan
       p.umur -= dt * 1000;
@@ -1375,8 +1421,8 @@ function langkahConfetti(waktu) {
   gambarConfetti();
   rafConfetti = requestAnimationFrame(langkahConfetti);
 
-  // Berhenti saat tidak ada yang perlu dianimasikan (mis. mode gerak minimal).
-  if (!sisaLebat && partikelConfetti.length === 0) hentikanLoopConfetti();
+  // Hentikan loop hanya saat mode gerak minimal sudah tidak punya partikel.
+  if (mqGerakMinimal.matches && partikelConfetti.length === 0) hentikanLoopConfetti();
 }
 
 function gambarConfetti() {
