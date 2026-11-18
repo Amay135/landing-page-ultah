@@ -629,13 +629,13 @@ body.kue-aktif::before { opacity: 1; }
 @media (hover: hover) {
   .foto-hidup:hover {
     box-shadow: 0 16px 34px rgba(90, 62, 54, 0.26);
-    transform: rotate(var(--rot-hidup, 3deg)) scale(1.05);
+    transform: rotate(calc(var(--rot, 0deg) + var(--rot-hidup, 3deg))) scale(1.05);
   }
 }
 .foto-hidup:active,
 .foto-hidup:focus-visible {
   box-shadow: 0 16px 34px rgba(90, 62, 54, 0.26);
-  transform: rotate(var(--rot-hidup, 3deg)) scale(1.05);
+  transform: rotate(calc(var(--rot, 0deg) + var(--rot-hidup, 3deg))) scale(1.05);
 }
 
 .foto__bingkai {
@@ -824,9 +824,17 @@ body.lightbox-terbuka { overflow: hidden; }
 }
 .timeline__judul { margin: 0 0 6px; font-size: 1.25rem; }
 .timeline__teks { margin: 0; font-size: 0.95rem; opacity: 0.85; }
-.timeline__foto {
+.timeline__foto-tombol {
+  display: block;
   width: 100%;
   margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.timeline__foto {
+  width: 100%;
   padding: 7px;
   border-radius: 3px;
   background: #FFFDF8;
@@ -1782,6 +1790,52 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
 }
 .hero__rahasia--tampil { opacity: 1; transform: none; }
 
+/* Hati kecil easter egg (F15): kecil, 50% opacity, di pojok kanan bawah. */
+.hati {
+  position: fixed;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index: 80;
+  padding: 6px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.hati:hover,
+.hati:focus-visible { opacity: 0.9; transform: scale(1.15); }
+/* Sembunyikan saat bar WhatsApp tampil agar tidak bertumpuk (sama seperti maskot). */
+body.wa-tampil .hati { opacity: 0; pointer-events: none; }
+
+/* Toast hati: di atas layar, tidak menangkap klik, dan tidak menggeser tata letak.
+   top 64px sengaja memberi ruang untuk tombol mute di pojok kanan atas. */
+.toast {
+  position: fixed;
+  top: calc(64px + env(safe-area-inset-top));
+  left: 50%;
+  z-index: 120;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 10px 18px;
+  border: 1.5px solid var(--pink);
+  border-radius: 16px;
+  background: #FFFDF8;
+  box-shadow: 0 8px 24px rgba(90, 62, 54, 0.22);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, -12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+.toast--tampil { opacity: 1; transform: translate(-50%, 0); }
+
 /* --- 22. Footer: tombol pelukan WhatsApp (F12) --- */
 /* Ruang kosong di dasar halaman supaya bar mengambang tidak menutupi konten. */
 .footer { min-height: 170px; }
@@ -1881,6 +1935,8 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   .alasan__isi { transition: none; }
   .hero__rahasia { transition: none; }
   .maskot--lambai .maskot__tangan { animation: none; }
+  .hati,
+  .toast { transition: none; }
   .wa__tombol { animation: none; transition: none; }
 }
 

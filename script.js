@@ -412,7 +412,7 @@ formPotongan.addEventListener("submit", (e) => {
 // --- Galeri foto polaroid (F5) ---
 const galeriDaftar = document.getElementById("galeriDaftar");
 const WARNA_PLACEHOLDER = ["#F4B6C2", "#FFD3B6", "#CDB4DB", "#E8B86D"];
-const fotoImgGaleri = [];
+const daftarGaleri = []; // entri lightbox: {src, caption, tanggal, img}
 
 // Placeholder pastel bertanda [CONTOH] selama file di assets/foto belum ada.
 function srcPlaceholder(i) {
@@ -447,7 +447,7 @@ DATA.foto.forEach((foto, i) => {
   img.decoding = "async";
   img.addEventListener("error", () => { img.src = srcPlaceholder(i); }, { once: true });
   img.src = foto.src;
-  fotoImgGaleri.push(img);
+  daftarGaleri.push({ ...foto, img });
 
   const caption = document.createElement("figcaption");
   caption.className = "foto__caption";
@@ -459,7 +459,7 @@ DATA.foto.forEach((foto, i) => {
   captionTanggal.textContent = foto.tanggal;
   caption.append(captionTeks, captionTanggal);
 
-  bingkai.addEventListener("click", () => bukaLightbox(i));
+  bingkai.addEventListener("click", () => bukaLightbox(daftarGaleri, i));
   bingkai.append(img);
   kartuFoto.append(bingkai, caption);
   galeriDaftar.append(kartuFoto);
@@ -473,22 +473,21 @@ const lightboxTanggal = document.getElementById("lightboxTanggal");
 const lightboxTutup = document.getElementById("lightboxTutup");
 const lightboxSebelum = document.getElementById("lightboxSebelum");
 const lightboxSesudah = document.getElementById("lightboxSesudah");
-const adaBanyakFoto = DATA.foto.length > 1;
-lightboxSebelum.hidden = !adaBanyakFoto;
-lightboxSesudah.hidden = !adaBanyakFoto;
 
+let daftarLightbox = daftarGaleri;
 let indeksLightbox = 0;
 
 function isiLightbox() {
-  const foto = DATA.foto[indeksLightbox];
-  const imgAsal = fotoImgGaleri[indeksLightbox];
-  lightboxImg.src = imgAsal.currentSrc || imgAsal.src;
+  const foto = daftarLightbox[indeksLightbox];
+  lightboxImg.src = foto.img.currentSrc || foto.img.src;
   lightboxImg.alt = foto.caption;
   lightboxTeks.textContent = foto.caption;
   lightboxTanggal.textContent = foto.tanggal;
+  lightboxSebelum.hidden = lightboxSesudah.hidden = daftarLightbox.length < 2;
 }
 
-function bukaLightbox(i) {
+function bukaLightbox(daftar, i) {
+  daftarLightbox = daftar;
   indeksLightbox = i;
   isiLightbox();
   lightbox.showModal();
@@ -497,7 +496,7 @@ function bukaLightbox(i) {
 
 // Geser satu foto; berputar kembali ke awal/akhir supaya tidak mentok.
 function geserLightbox(langkah) {
-  const jumlah = DATA.foto.length;
+  const jumlah = daftarLightbox.length;
   if (!jumlah) return;
   indeksLightbox = (indeksLightbox + langkah + jumlah) % jumlah;
   isiLightbox();
@@ -565,6 +564,7 @@ if (!mqGerakMinimal.matches) {
 
 // --- Timeline kisah kita (F6) ---
 const timelineDaftar = document.getElementById("timelineDaftar");
+const daftarFotoTimeline = []; // foto timeline juga bisa dibuka di lightbox
 const formatTanggal = new Intl.DateTimeFormat("id-ID", {
   day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
 });
@@ -604,16 +604,30 @@ const itemTimeline = DATA.timeline.map((momen, i) => {
     kartu.append(teks);
   }
 
-  // Foto opsional: efek hidup yang sama dengan galeri (F5).
+  // Foto opsional: efek hidup yang sama dengan galeri (F5) dan bisa dibuka di lightbox.
   if (momen.foto) {
+    const tombolFoto = document.createElement("button");
+    tombolFoto.type = "button";
+    tombolFoto.className = "timeline__foto-tombol foto-hidup";
+    tombolFoto.setAttribute("aria-label", "Buka foto: " + momen.judul);
+
     const foto = document.createElement("img");
-    foto.className = "timeline__foto foto-hidup";
+    foto.className = "timeline__foto";
     foto.alt = momen.judul;
     foto.loading = "lazy";
     foto.decoding = "async";
     foto.addEventListener("error", () => { foto.src = srcPlaceholder(i); }, { once: true });
     foto.src = momen.foto;
-    kartu.append(foto);
+    // Miring tipis saat diam, lalu berubah ±3 derajat saat hover/sentuh.
+    tombolFoto.style.setProperty("--rot", acak(-2, 2).toFixed(1) + "deg");
+    tombolFoto.style.setProperty("--rot-hidup", (Math.random() < 0.5 ? -3 : 3) + "deg");
+
+    const indeksFoto = daftarFotoTimeline.push({
+      caption: momen.judul, tanggal: tanggalPanjang(momen.tanggal), img: foto,
+    }) - 1;
+    tombolFoto.addEventListener("click", () => bukaLightbox(daftarFotoTimeline, indeksFoto));
+    tombolFoto.append(foto);
+    kartu.append(tombolFoto);
   }
 
   item.append(titik, kartu);
@@ -1493,24 +1507,25 @@ function pasangDekorasi() {
   dekor.className = "dekor";
   dekor.setAttribute("aria-hidden", "true");
 
-  for (const kecepatan of KECEPATAN_LAPIS) {
-    const lapis = document.createElement("div");
-    lapis.className = "dekor__lapis";
-    lapis.dataset.kecepatan = kecepatan;
+  for (const [lapis, kecepatan] of KECEPATAN_LAPIS.entries()) {
+    const lapisEl = document.createElement("div");
+    lapisEl.className = "dekor__lapis";
+    lapisEl.dataset.kecepatan = kecepatan;
     let isi = "";
     for (let i = 0; i < STIKER_PER_LAPIS; i++) {
-      const bentuk = BENTUK_STIKER[(Math.random() * BENTUK_STIKER.length) | 0];
-      // Hanya di sisi kiri/kanan agar teks di tengah tidak tertutup.
-      const kiri = (Math.random() < 0.5 ? acak(1, 13) : acak(82, 93)).toFixed(1);
+      // Bentuk diputar bergiliran agar ketujuh stiker muncul, bukan acak yang bisa menghilangkan jenis.
+      const bentuk = BENTUK_STIKER[(lapis * STIKER_PER_LAPIS + i) % BENTUK_STIKER.length];
+      // Selang-seling kiri/kanan dan menempel ke tepi agar tidak menutupi teks di tengah.
+      const posisi = ((lapis + i) % 2 ? acak(1, 9) : acak(88, 96)).toFixed(1);
       const atas = acak(0, 50);
-      const ukuran = Math.round(acak(28, 58));
-      const gaya = `left:${kiri}%;width:${ukuran}px;--rot:${Math.round(acak(-28, 28))}deg;--amp:${Math.round(acak(5, 12))}px;--dur:${acak(5, 9).toFixed(1)}s;--delay:${(-acak(0, 6)).toFixed(1)}s`;
+      const ukuran = Math.round(acak(28, 52));
+      const gaya = `left:${posisi}%;width:${ukuran}px;--rot:${Math.round(acak(-28, 28))}deg;--amp:${Math.round(acak(5, 12))}px;--dur:${acak(5, 9).toFixed(1)}s;--delay:${(-acak(0, 6)).toFixed(1)}s`;
       isi += `<div class="dekor__stiker" style="${gaya};top:${atas.toFixed(2)}%">${bentuk}</div>`;
       isi += `<div class="dekor__stiker" style="${gaya};top:${(atas + 50).toFixed(2)}%">${bentuk}</div>`;
     }
-    lapis.innerHTML = isi; // hanya string SVG statis di atas, bukan masukan pengguna
-    dekor.appendChild(lapis);
-    lapisanDekor.push(lapis);
+    lapisEl.innerHTML = isi; // hanya string SVG statis di atas, bukan masukan pengguna
+    dekor.appendChild(lapisEl);
+    lapisanDekor.push(lapisEl);
   }
 
   document.body.prepend(dekor);
@@ -1625,6 +1640,21 @@ maskot.addEventListener("click", () => {
   maskot.classList.add("maskot--lambai");
 });
 maskot.addEventListener("animationend", () => maskot.classList.remove("maskot--lambai"));
+
+// Hati kecil di pojok: klik memunculkan toast di atas layar selama ~3 detik.
+const hati = document.getElementById("hati");
+const toastHati = document.getElementById("toastHati");
+hati.setAttribute("aria-label", DATA.hatiAria);
+let jedaToast = 0;
+
+hati.addEventListener("click", () => {
+  toastHati.textContent = DATA.hatiTeks;
+  toastHati.classList.remove("toast--tampil");
+  void toastHati.offsetWidth; // ulang animasi walau diklik beruntun
+  toastHati.classList.add("toast--tampil");
+  clearTimeout(jedaToast);
+  jedaToast = setTimeout(() => toastHati.classList.remove("toast--tampil"), 3000);
+});
 
 // --- Footer: tombol pelukan WhatsApp (F12) ---
 const footer = document.getElementById("footer");

@@ -154,6 +154,10 @@ const DATA = {
   // 13. Footer
   footerTeks: "[CONTOH] Terima kasih sudah ada di hidupku 💛",
 
+  // 13b. Easter egg hati (F15)
+  hatiAria: "Hati kecil, klik untuk kejutan",
+  hatiTeks: "I love you more than anything! ✨",
+
   // 14. Musik
   judulLagu: "[CONTOH] Lagu favorit",
   musikFile: "assets/musik.mp3",
