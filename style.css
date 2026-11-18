@@ -721,7 +721,9 @@ body.lightbox-terbuka { overflow: hidden; }
   overflow: visible;
 }
 .lightbox::backdrop { background: rgba(59, 42, 38, 0.76); }
-.lightbox[open] { animation: lightbox-muncul 0.25s ease-out; }
+/* Animasi di kartu, bukan <dialog>: transform pada dialog membuat anak
+   position:fixed (sparkle) kehilangan acuan viewport. */
+.lightbox[open] .lightbox__kartu { animation: lightbox-muncul 0.25s ease-out; }
 @keyframes lightbox-muncul {
   from { opacity: 0; transform: scale(0.96); }
 }
@@ -1161,7 +1163,7 @@ body.surat-terbuka { overflow: hidden; }
   background: transparent;
 }
 .surat-modal::backdrop { background: rgba(59, 42, 38, 0.7); }
-.surat-modal[open] { animation: lightbox-muncul 0.25s ease-out; }
+.surat-modal[open] .surat-modal__kertas { animation: lightbox-muncul 0.25s ease-out; }
 .surat-modal__kertas {
   position: relative;
   display: flex;
@@ -1515,7 +1517,7 @@ body.lampion-terbuka { overflow: hidden; }
   background: transparent;
 }
 .lampion-modal::backdrop { background: rgba(16, 20, 40, 0.74); }
-.lampion-modal[open] { animation: lightbox-muncul 0.25s ease-out; }
+.lampion-modal[open] .lampion-modal__kertas { animation: lightbox-muncul 0.25s ease-out; }
 .lampion-modal__kertas {
   position: relative;
   padding: 24px 20px 20px;
@@ -1914,9 +1916,9 @@ body.wa-tampil .hati { bottom: calc(172px + env(safe-area-inset-bottom)); }
   .dekor { display: none; }
   .bagian { opacity: 1; transform: none; transition: none; }
   .foto-hidup { transition: none; }
-  .lightbox[open] { animation: none; }
-  .surat-modal[open] { animation: none; }
-  .lampion-modal[open] { animation: none; }
+  .lightbox[open] .lightbox__kartu,
+  .surat-modal[open] .surat-modal__kertas,
+  .lampion-modal[open] .lampion-modal__kertas { animation: none; }
   .lampion__besar,
   .lampion__kecil,
   .lampion__kelip,

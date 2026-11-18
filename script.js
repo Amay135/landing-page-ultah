@@ -1575,6 +1575,14 @@ const BENTUK_SPARKLE = ["bintang", "hati", "titik"];
 // Ukuran per bentuk (px): hati 12-18, bintang 14-22, titik 3-7.
 const UKURAN_SPARKLE = { hati: [12, 18], bintang: [14, 22], titik: [3, 7] };
 
+// Dialog modal ada di top layer: pindahkan lapisan sparkle ke dialog yang terbuka
+// agar sparkle dari klik pembuka tidak tertutup backdrop.
+document.addEventListener("toggle", (e) => {
+  if (e.target instanceof HTMLDialogElement) {
+    (e.target.open ? e.target : document.body).append(lapisanSparkle);
+  }
+}, true);
+
 // Simpan titik pointerdown untuk membedakan tap dari geser (scroll) di pointerup.
 let titikTekan = null;
 document.addEventListener("pointerdown", (e) => {
