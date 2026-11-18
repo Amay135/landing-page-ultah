@@ -4,6 +4,7 @@
 :root {
   --krem: #FFF6EC;
   --pink: #F4B6C2;
+  --pink-tua: #D9A3AC; /* dusty pink untuk amplop surat */
   --peach: #FFD3B6;
   --lavender: #CDB4DB;
   --emas: #E8B86D;
@@ -1065,13 +1066,14 @@ body.lightbox-terbuka { overflow: hidden; }
     repeating-linear-gradient(0deg, rgba(232, 184, 109, 0.1) 0 1px, transparent 1px 10px),
     #FFFDF7;
   box-shadow: 0 2px 6px rgba(90, 62, 54, 0.14);
-  transition: transform 0.5s ease;
+  transition: transform 0.9s ease;
 }
-.surat--buka .surat__kertas { transform: translateY(-16%); }
+/* Kertas naik pelan keluar dari amplop sebelum modal surat muncul. */
+.surat--buka .surat__kertas { transform: translateY(-58%); }
 .surat__depan {
   inset: 0;
   border-radius: 12px;
-  background: linear-gradient(160deg, #FFF9EF, #F7E8D0);
+  background: linear-gradient(160deg, #E7B3BC, var(--pink-tua));
   clip-path: polygon(0 0, 50% 46%, 100% 0, 100% 100%, 0 100%);
 }
 .surat__tutup {
@@ -1079,7 +1081,7 @@ body.lightbox-terbuka { overflow: hidden; }
   left: 0;
   right: 0;
   height: 46%;
-  background: linear-gradient(180deg, #FFF3E0, #F1DCC0);
+  background: linear-gradient(180deg, #E3AEB7, #CB8B97);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: 50% 0;
   transition: transform 0.55s ease;
@@ -1138,7 +1140,7 @@ body.surat-terbuka { overflow: hidden; }
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 30px 22px 0;
-  border-radius: 8px;
+  border-radius: 15px 9px 13px 8px; /* sudut sedikit tidak rata seperti kertas asli */
   background:
     radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.55), transparent 42%),
     repeating-linear-gradient(0deg, rgba(232, 184, 109, 0.055) 0 1px, transparent 1px 9px),
@@ -1193,7 +1195,7 @@ body.surat-terbuka { overflow: hidden; }
   gap: 12px;
   margin: 0 -22px;
   padding: 18px 22px;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 13px 8px;
   background: linear-gradient(180deg, rgba(255, 249, 238, 0.88), #FFF9EE 38%);
 }
 .surat-modal__lewati {

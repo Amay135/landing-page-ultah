@@ -808,7 +808,7 @@ let jedaBukaSurat = 0;
 let timerConfettiSurat = 0;
 
 function hentikanKetikSurat() {
-  clearInterval(timerSurat);
+  clearTimeout(timerSurat);
   timerSurat = 0;
 }
 
@@ -818,6 +818,20 @@ function tampilkanSuratLengkap() {
   suratIsi.textContent = teksSuratLengkap;
   suratKursor.hidden = true;
   suratLewati.hidden = true;
+}
+
+// Ketik satu karakter per jeda; berhenti agak lama di akhir paragraf.
+function ngetikSurat(i) {
+  // Ikut menggulir hanya bila pembaca belum menggulir sendiri ke atas.
+  const ikutBawah = suratKertas.scrollTop + suratKertas.clientHeight >= suratKertas.scrollHeight - 48;
+  suratIsi.textContent = teksSuratLengkap.slice(0, i);
+  if (ikutBawah) suratKertas.scrollTop = suratKertas.scrollHeight;
+  if (i >= teksSuratLengkap.length) {
+    tampilkanSuratLengkap();
+    return;
+  }
+  const akhirParagraf = teksSuratLengkap[i] === "\n" && teksSuratLengkap[i + 1] === "\n";
+  timerSurat = setTimeout(() => ngetikSurat(i + 1), DATA.suratKecepatanMs * (akhirParagraf ? 8 : 1));
 }
 
 // Ketik dari awal; timer lama dibatalkan dulu agar teks tidak dobel.
@@ -830,12 +844,7 @@ function mulaiKetikSurat() {
   }
   suratKursor.hidden = false;
   suratLewati.hidden = false;
-  let i = 0;
-  timerSurat = setInterval(() => {
-    i += 1;
-    suratIsi.textContent = teksSuratLengkap.slice(0, i);
-    if (i >= teksSuratLengkap.length) tampilkanSuratLengkap();
-  }, DATA.suratKecepatanMs);
+  ngetikSurat(0);
 }
 
 // Klik amplop: tutup terlipat dulu, lalu modal surat muncul dan mengetik.
@@ -857,7 +866,7 @@ amplop.addEventListener("click", () => {
       if (!suratModal.open) return;
       pindahkanKanvasConfetti(document.body);
     }, 1600);
-  }, mqGerakMinimal.matches ? 0 : 480);
+  }, mqGerakMinimal.matches ? 0 : 850); // biarkan kertas sempat keluar dari amplop
 });
 
 suratLewati.addEventListener("click", tampilkanSuratLengkap);
