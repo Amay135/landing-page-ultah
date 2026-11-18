@@ -866,7 +866,7 @@ amplop.addEventListener("click", () => {
       if (!suratModal.open) return;
       pindahkanKanvasConfetti(document.body);
     }, 1600);
-  }, mqGerakMinimal.matches ? 0 : 850); // biarkan kertas sempat keluar dari amplop
+  }, mqGerakMinimal.matches ? 0 : 1350); // segel 0.3s, tutup 0.55s, kertas 0.4-1.25s, lalu jeda
 });
 
 suratLewati.addEventListener("click", tampilkanSuratLengkap);

@@ -1043,7 +1043,10 @@ body.lightbox-terbuka { overflow: hidden; }
   filter: drop-shadow(0 14px 20px rgba(90, 62, 54, 0.22));
 }
 
-/* Lapisan amplop: belakang, surat di dalam, kantong depan, tutup, segel. */
+/* Susunan lapisan amplop, dari belakang ke depan:
+   badan (0) -> tutup saat terbuka (1) -> kertas surat (2)
+   -> kantong depan (3) -> tutup saat tertutup (4) -> segel (5).
+   Kertas harus di depan tutup yang sudah terbuka, tapi di belakang kantong depan. */
 .surat__badan,
 .surat__depan,
 .surat__tutup {
@@ -1052,6 +1055,7 @@ body.lightbox-terbuka { overflow: hidden; }
 }
 .surat__badan {
   inset: 0;
+  z-index: 0;
   border-radius: 12px;
   background: linear-gradient(160deg, #FFF9EF, #F3E2C9);
 }
@@ -1061,17 +1065,22 @@ body.lightbox-terbuka { overflow: hidden; }
   left: 7%;
   right: 7%;
   height: 84%;
+  z-index: 2;
   border-radius: 6px;
   background:
     repeating-linear-gradient(0deg, rgba(232, 184, 109, 0.1) 0 1px, transparent 1px 10px),
     #FFFDF7;
   box-shadow: 0 2px 6px rgba(90, 62, 54, 0.14);
-  transition: transform 0.9s ease;
+  transition: transform 0.6s ease; /* saat menutup: langsung turun tanpa jeda */
 }
-/* Kertas naik pelan keluar dari amplop sebelum modal surat muncul. */
-.surat--buka .surat__kertas { transform: translateY(-58%); }
+/* Kertas naik lewat mulut amplop, mulai setelah tutup amplop terbuka. */
+.surat--buka .surat__kertas {
+  transform: translateY(-100%);
+  transition: transform 0.85s cubic-bezier(0.25, 0.8, 0.35, 1) 0.4s;
+}
 .surat__depan {
   inset: 0;
+  z-index: 3;
   border-radius: 12px;
   background: linear-gradient(160deg, #E7B3BC, var(--pink-tua));
   clip-path: polygon(0 0, 50% 46%, 100% 0, 100% 100%, 0 100%);
@@ -1081,18 +1090,31 @@ body.lightbox-terbuka { overflow: hidden; }
   left: 0;
   right: 0;
   height: 46%;
+  z-index: 4;
   background: linear-gradient(180deg, #E3AEB7, #CB8B97);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: 50% 0;
-  transition: transform 0.55s ease;
+  transition: transform 0.55s ease; /* hanya untuk saat menutup; membuka pakai animasi */
 }
-.surat--buka .surat__tutup { transform: rotateX(180deg); }
+/* Tutup berputar lewat 90deg (saat itu tak terlihat), lalu pindah ke belakang kertas. */
+.surat--buka .surat__tutup {
+  transform: rotateX(180deg);
+  z-index: 1;
+  animation: suratTutupBuka 0.55s ease-in-out;
+}
+@keyframes suratTutupBuka {
+  0%   { transform: rotateX(0deg);  z-index: 4; }
+  49%  { transform: rotateX(88deg); z-index: 4; }
+  50%  { transform: rotateX(90deg); z-index: 1; }
+  100% { transform: rotateX(180deg); z-index: 1; }
+}
 
 /* Segel hati menutup ujung tutup amplop. */
 .surat__segel {
   position: absolute;
   top: 46%;
   left: 50%;
+  z-index: 5;
   display: grid;
   place-items: center;
   width: 52px;
@@ -1113,6 +1135,7 @@ body.lightbox-terbuka { overflow: hidden; }
   position: absolute;
   bottom: -18px;
   left: -14px;
+  z-index: 6; /* di atas semua lapisan amplop */
   width: 74px;
   height: auto;
   transform: rotate(-12deg);
@@ -1849,6 +1872,7 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   .surat__tutup,
   .surat__kertas,
   .surat__segel { transition: none; }
+  .surat--buka .surat__tutup { animation: none; }
   .hadiah__tutup-kado { transition: none; }
   .hadiah__isi--tampil { animation: none; }
   .timeline__daftar::before { transform: none; }
