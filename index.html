@@ -155,7 +155,8 @@
 
       <div class="kue__dalam">
         <div class="kue__panggung">
-          <svg id="kueSvg" class="kue__svg" viewBox="0 0 400 520" role="img" aria-label="Kue ulang tahun tiga tingkat">
+          <!-- viewBox dilebarkan agar 12 piring kecil muat mengelilingi kue -->
+          <svg id="kueSvg" class="kue__svg" viewBox="-88 -6 572 556" role="img" aria-label="Kue ulang tahun tiga tingkat">
             <defs>
               <linearGradient id="gradKue" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#FFF9F1"/>
@@ -406,29 +407,33 @@
               </g>
             </g>
 
-            <!-- Piring saji untuk potongan yang dibagikan -->
-            <g id="kue-piring" hidden>
-              <ellipse cx="344" cy="469" rx="45" ry="10" fill="#D9BFC9" opacity=".35"/>
-              <ellipse cx="344" cy="463" rx="41" ry="8" fill="url(#gradStand)" stroke="#E8B86D" stroke-width="1.5"/>
-              <ellipse cx="344" cy="459" rx="34" ry="6" fill="#FFFDF8"/>
-              <ellipse cx="344" cy="459" rx="29" ry="4.5" fill="none" stroke="#FFEBD5" stroke-width="4" stroke-dasharray="0.1 7" stroke-linecap="round"/>
-            </g>
-
-            <!-- Cetakan potongan: script.js menyalinnya sekali per potongan,
-                 jadi potongan lama tidak pernah ditimpa. -->
+            <!-- Cetakan potongan: script.js menyalinnya sekali per potongan.
+                 Tiap salinan punya piring sendiri dan irisan di atasnya; grup
+                 luar digeser ke slot radial oleh script, jadi tidak bertumpuk. -->
             <g id="kue-potongan" class="kue__potongan" hidden aria-hidden="true">
-              <ellipse cx="0" cy="47" rx="23" ry="5" fill="#D9BFC9" opacity=".4"/>
-              <path d="M-15 -14 Q0 -20 15 -14 L23 40 Q24 48 17 48 H-17 Q-24 48 -23 40 Z" fill="url(#gradPotongan)" stroke="#E9C9B6" stroke-width="1.5" stroke-linejoin="round"/>
-              <g clip-path="url(#klipPotongan)">
-                <rect x="-26" y="2" width="52" height="8" fill="#F9C9D2"/>
-                <rect x="-26" y="13" width="52" height="6" fill="#FFF7EC"/>
-                <rect x="-26" y="22" width="52" height="6" fill="#F4B6C2"/>
-                <rect x="-26" y="31" width="52" height="8" fill="#FFE3D2"/>
-                <rect x="-26" y="41" width="52" height="6" fill="#FFF7EC"/>
+              <!-- Piring kecil milik potongan ini -->
+              <g class="kue__piring-potongan">
+                <ellipse cx="0" cy="9" rx="34" ry="8" fill="#D9BFC9" opacity=".35"/>
+                <ellipse cx="0" cy="4" rx="32" ry="7" fill="url(#gradStand)" stroke="#E8B86D" stroke-width="1.4"/>
+                <ellipse cx="0" cy="1" rx="26" ry="5" fill="#FFFDF8"/>
+                <ellipse cx="0" cy="1" rx="21" ry="3.4" fill="none" stroke="#FFEBD5" stroke-width="3.5" stroke-dasharray="0.1 6" stroke-linecap="round"/>
               </g>
-              <path d="M-15 -14 Q0 -21 15 -14 Q9 -6 0 -6 Q-9 -6 -15 -14 Z" fill="#F9C9D2"/>
-              <circle cx="-6" cy="-11" r="1.4" fill="#FFF7EC" opacity=".9"/>
-              <circle cx="5" cy="-10" r="1.2" fill="#E8B86D" opacity=".9"/>
+              <!-- Irisan kue diletakkan di atas piring -->
+              <g class="kue__irisan">
+                <g transform="translate(0 -26) scale(.62)">
+                  <path d="M-15 -14 Q0 -20 15 -14 L23 40 Q24 48 17 48 H-17 Q-24 48 -23 40 Z" fill="url(#gradPotongan)" stroke="#E9C9B6" stroke-width="1.5" stroke-linejoin="round"/>
+                  <g clip-path="url(#klipPotongan)">
+                    <rect x="-26" y="2" width="52" height="8" fill="#F9C9D2"/>
+                    <rect x="-26" y="13" width="52" height="6" fill="#FFF7EC"/>
+                    <rect x="-26" y="22" width="52" height="6" fill="#F4B6C2"/>
+                    <rect x="-26" y="31" width="52" height="8" fill="#FFE3D2"/>
+                    <rect x="-26" y="41" width="52" height="6" fill="#FFF7EC"/>
+                  </g>
+                  <path d="M-15 -14 Q0 -21 15 -14 Q9 -6 0 -6 Q-9 -6 -15 -14 Z" fill="#F9C9D2"/>
+                  <circle cx="-6" cy="-11" r="1.4" fill="#FFF7EC" opacity=".9"/>
+                  <circle cx="5" cy="-10" r="1.2" fill="#E8B86D" opacity=".9"/>
+                </g>
+              </g>
             </g>
             <!-- Tiap potongan baru ditambahkan di sini, yang lama dibiarkan -->
             <g id="kue-potongan-wadah"></g>
@@ -455,6 +460,8 @@
               <circle cx="0" cy="0" r="2.2" fill="#FFF7EC" style="--rx:20px; --ry:14px; --delay:.03s"/>
               <rect x="-3" y="-1.5" width="6" height="3" rx="1.5" fill="#CDB4DB" style="--rx:-14px; --ry:12px; --delay:.06s"/>
               <circle cx="0" cy="0" r="1.6" fill="#E88FA0" style="--rx:8px; --ry:36px; --delay:.1s"/>
+              <circle cx="0" cy="0" r="2.8" fill="#FFF9F0" style="--rx:-6px; --ry:26px; --delay:.04s"/>
+              <circle cx="0" cy="0" r="2.2" fill="#FFF9F0" style="--rx:16px; --ry:20px; --delay:.07s"/>
             </g>
 
             <!-- Pisau: gagang emas dan bilah berkilap -->

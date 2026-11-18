@@ -67,8 +67,9 @@ Selesai jika:
 
 - Kue 3 tingkat pastel (krem, pink, peach, emas) dengan krim menetes, stroberi, taburan, dan lilin menyala. Sisi kanan kue menyusut secara visual setiap kali dipotong; kue digeser agar tetap di tengah alas dan lilin ikut mengecil mengikuti ruang tingkat atas.
 - Tombol "Tiup Lilin": api padam, asap kecil, confetti, teks "Make a wish".
-- Tombol "Potong Kue": pisau turun di tepi kue, garis potong tumbuh, lalu potongan terpisah dan terangkat.
-- Input "Potongan pertama untuk siapa?" dan tombol "Kasih": potongan melengkung ke piring, mengecil saat mendarat, lalu tersusun bertingkat agar tetap terlihat; mendarat dengan remah dan confetti, lalu tampil "Potongan pertama untuk [nama] ❤️".
+- Tombol "Potong Kue": pisau muncul dari atas, turun pelan, ujungnya menyentuh permukaan, menggergaji maju-mundur, menembus lapisan, lalu terangkat. Garis potong terlihat dan remah/krim kecil beterbangan di titik kontak.
+- Input "Potongan pertama untuk siapa?" dan tombol "Kasih": potongan terangkat, melengkung menuju piring kecilnya sendiri, mendarat dengan rotasi lembut dan confetti, lalu tampil "Potongan pertama untuk [nama] ❤️".
+- Tiap potongan punya satu piring kecil; piring tersusun radial mengelilingi kue dengan jarak dan sudut sendiri, jadi tidak ada yang bertumpuk.
 - Jika nama yang diketik mengandung nama saya (tidak peka huruf besar-kecil): pesan lucu "Jawaban paling benar!".
 - Tombol "Potong lagi 🔪🍰": potongan berikutnya untuk nama lain. Pesan penerima berikutnya "Satu potong kue untuk [nama] 💗". Tidak ada nomor urutan.
 - Daftar penerima berupa badge scrapbook berjajar ke kanan dan membungkus ke baris berikutnya bila nama sudah banyak.
@@ -78,9 +79,9 @@ Selesai jika:
 - [ ] Nama kosong ditolak dengan pesan ramah.
 - [ ] Nama maksimal 30 karakter, tampil aman (tanpa HTML).
 - [ ] Daftar penerima tampil sebagai badge yang membungkus ke baris berikutnya, tidak memotong nama, dan tidak membuat halaman bergeser ke samping.
-- [ ] Kue utama terlihat berkurang setiap potongan; tiap penerima mendapat tepat satu potongan; potongan lama tetap tersimpan di piring.
-- [ ] Potongan tersusun bertingkat di piring dan tidak saling menutupi sepenuhnya.
-- [ ] Animasi potong, terbang, dan mendarat berjalan mulus di HP serta menghormati `prefers-reduced-motion`.
+- [ ] Kue utama terlihat berkurang setiap potongan; tiap penerima mendapat tepat satu potongan; potongan lama tetap tersimpan di piringnya masing-masing.
+- [ ] Sepuluh sampai dua belas potongan berturut-turut menghasilkan piring berbeda yang tersusun melingkar dan tidak saling menutupi.
+- [ ] Animasi pisau (turun, sentuh, gergaji, tembus, angkat) lalu penyajian (piring scale/fade-in, potongan melengkung ke piring) berjalan berurutan dan mulus di HP serta menghormati `prefers-reduced-motion`.
 - [ ] Setelah batas geometri potong tercapai (tingkat atas tidak cukup untuk tiga lilin), muncul pesan penutup dan tidak ada potongan baru.
 
 ### F5. Galeri foto (polaroid)

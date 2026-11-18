@@ -59,15 +59,15 @@ Alur:
 
 1. Kue tampil dengan lilin menyala.
 2. Klik lilin atau tombol "Tiup": api padam, confetti meledak, muncul teks "Make a wish".
-3. Klik tombol "Potong": pisau turun di tepi kanan kue, garis potong tumbuh mengikuti pisau, potongan terpisah dan sedikit terangkat.
+3. Klik tombol "Potong": pisau muncul dari atas, turun pelan, ujungnya menyentuh permukaan, menggergaji maju-mundur, menembus lapisan, lalu terangkat. Garis potong tumbuh mengikuti pisau dan remah kecil beterbangan di titik kontak; potongan terpisah dan sedikit terangkat.
 4. Muncul input: "Potongan pertama untuk siapa?".
-5. Dia ketik nama, potongan melengkung ke piring, mendarat dengan remah dan confetti kecil.
+5. Dia ketik nama, piring kecil barunya muncul (scale + fade-in) di sekeliling kue, potongan melengkung ke piring itu, mendarat dengan rotasi lembut dan confetti kecil.
 6. Tampil teks: "Potongan pertama untuk [Nama] ❤️", badge penerima di baris horizontal.
 7. Pesan kejutan jika nama sama dengan nama kamu: "Jawaban paling benar!".
 8. Tombol "Potong lagi 🔪🍰" untuk potongan berikutnya; pesan berikutnya "Satu potong kue untuk [Nama] 💗", tanpa nomor urutan.
-9. Tiap potongan menyusutkan sisi kanan kue; kue digeser agar tetap di tengah dan lilin mengecil mengikuti ruang tingkat atas. Kue bisa dipotong terus selama tingkat atas masih cukup lebar untuk tiga lilin, dan setiap potongan tersusun bertingkat di piring. Setelah batas geometri tercapai, muncul pesan penutup manis dan interaksi berhenti dengan rapi.
+9. Tiap potongan menyusutkan sisi kanan kue; kue digeser agar tetap di tengah dan lilin mengecil mengikuti ruang tingkat atas. Kue bisa dipotong terus selama tingkat atas masih cukup lebar untuk tiga lilin, dan setiap potongan mendapat piring kecil sendiri yang tersusun melingkar mengelilingi kue (pola radial, jarak konsisten dari pusat). Setelah batas geometri tercapai, muncul pesan penutup manis dan interaksi berhenti dengan rapi.
 
-Teknis: kue digambar dengan SVG; mask memotong sisi kanan kue tiap potongan, potongan adalah elemen terpisah yang tetap tersimpan di piring, dan badge penerima mengalir kiri ke kanan lalu membungkus ke baris berikutnya di HP.
+Teknis: kue digambar dengan SVG; mask memotong sisi kanan kue tiap potongan, tiap potongan adalah elemen terpisah berisi piring + irisan yang ditempatkan di slot radial (sin/cos) dan tetap tersimpan, dan badge penerima mengalir kiri ke kanan lalu membungkus ke baris berikutnya di HP.
 
 ### 3.4 Galeri foto
 

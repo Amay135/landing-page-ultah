@@ -134,7 +134,7 @@ const tombolKasih = document.getElementById("tombolKasih");
 const tombolPotongLagi = document.getElementById("tombolPotongLagi");
 const templatePotongan = document.getElementById("kue-potongan");
 const wadahPotongan = document.getElementById("kue-potongan-wadah");
-const piringKue = document.getElementById("kue-piring");
+const remahKue = kueSvg.querySelector(".kue__remah");
 const penerimaTeks = document.getElementById("kuePenerimaTeks");
 const penerimaLucu = document.getElementById("kueLucu");
 const daftarPenerima = document.getElementById("kuePenerimaDaftar");
@@ -197,9 +197,21 @@ const TEPI_KANAN_KUE = 335;
 const TEPI_TINGKAT = [335, 302, 269]; // tepi kanan tingkat bawah, tengah, atas
 const TEPI_ATAS_KIRI = 121;
 const LEBAR_ATAS_MIN = 46; // ruang minimum tingkat atas untuk tiga lilin
-const jedaPisau = mqGerakMinimal.matches ? 0 : 780;
-const jedaKartu = mqGerakMinimal.matches ? 0 : 1150;
-const durasiSajian = mqGerakMinimal.matches ? 0 : 1100;
+const jedaPisau = mqGerakMinimal.matches ? 0 : 1050;
+const jedaKartu = mqGerakMinimal.matches ? 0 : 1300;
+const durasiSajian = mqGerakMinimal.matches ? 0 : 1200;
+
+// Tiap potongan mendapat piring sendiri di lingkaran sekeliling pusat kue.
+// Slot dilangkahi 5 dari 12 agar piring tetap menyebar rata di jumlah berapa pun.
+const PIRING = { pusatX: 195, pusatY: 285, radius: 252, slot: 12 };
+function posisiPiring(i) {
+  const slot = (i * 5) % PIRING.slot;
+  const sudut = ((45 + slot * (360 / PIRING.slot)) * Math.PI) / 180;
+  return {
+    x: PIRING.pusatX + PIRING.radius * Math.cos(sudut),
+    y: PIRING.pusatY + PIRING.radius * Math.sin(sudut),
+  };
+}
 
 const garisPotong = document.getElementById("kue-garis-potong");
 const sisaKueNotch = document.getElementById("kueSisaNotch");
@@ -296,29 +308,26 @@ function mulaiPotong() {
   garisPotong.setAttribute("x1", tepi);
   garisPotong.setAttribute("x2", tepi);
 
-  // Salin cetakan: tiap potongan jadi elemen unik, potongan lama tidak disentuh.
+  // Salin cetakan: tiap potongan jadi elemen unik dengan piring sendiri.
+  // Grup luar ditempatkan di slot radial; irisan mulai dari tepi potongan.
   const irisan = templatePotongan.cloneNode(true);
   irisan.removeAttribute("id");
   irisan.removeAttribute("hidden");
   irisan.dataset.id = String(++idPotongan);
   const tumpuk = daftarPotongan.length;
-  // Dua baris x enam kolom, diisi dari tengah ke tepi. Baris depan digeser
-  // setengah kolom dan diturunkan, jadi tiap potongan tetap terlihat utuh.
-  const urutanKolom = [2, 3, 1, 4, 0, 5];
-  const goyang = [1.5, -1, 2, -2, 0.5, -1.5]; // variasi kecil agar tidak kaku
-  const baris = Math.floor(tumpuk / 6) % 2;
-  const kolom = urutanKolom[tumpuk % 6];
-  irisan.style.setProperty("--mulai-x", tepi + 24 + "px");
-  irisan.style.setProperty("--mulai-y", "318px");
-  irisan.style.setProperty("--tumpuk-x", (kolom - 2.5) * 12 + baris * 6 - 3 + "px");
-  irisan.style.setProperty("--tumpuk-y", 414 + baris * 15 + "px");
-  irisan.style.setProperty("--tumpuk-r", (kolom - 2.5) * 4 + baris * 3 + goyang[tumpuk % 6] + "deg");
-  irisan.style.setProperty("--tumpuk-s", "0.62");
+  const piring = posisiPiring(tumpuk);
+  const dariX = tepi + 22 - piring.x;
+  const dariY = 349 - piring.y; // pusat irisan di tepi potongan dulu
+  irisan.setAttribute("transform", `translate(${piring.x.toFixed(1)} ${piring.y.toFixed(1)})`);
+  irisan.style.setProperty("--dari-x", dariX.toFixed(1) + "px");
+  irisan.style.setProperty("--dari-y", dariY.toFixed(1) + "px");
+  irisan.style.setProperty("--angkat-x", (dariX * 0.92).toFixed(1) + "px");
+  irisan.style.setProperty("--angkat-y", (dariY - 34).toFixed(1) + "px");
+  irisan.style.setProperty("--tengah-x", (dariX * 0.42).toFixed(1) + "px");
+  irisan.style.setProperty("--tengah-y", (dariY * 0.42 - 46).toFixed(1) + "px");
   wadahPotongan.appendChild(irisan);
-  const potongan = { id: idPotongan, elemen: irisan, nama: "" };
+  const potongan = { id: idPotongan, elemen: irisan, nama: "", piring };
   daftarPotongan.push(potongan);
-
-  piringKue.removeAttribute("hidden");
 
   // Ulang animasi pisau dan serpihan dari awal.
   kue.classList.remove("kue--mendarat", "kue--potong");
@@ -356,8 +365,7 @@ formPotongan.addEventListener("submit", (e) => {
   potongan.nama = nama;
   sedangMenyajikan = true;
   kartuPotongan.hidden = true;
-  potongan.elemen.classList.remove("kue__potongan--tampil");
-  potongan.elemen.classList.add("kue__potongan--piring");
+  potongan.elemen.classList.add("kue__potongan--sajikan");
 
   // Setelah potongan mendarat: pesan, badge penerima, remah, confetti di piring.
   timerSajian = setTimeout(() => {
@@ -381,8 +389,10 @@ formPotongan.addEventListener("submit", (e) => {
     daftarPenerima.appendChild(badge);
     daftarPenerima.hidden = false;
 
-    // Piring sudah tampil (atribut hidden dilepas), jadi rect berisi posisi nyata.
-    const kotakPiring = piringKue.getBoundingClientRect();
+    // Remah dan ledakan mengikuti piring milik potongan ini.
+    remahKue.style.transform =
+      `translate(${potongan.piring.x - 344}px, ${potongan.piring.y - 452}px)`;
+    const kotakPiring = potongan.elemen.getBoundingClientRect();
     burst(kotakPiring.left + kotakPiring.width / 2, kotakPiring.top + kotakPiring.height / 2, 40);
     kue.classList.add("kue--mendarat");
 
@@ -1154,9 +1164,9 @@ function resetKue() {
   harapanKue.textContent = "";
   harapanKue.classList.remove("kue__harapan--tampil");
   kartuPotongan.hidden = true;
-  // Elemen SVG: sembunyikan lewat atribut, bukan properti .hidden.
-  piringKue.setAttribute("hidden", "");
-  wadahPotongan.textContent = ""; // buang semua potongan yang pernah dibuat
+  // Elemen SVG: buang semua potongan beserta piringnya.
+  remahKue.style.removeProperty("transform");
+  wadahPotongan.textContent = "";
   penerimaTeks.textContent = "";
   penerimaLucu.textContent = "";
   kueHabis.textContent = "";
