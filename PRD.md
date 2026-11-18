@@ -188,14 +188,20 @@ Selesai jika:
 
 ### F14. Sparkle saat disentuh (global)
 
-- Tiap tap di HP atau klik kursor memicu ledakan partikel kecil (bintang dan titik) berwarna emas `#E8B86D` dan pink `#F4B6C2` tepat di titik sentuh.
-- 8-12 partikel, menyebar sedikit, memudar, dan jatuh ke bawah dalam sekitar 1 detik.
-- Tidak memblokir klik atau scroll, berlaku di semua section termasuk di atas tombol.
+- Tiap tap di HP atau klik kursor memicu ledakan partikel kecil tepat di titik sentuh: 8-12 partikel berbentuk **hati**, **bintang**, dan **titik cahaya**, berwarna emas `#E8B86D` dan pink `#F4B6C2` dengan glow lembut.
+- Animasi: partikel muncul dari titik sentuh, **naik sedikit**, menyebar ke beberapa arah, lalu jatuh sambil memudar. Durasi 0,85-1,05 detik, lalu elemennya dihapus.
+- Interaksi memakai event pointer (mouse dan sentuhan sekaligus, satu efek per sentuhan). Gerakan lebih dari 10px dianggap scroll, sehingga tidak memunculkan sparkle.
+- Maksimal 30 partikel aktif sekaligus. Lapisan sparkle memakai `pointer-events: none`, jadi tidak memblokir klik atau scroll.
+- Berlaku di semua section, termasuk gate pembuka, tombol, foto, kue, surat, hadiah, dan dialog.
+- Mati total bila `prefers-reduced-motion` aktif.
 
 Selesai jika:
 - [ ] Sparkle muncul tepat di titik sentuh.
-- [ ] Hilang dalam sekitar 1 detik.
+- [ ] Hilang dalam sekitar 1 detik (0,85-1,05 detik).
 - [ ] Tidak menghambat scroll atau klik tombol.
+- [ ] Tidak muncul saat menggeser layar untuk scroll.
+- [ ] Maksimal 30 partikel aktif dan tidak ada elemen tersisa setelah animasi.
+- [ ] Mati saat `prefers-reduced-motion` aktif.
 
 ### F15. Interaksi lucu tambahan
 

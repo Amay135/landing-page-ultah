@@ -1696,7 +1696,7 @@ body.lampion-terbuka { overflow: hidden; }
   width: var(--ukuran);
   height: var(--ukuran);
   background: var(--warna);
-  filter: drop-shadow(0 0 4px var(--warna)); /* glow lembut */
+  filter: drop-shadow(0 0 3px var(--warna)) drop-shadow(0 0 9px var(--warna)); /* glow pink/emas lembut */
   animation: sparkle-mekar var(--dur) ease-out forwards;
 }
 .sparkle__partikel--bintang {
@@ -1708,12 +1708,12 @@ body.lampion-terbuka { overflow: hidden; }
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C8 18 2 13.5 2 8.5 2 5.4 4.4 3 7.5 3c1.9 0 3.4 1 4.5 2.6C13.1 4 14.6 3 16.5 3 19.6 3 22 5.4 22 8.5c0 5-6 9.5-10 12.5z'/%3E%3C/svg%3E") center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C8 18 2 13.5 2 8.5 2 5.4 4.4 3 7.5 3c1.9 0 3.4 1 4.5 2.6C13.1 4 14.6 3 16.5 3 19.6 3 22 5.4 22 8.5c0 5-6 9.5-10 12.5z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
-/* Naik sedikit dulu, lalu menyebar dan jatuh sambil memudar. */
+/* Ledakan kecil di titik sentuh, menyebar radial, sedikit berputar, lalu memudar. */
 @keyframes sparkle-mekar {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
-  20% { opacity: 1; transform: translate(calc(-50% + var(--dx) * 0.4), calc(-50% + var(--dy) * -0.6)) scale(1); }
-  60% { opacity: 0.8; transform: translate(calc(-50% + var(--dx) * 0.8), calc(-50% + var(--dy) * 0.3)) scale(0.9) rotate(calc(var(--rot) * 0.5)); }
-  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.3) rotate(var(--rot)); }
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+  18% { opacity: 1; transform: translate(calc(-50% + var(--dx) * 0.25), calc(-50% + var(--dy) * 0.25)) scale(1.15) rotate(calc(var(--rot) * 0.2)); }
+  55% { opacity: 0.9; transform: translate(calc(-50% + var(--dx) * 0.75), calc(-50% + var(--dy) * 0.75)) scale(1) rotate(calc(var(--rot) * 0.6)); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.45) rotate(var(--rot)); }
 }
 
 /* --- 21. Maskot dan pesan rahasia (F15) --- */

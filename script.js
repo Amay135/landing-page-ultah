@@ -1548,6 +1548,8 @@ const lapisanSparkle = document.getElementById("sparkle");
 const BATAS_SPARKLE = 30;
 const WARNA_SPARKLE = ["#E8B86D", "#F4B6C2"];
 const BENTUK_SPARKLE = ["bintang", "hati", "titik"];
+// Ukuran per bentuk (px): hati 12-18, bintang 14-22, titik 3-7.
+const UKURAN_SPARKLE = { hati: [12, 18], bintang: [14, 22], titik: [3, 7] };
 
 // Simpan titik pointerdown untuk membedakan tap dari geser (scroll) di pointerup.
 let titikTekan = null;
@@ -1569,21 +1571,24 @@ document.addEventListener("pointerup", (e) => {
 
   const sisa = BATAS_SPARKLE - lapisanSparkle.childElementCount;
   if (sisa <= 0) return;
-  const jumlah = Math.min(Math.floor(acak(8, 13)), sisa);
+  const jumlah = Math.min(Math.floor(acak(14, 21)), sisa);
   for (let i = 0; i < jumlah; i++) {
     const partikel = document.createElement("span");
     const bentuk = BENTUK_SPARKLE[Math.floor(Math.random() * BENTUK_SPARKLE.length)];
     partikel.className = "sparkle__partikel sparkle__partikel--" + bentuk;
     partikel.style.left = e.clientX + "px";
     partikel.style.top = e.clientY + "px";
-    partikel.style.setProperty("--dx", acak(-38, 38).toFixed(0) + "px");
-    partikel.style.setProperty("--dy", acak(22, 55).toFixed(0) + "px");
-    partikel.style.setProperty("--rot", acak(-140, 140).toFixed(0) + "deg");
-    partikel.style.setProperty("--dur", acak(0.85, 1.05).toFixed(2) + "s");
-    partikel.style.setProperty("--ukuran", acak(4, 10).toFixed(1) + "px");
+    // Sebar radial ke segala arah, jarak bervariasi.
+    const sudut = Math.random() * Math.PI * 2;
+    const jarak = acak(34, 90);
+    partikel.style.setProperty("--dx", (Math.cos(sudut) * jarak).toFixed(0) + "px");
+    partikel.style.setProperty("--dy", (Math.sin(sudut) * jarak).toFixed(0) + "px");
+    partikel.style.setProperty("--rot", acak(-90, 90).toFixed(0) + "deg");
+    partikel.style.setProperty("--dur", acak(0.9, 1.2).toFixed(2) + "s");
+    partikel.style.setProperty("--ukuran", acak(UKURAN_SPARKLE[bentuk][0], UKURAN_SPARKLE[bentuk][1]).toFixed(1) + "px");
     partikel.style.setProperty("--warna", WARNA_SPARKLE[i % 2]);
     // Timeout juga membersihkan partikel bila animationend tidak sempat jalan (dialog ditutup saat animasi).
-    setTimeout(() => partikel.remove(), 1200);
+    setTimeout(() => partikel.remove(), 1300);
     lapisanSparkle.append(partikel);
   }
 }, { passive: true });
