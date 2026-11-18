@@ -1547,10 +1547,20 @@ if (!mqGerakMinimal.matches) {
 const lapisanSparkle = document.getElementById("sparkle");
 const BATAS_SPARKLE = 30;
 const WARNA_SPARKLE = ["#E8B86D", "#F4B6C2"];
+const BENTUK_SPARKLE = ["bintang", "hati", "titik"];
+
+// Simpan titik pointerdown untuk membedakan tap dari geser (scroll) di pointerup.
+let titikTekan = null;
+document.addEventListener("pointerdown", (e) => {
+  titikTekan = e.isPrimary ? { x: e.clientX, y: e.clientY } : null;
+}, { passive: true });
 
 document.addEventListener("pointerup", (e) => {
-  if (mqGerakMinimal.matches) return;
+  const mulai = titikTekan;
+  titikTekan = null;
+  if (!mulai || !e.isPrimary || mqGerakMinimal.matches) return;
   if (e.pointerType === "mouse" && e.button !== 0) return; // klik kiri saja
+  if (Math.hypot(e.clientX - mulai.x, e.clientY - mulai.y) > 10) return; // geser = scroll, bukan tap
 
   // <dialog> modal ada di top layer: pindahkan lapisan sparkle ke dalamnya agar tetap terlihat.
   const dialogTerbuka = document.querySelector("dialog[open]");
@@ -1562,16 +1572,18 @@ document.addEventListener("pointerup", (e) => {
   const jumlah = Math.min(Math.floor(acak(8, 13)), sisa);
   for (let i = 0; i < jumlah; i++) {
     const partikel = document.createElement("span");
-    partikel.className = "sparkle__partikel sparkle__partikel--" + (Math.random() < 0.4 ? "bintang" : "titik");
+    const bentuk = BENTUK_SPARKLE[Math.floor(Math.random() * BENTUK_SPARKLE.length)];
+    partikel.className = "sparkle__partikel sparkle__partikel--" + bentuk;
     partikel.style.left = e.clientX + "px";
     partikel.style.top = e.clientY + "px";
-    partikel.style.setProperty("--dx", acak(-34, 34).toFixed(0) + "px");
-    partikel.style.setProperty("--dy", acak(18, 54).toFixed(0) + "px");
-    partikel.style.setProperty("--rot", acak(-160, 160).toFixed(0) + "deg");
-    partikel.style.setProperty("--dur", acak(0.8, 1.1).toFixed(2) + "s");
+    partikel.style.setProperty("--dx", acak(-38, 38).toFixed(0) + "px");
+    partikel.style.setProperty("--dy", acak(22, 55).toFixed(0) + "px");
+    partikel.style.setProperty("--rot", acak(-140, 140).toFixed(0) + "deg");
+    partikel.style.setProperty("--dur", acak(0.85, 1.05).toFixed(2) + "s");
     partikel.style.setProperty("--ukuran", acak(4, 10).toFixed(1) + "px");
     partikel.style.setProperty("--warna", WARNA_SPARKLE[i % 2]);
-    partikel.addEventListener("animationend", () => partikel.remove(), { once: true });
+    // Timeout juga membersihkan partikel bila animationend tidak sempat jalan (dialog ditutup saat animasi).
+    setTimeout(() => partikel.remove(), 1200);
     lapisanSparkle.append(partikel);
   }
 }, { passive: true });
