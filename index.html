@@ -75,6 +75,10 @@
   <!-- Sparkle saat tap/klik (F14): di atas konten, tidak menangkap klik -->
   <div id="sparkle" class="sparkle" aria-hidden="true"></div>
 
+  <!-- Toast easter egg hati (F15): di level body, bukan di dalam footer,
+       supaya tidak terpengaruh stacking context atau inert footer. -->
+  <p id="toastHati" class="toast" role="status" aria-live="polite"></p>
+
   <main>
     <!-- Hero (F2) -->
     <section id="hero" class="bagian hero">
@@ -707,7 +711,6 @@
     </div>
     <!-- Easter egg hati (F15): klik memunculkan toast di atas layar -->
     <button id="hati" class="hati" type="button">💖</button>
-    <p id="toastHati" class="toast" role="status" aria-live="polite"></p>
   </footer>
 
   <!-- Lightbox galeri (F5): Esc dan backdrop menutup lewat <dialog> -->

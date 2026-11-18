@@ -1808,8 +1808,9 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
 }
 .hati:hover,
 .hati:focus-visible { opacity: 0.9; transform: scale(1.15); }
-/* Sembunyikan saat bar WhatsApp tampil agar tidak bertumpuk (sama seperti maskot). */
-body.wa-tampil .hati { opacity: 0; pointer-events: none; }
+/* Saat bar WhatsApp tampil, angkat hati agar tidak menimpa teks footer.
+   shortcut: 172px cukup untuk bar setinggi 2 baris di 360px; ukur ulang bila teks footer lebih panjang. */
+body.wa-tampil .hati { bottom: calc(172px + env(safe-area-inset-bottom)); }
 
 /* Toast hati: di atas layar, tidak menangkap klik, dan tidak menggeser tata letak.
    top 64px sengaja memberi ruang untuk tombol mute di pojok kanan atas. */
