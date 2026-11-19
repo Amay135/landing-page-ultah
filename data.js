@@ -1,35 +1,35 @@
-// data.js - semua isi personal. Ganti nilai bertanda [CONTOH] dengan data asli.
+// data.js - semua isi personal. Ganti nilai di sini, jangan di HTML/script.
 // Penjelasan tiap bagian ada di konten.md.
 
 const DATA = {
   // 1. Data dasar
-  namaDia: "[CONTOH] Sayang",
-  namaLengkapDia: "[CONTOH] Nama Lengkap",
-  namaSaya: "[CONTOH] Aku",
-  tanggalUlangTahun: "2000-11-10", // [CONTOH]
-  tanggalJadian: "2023-02-14", // [CONTOH]
-  kataSandi: "14022023", // [CONTOH] kosongkan ("") untuk mematikan sandi
-  petunjukSandi: "[CONTOH] Tanggal pertama kita ketemu",
+  namaDia: "Sayang",
+  namaLengkapDia: "",
+  namaSaya: "Aku", // dipakai untuk tebak-tebakan "potongan kue untuk siapa"
+  tanggalUlangTahun: "", // opsional, tidak dipakai di halaman
+  tanggalJadian: "2026-05-28",
+  kataSandi: "14022023", // kosongkan ("") untuk mematikan sandi
+  petunjukSandi: "Tanggal Valentine tahun 2023, tanpa spasi 😉",
 
   // 2. WhatsApp (tombol pelukan)
   nomorWA: "6285748631950", // format internasional tanpa + dan tanpa spasi
-  pesanWA: "Sayang mau pelukan 🤗❤️",
+  pesanWA: "Aku udah lihat semuanya 🥹 Ini pelukan balik buat kamu 🤗❤️",
   waTombol: "Kirim Pelukan Balik ke Kamu 🤗",
 
   // 3. Gate
-  gateTeks: "Ada kejutan buat kamu...",
-  gateTombol: "Buka",
-  pesanSandiSalah: "Hmm, kayaknya belum tepat. Coba lagi ya.",
+  gateTeks: "Psst... ada kejutan buat kamu 👀",
+  gateTombol: "Buka Kejutannya",
+  pesanSandiSalah: "Hmm, belum tepat. Coba lagi ya 😅",
 
   // 4. Hero
   heroJudul: "Selamat Ulang Tahun",
-  heroAtas: "[CONTOH] Hari ini spesial banget",
-  heroSubteks: "[CONTOH] Satu tahun lagi bersama kamu adalah hadiah terbaik buatku",
-  heroPanah: "scroll ke bawah",
-  pesanRahasia: "[CONTOH] Kamu masih klik-klik aja ya. Aku sayang kamu, selalu.",
+  heroAtas: "Dari satu server Roblox, sampai sejauh ini",
+  heroSubteks: "Halaman ini khusus buat kamu player favoritku, alasan aku betah online sampai lupa waktu.",
+  heroPanah: "geser ke bawah",
+  pesanRahasia: "Masih aja diklik. Padahal dari tadi aku udah bilang: aku sayang kamu. Ya udah, sekali lagi — aku sayang kamu, banyak-banyak.",
 
   // 5. Kue
-  kueTulisan: "Happy Birthday, [CONTOH] Sayang",
+  kueTulisan: "Happy Birthday, Sayang",
   kueLabelTiup: "Tiup Lilin",
   kueLabelPotong: "Potong Kue",
   kueLabelPotongLagi: "Potong lagi 🔪🍰",
@@ -41,10 +41,10 @@ const DATA = {
   kueTanyaPenerimaLagi: "Potongan kue untuk siapa lagi?",
   kueTeksPenerima: "Potongan pertama untuk {nama} ❤️",
   kueTeksPenerimaLagi: "Satu potong kue untuk {nama} 💗",
-  kueHabisTeks: "Kuenya sudah habis dibagi, tapi sayangku buat kamu nggak akan habis 🤍",
+  kueHabisTeks: "Kuenya habis dibagi, tapi sayangku ke kamu nggak ada tombol 'habis'-nya 🤍",
   kuePesanNamaKosong: "Nama penerimanya diisi dulu ya 🥺",
   kueDaftarAria: "Daftar penerima potongan kue",
-  potonganLucuTeks: "Jawaban paling benar!",
+  potonganLucuTeks: "Jawaban paling benar! 🏆",
 
   // 6. Foto galeri (12 foto). Caption dan tanggal dibiarkan kosong sampai
   // teks asli diberikan; galeri menyembunyikan baris yang kosong.
@@ -63,54 +63,54 @@ const DATA = {
     { src: "assets/foto/12.webp", caption: "", tanggal: "" },
   ],
 
-  // 7. Timeline kisah kita
+  // 7. Timeline kisah kita (5 momen, urut dari yang paling awal)
   timeline: [
     {
-      tanggal: "2023-01-10",
-      judul: "[CONTOH] Pertama kali ketemu",
-      teks: "[CONTOH] Di tempat itu, tanpa rencana apa-apa.",
+      tanggal: "2026-05-15",
+      judul: "Ketemu di Roblox",
+      teks: "Awalnya cuma satu server, satu lobi, satu chat receh. Nggak ada yang nyangka obrolan iseng itu jadi awal dari semuanya.",
       foto: "",
     },
     {
-      tanggal: "2023-02-14",
-      judul: "[CONTOH] Jadian",
-      teks: "[CONTOH] Akhirnya berani bilang, dan kamu bilang iya.",
+      tanggal: "2026-05-17",
+      judul: "Tukar Discord",
+      teks: "Dua hari kemudian kita naik level: dari chat game ke DM. Sejak itu notifikasi Discord jadi hal yang paling aku tunggu tiap hari.",
       foto: "",
     },
     {
-      tanggal: "2023-03-01",
-      judul: "[CONTOH] Kencan pertama",
-      teks: "[CONTOH] Gugup yang manis, sampai lupa waktu.",
+      tanggal: "2026-05-28",
+      judul: "Jadian (akhirnya!)",
+      teks: "Dua orang yang cuma kenal dari layar akhirnya bilang 'iya'. Nggak ada kembang api, tapi rasanya kayak menang jackpot.",
       foto: "",
     },
     {
-      tanggal: "2023-12-24",
-      judul: "[CONTOH] Malam paling lucu",
-      teks: "[CONTOH] Ceritanya cuma ke salah jalan, jadinya kenangan.",
+      tanggal: "Juni 2026",
+      judul: "Mulai Saling Cerita",
+      teks: "Dari yang awalnya bahas game, pelan-pelan jadi bahas hari, mimpi, dan hal-hal yang nggak pernah aku ceritain ke siapa-siapa.",
       foto: "",
     },
     {
-      tanggal: "2025-06-01",
-      judul: "[CONTOH] Trip pertama",
-      teks: "[CONTOH] Dua orang, satu ransel, banyak tawa.",
+      tanggal: "2026-11-18",
+      judul: "Tukar Akun Roblox",
+      teks: "Ini level kepercayaan paling tinggi versi kita. Akun Roblox, lengkap dengan history konyolnya. Kalau bukan karena sayang, mana mungkin.",
       foto: "",
     },
   ],
 
   // 8. Counter kebersamaan ("{hari}" diganti jumlah hari)
-  counterTeks: "Sudah {hari} hari kita bersama",
-  counterBawah: "[CONTOH] Dan aku mau menambah hitungan ini terus",
+  counterTeks: "Sudah {hari} hari sejak kamu bilang iya",
+  counterBawah: "Dan tiap harinya masih kerasa kayak hari pertama.",
 
-  // 9. Alasan aku sayang kamu
+  // 9. Alasan aku sayang kamu (tiap teks dibuka di balik kartu)
   alasan: [
-    "[CONTOH] Caramu ketawa selalu bikin hariku lebih ringan.",
-    "[CONTOH] Kamu selalu ingat hal-hal kecil yang aku ceritakan.",
-    "[CONTOH] Kamu tahu kapan aku cuma butuh didengar.",
-    "[CONTOH] Kamu berani jadi diri sendiri di depanku.",
-    "[CONTOH] Cara kamu peduli tanpa minta imbalan.",
-    "[CONTOH] Kita bisa diam bareng tanpa canggung.",
-    "[CONTOH] Kamu selalu bilang hal jujur, walau susah.",
-    "[CONTOH] Karena kamu, hal biasa terasa istimewa.",
+    "Kamu player favoritku. Dari semua orang di server, cuma username kamu yang aku cari.",
+    "Notifikasi darimu selalu kutunggu termasuk yang isinya cuma stiker random.",
+    "Cerita randommu nggak pernah membosankan. Kucing tetangga pun jadi seru kalau kamu yang cerita.",
+    "Jarak bukan alasan. Kita belum pernah ketemu, tapi kamu udah jadi orang yang paling dekat.",
+    "Hari biasa jadi istimewa. Nggak perlu event atau update besar cukup chat kamu, hariku langsung bagus.",
+    "Kamu tempat aku cerita dan ngeluh. Dengerin keluhan recehku tanpa sekali pun bilang 'lebay'.",
+    "Partner virtual sekaligus partner hati. Di game kita satu tim, di luar game kita satu cerita.",
+    "Suatu hari nanti aku mau ketemu kamu beneran. Sampai hari itu, slot itu aku simpan buat kamu.",
   ],
 
   // 10. Surat cinta
@@ -118,19 +118,19 @@ const DATA = {
   suratLabelLewati: "Lewati",
   suratLabelTutup: "Tutup surat",
   suratKecepatanMs: 48, // jeda efek ketik per karakter (40-60 ms)
-  salamSurat: "[CONTOH] Untuk Sayang, cintaku,",
+  salamSurat: "Untuk Sayang,",
   teksSurat: [
-    "[CONTOH] Selamat ulang tahun, sayang. Hari ini aku mau kamu tahu betapa bersyukurnya aku kamu ada di hidupku.",
-    "[CONTOH] Masih ingat pertama kali kita ngobrol? Aku nggak nyangka obrolan biasa itu jadi awal dari semua ini.",
-    "[CONTOH] Terima kasih sudah sabar, sudah mengerti, dan sudah jadi tempat pulang paling nyaman.",
-    "[CONTOH] Semoga tahun ini baik sama kamu, dan semoga kita masih terus bersama di tahun-tahun berikutnya.",
+    "Selamat ulang tahun, sayang. Aku masih inget hari pertama kita ketemu di Roblox: satu server, satu chat, dan obrolan receh yang nggak ada rencananya. Waktu itu aku nggak tahu kalau username itu bakal jadi orang paling penting di hidupku.",
+    "Terus kita tukar Discord, lanjut ngobrol sampai lupa waktu. Tanggal 28 Mei kamu bilang iya, dan sejak itu dunia online rasanya beda aja. Dari yang awalnya cuma teman main, sekarang resmi jadi dua orang yang saling memiliki. Plot twist terbaik yang nggak pernah aku rencanakan. Makasih ya udah dengerin cerita-ceritaku, dari yang serius sampai yang nggak penting banget.",
+    "Aku tahu kita belum pernah ketemu langsung. Belum bisa jalan bareng, belum bisa pegangan tangan. Tapi buat aku kamu udah nyata — lebih nyata dari apa pun yang ada di layar ini.",
+    "Suatu hari nanti, kalau waktunya dateng, aku mau ketemu kamu beneran. Sampai hari itu tiba, aku bakal tetap ada di sini, di chat yang sama.",
   ].join("\n\n"),
-  penutupSurat: "Dengan cinta,",
-  tandaTangan: "[CONTOH] Aku",
+  penutupSurat: "Dengan sayang,",
+  tandaTangan: "Aku",
 
   // 11. Lampion harapan
-  judulLampion: "Lepaskan Lampion Harapan Ini",
-  lampionKeterangan: "Sentuh lampionnya untuk menulis harapanmu",
+  judulLampion: "Lepaskan Harapanmu ke Langit",
+  lampionKeterangan: "Sentuh lampionnya, tulis harapanmu buat kita ✨",
   lampionPlaceholder: "Tulis harapanmu di sini...",
   lampionLabelLepas: "Lepaskan Lampion 🏮",
   lampionLabelLain: "Tulis harapan lain",
@@ -138,45 +138,45 @@ const DATA = {
   lampionPesanKosong: "Harapannya masih kosong, tulis dulu ya 🥺",
   lampionTerbangTeks: "Harapanmu sudah terbang ke langit ✨",
   harapan: [
-    "[CONTOH] Semoga kamu selalu sehat dan bahagia.",
-    "[CONTOH] Semoga semua impianmu pelan-pelan tercapai.",
-    "[CONTOH] Semoga kita selalu punya alasan untuk pulang ke satu sama lain.",
+    "Semoga koneksi kita nggak pernah lemot. Kalau pun lemot, cukup internetnya — bukan perasaannya.",
+    "Semoga kamu sehat terus, bahagia, dan rezekinya lancar. Aku ikut senang tiap kamu cerita hal baik.",
+    "Semoga suatu hari kita ketemu langsung, dan nggak perlu bilang 'dadah' lewat chat lagi.",
   ],
 
   // 12. Hadiah penutup
-  hadiahJudul: "Satu hadiah lagi buat kamu",
-  hadiahKet: "Sentuh kadonya untuk membuka",
+  hadiahJudul: "Satu hadiah terakhir (beneran)",
+  hadiahKet: "Sentuh kadonya — isinya bukan barang, tapi janji 😌",
   hadiahAriaBuka: "Buka kotak hadiah",
   hadiahBerlakuLabel: "Berlaku:",
   hadiahLabelMainLagi: "Mainkan lagi",
   isiHadiah: {
-    jenis: "[CONTOH] voucher kencan",
-    teks: "[CONTOH] Voucher makan malam di tempat pilihanmu, berlaku seumur hidup.",
+    jenis: "Voucher Ketemu Langsung (versi beta)",
+    teks: "Voucher ini bisa ditukar jadi satu hari beneran bareng aku: jalan, makan, dan ngobrol sampai bosan. Belum ada tanggalnya — tinggal tunggu kita sama-sama siap.",
     media: "", // nama file gambar (assets/foto) atau video (mp4/webm), opsional
-    berlaku: "[CONTOH] seumur hidup",
+    berlaku: "sampai kita ketemu",
   },
 
   // 13. Footer
-  footerTeks: "[CONTOH] Terima kasih sudah ada di hidupku 💛",
+  footerTeks: "Makasih udah jadi orang paling seru, di server maupun di luar server 💛",
 
   // 13b. Easter egg hati (F15)
   hatiAria: "Hati kecil, klik untuk kejutan",
-  hatiTeks: "I love you more than anything! ✨",
+  hatiTeks: "Aku sayang kamu, lebih dari jam main di Roblox ✨",
 
   // 14. Musik
-  judulLagu: "[CONTOH] Lagu favorit",
+  judulLagu: "", // opsional, tidak dipakai di halaman
   musikFile: "assets/musik.mp3",
   musikMulaiDetik: 0, // opsional
 
   // 15. Selera dia (untuk dekorasi)
   selera: {
-    warnaFavorit: "[CONTOH]",
-    bunga: "[CONTOH]",
-    hewanMaskot: "[CONTOH] kucing",
-    suka: "[CONTOH]",
-    tidakSuka: "[CONTOH]",
+    warnaFavorit: "",
+    bunga: "",
+    hewanMaskot: "kucing",
+    suka: "",
+    tidakSuka: "",
   },
 
   // 16. Catatan tambahan
-  catatan: "[CONTOH]",
+  catatan: "",
 };
