@@ -46,16 +46,21 @@ const DATA = {
   kueDaftarAria: "Daftar penerima potongan kue",
   potonganLucuTeks: "Jawaban paling benar!",
 
-  // 6. Foto galeri (8 foto)
+  // 6. Foto galeri (12 foto). Caption dan tanggal dibiarkan kosong sampai
+  // teks asli diberikan; galeri menyembunyikan baris yang kosong.
   foto: [
-    { src: "assets/foto/foto1.jpg", caption: "[CONTOH] Senyum favoritku", tanggal: "[CONTOH] Jakarta, 2023" },
-    { src: "assets/foto/foto2.jpg", caption: "[CONTOH] Kencan pertama", tanggal: "[CONTOH] Bandung, 2023" },
-    { src: "assets/foto/foto3.jpg", caption: "[CONTOH] Ketawa sampai sakit perut", tanggal: "[CONTOH] 2023" },
-    { src: "assets/foto/foto4.jpg", caption: "[CONTOH] Jalan sore", tanggal: "[CONTOH] 2023" },
-    { src: "assets/foto/foto5.jpg", caption: "[CONTOH] Liburan kecil kita", tanggal: "[CONTOH] 2024" },
-    { src: "assets/foto/foto6.jpg", caption: "[CONTOH] Fotonya blur tapi tetap lucu", tanggal: "[CONTOH] 2024" },
-    { src: "assets/foto/foto7.jpg", caption: "[CONTOH] Makan favorit kita", tanggal: "[CONTOH] 2024" },
-    { src: "assets/foto/foto8.jpg", caption: "[CONTOH] Hari paling bahagia", tanggal: "[CONTOH] 2025" },
+    { src: "assets/foto/1.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/2.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/3.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/4.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/5.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/6.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/7.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/8.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/9.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/10.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/11.webp", caption: "", tanggal: "" },
+    { src: "assets/foto/12.webp", caption: "", tanggal: "" },
   ],
 
   // 7. Timeline kisah kita

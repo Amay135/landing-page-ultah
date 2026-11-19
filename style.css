@@ -600,13 +600,13 @@ body.kue-aktif::before { opacity: 1; }
 
 /* --- 12. Galeri foto polaroid (F5) --- */
 .galeri {
-  padding: 76px 20px;
+  padding: 76px 16px;
 }
 .galeri__daftar {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: 30px 16px;
+  gap: 32px 14px;
   max-width: 1080px;
   margin: 0 auto;
 }
@@ -642,7 +642,7 @@ body.kue-aktif::before { opacity: 1; }
   position: relative;
   display: block;
   width: 100%;
-  padding: 9px;
+  padding: 9px 9px 15px; /* bibir bawah khas polaroid */
   border: 0;
   border-radius: 3px;
   background: #FFFDF8;
@@ -661,6 +661,13 @@ body.kue-aktif::before { opacity: 1; }
   opacity: 0.92;
   transform: translateX(-50%) rotate(var(--tape-rot, -4deg));
   pointer-events: none;
+}
+/* Warna washi tape selang-seling agar tiap polaroid terasa berbeda */
+.foto:nth-child(3n + 2) .foto__bingkai::before {
+  background: repeating-linear-gradient(90deg, rgba(205, 180, 219, 0.95) 0 7px, rgba(255, 246, 236, 0.95) 7px 14px);
+}
+.foto:nth-child(3n) .foto__bingkai::before {
+  background: repeating-linear-gradient(90deg, rgba(232, 184, 109, 0.92) 0 7px, rgba(255, 211, 182, 0.92) 7px 14px);
 }
 /* Stiker bintang di sebagian foto */
 .foto:nth-child(3n + 1) .foto__bingkai::after {
@@ -701,12 +708,27 @@ body.kue-aktif::before { opacity: 1; }
 
 @media (min-width: 700px) {
   .galeri { padding: 96px 32px; }
-  .galeri__daftar { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 38px 26px; }
+  .galeri__daftar { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
   .foto__captionTeks { font-size: 1.45rem; }
   .foto__tanggal { font-size: 0.85rem; }
 }
 @media (min-width: 1000px) {
-  .galeri__daftar { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .galeri__daftar {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 46px 28px;
+    grid-auto-flow: dense; /* rapatkan celah saat ada foto lebar */
+  }
+  .foto:nth-child(even) { margin-top: 0; }
+  /* Dua pasang foto lebar bergantian dengan baris foto kecil */
+  .foto:nth-child(5),
+  .foto:nth-child(6),
+  .foto:nth-child(10),
+  .foto:nth-child(11) { grid-column: span 2; }
+  .foto__img { aspect-ratio: 4 / 5; }
+  .foto:nth-child(5) .foto__img,
+  .foto:nth-child(6) .foto__img,
+  .foto:nth-child(10) .foto__img,
+  .foto:nth-child(11) .foto__img { aspect-ratio: 16 / 10; }
 }
 
 /* --- 13. Lightbox galeri (F5) --- */

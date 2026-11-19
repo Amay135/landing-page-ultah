@@ -414,14 +414,13 @@ const galeriDaftar = document.getElementById("galeriDaftar");
 const WARNA_PLACEHOLDER = ["#F4B6C2", "#FFD3B6", "#CDB4DB", "#E8B86D"];
 const daftarGaleri = []; // entri lightbox: {src, caption, tanggal, img}
 
-// Placeholder pastel bertanda [CONTOH] selama file di assets/foto belum ada.
+// Placeholder pastel polos bila file foto gagal dimuat (tanpa teks contoh).
 function srcPlaceholder(i) {
   const svg =
     "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'>" +
     `<rect width='320' height='320' fill='${WARNA_PLACEHOLDER[i % WARNA_PLACEHOLDER.length]}'/>` +
     "<circle cx='160' cy='146' r='54' fill='#FFF6EC' opacity='.5'/>" +
     "<path d='M138 188q22 16 44 0' fill='none' stroke='#5A3E36' stroke-width='4' stroke-linecap='round' opacity='.45'/>" +
-    "<text x='160' y='258' text-anchor='middle' font-family='Nunito, sans-serif' font-size='19' fill='#5A3E36'>[CONTOH]</text>" +
     "</svg>";
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
@@ -434,34 +433,49 @@ DATA.foto.forEach((foto, i) => {
   kartuFoto.style.setProperty("--tape-x", acak(28, 72).toFixed(0) + "%");
   kartuFoto.style.setProperty("--tape-rot", acak(-9, 9).toFixed(0) + "deg");
 
+  // Teks alternatif tetap terisi walau caption kosong (aksesibilitas).
+  const labelFoto = foto.caption || "Foto kenangan " + (i + 1);
+
   const bingkai = document.createElement("button");
   bingkai.type = "button";
   bingkai.className = "foto__bingkai foto-hidup";
   bingkai.style.setProperty("--rot-hidup", (Math.random() < 0.5 ? -3 : 3) + "deg");
-  bingkai.setAttribute("aria-label", "Buka foto: " + foto.caption + ", " + foto.tanggal);
+  bingkai.setAttribute(
+    "aria-label",
+    "Buka foto: " + labelFoto + (foto.tanggal ? ", " + foto.tanggal : "")
+  );
 
   const img = document.createElement("img");
   img.className = "foto__img";
-  img.alt = foto.caption;
+  img.alt = labelFoto;
   img.loading = "lazy";
   img.decoding = "async";
   img.addEventListener("error", () => { img.src = srcPlaceholder(i); }, { once: true });
   img.src = foto.src;
   daftarGaleri.push({ ...foto, img });
 
-  const caption = document.createElement("figcaption");
-  caption.className = "foto__caption";
-  const captionTeks = document.createElement("span");
-  captionTeks.className = "foto__captionTeks";
-  captionTeks.textContent = foto.caption;
-  const captionTanggal = document.createElement("span");
-  captionTanggal.className = "foto__tanggal";
-  captionTanggal.textContent = foto.tanggal;
-  caption.append(captionTeks, captionTanggal);
-
   bingkai.addEventListener("click", () => bukaLightbox(daftarGaleri, i));
   bingkai.append(img);
-  kartuFoto.append(bingkai, caption);
+  kartuFoto.append(bingkai);
+
+  // Caption/tanggal kosong tidak dirender supaya tidak menyisakan ruang kosong.
+  if (foto.caption || foto.tanggal) {
+    const caption = document.createElement("figcaption");
+    caption.className = "foto__caption";
+    if (foto.caption) {
+      const captionTeks = document.createElement("span");
+      captionTeks.className = "foto__captionTeks";
+      captionTeks.textContent = foto.caption;
+      caption.append(captionTeks);
+    }
+    if (foto.tanggal) {
+      const captionTanggal = document.createElement("span");
+      captionTanggal.className = "foto__tanggal";
+      captionTanggal.textContent = foto.tanggal;
+      caption.append(captionTanggal);
+    }
+    kartuFoto.append(caption);
+  }
   galeriDaftar.append(kartuFoto);
 });
 
@@ -479,10 +493,15 @@ let indeksLightbox = 0;
 
 function isiLightbox() {
   const foto = daftarLightbox[indeksLightbox];
+  const caption = foto.caption || "";
+  const tanggal = foto.tanggal || "";
   lightboxImg.src = foto.img.currentSrc || foto.img.src;
-  lightboxImg.alt = foto.caption;
-  lightboxTeks.textContent = foto.caption;
-  lightboxTanggal.textContent = foto.tanggal;
+  lightboxImg.alt = caption || "Foto kenangan " + (indeksLightbox + 1);
+  lightboxTeks.textContent = caption;
+  lightboxTanggal.textContent = tanggal;
+  lightboxTeks.hidden = !caption;
+  lightboxTanggal.hidden = !tanggal;
+  lightboxTeks.parentElement.hidden = !caption && !tanggal;
   lightboxSebelum.hidden = lightboxSesudah.hidden = daftarLightbox.length < 2;
 }
 
