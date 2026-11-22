@@ -208,7 +208,7 @@ main, footer { position: relative; z-index: 2; }
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   justify-items: center;
-  gap: 14px;
+  gap: 16px;
   width: 100%;
   max-width: 620px;
 }
@@ -258,7 +258,7 @@ main, footer { position: relative; z-index: 2; }
   display: grid;
   justify-items: center;
   gap: 2px;
-  margin-top: 10px;
+  margin-top: 8px;
   color: var(--teks);
   font-family: var(--font-tangan);
   font-size: 1.15rem;
@@ -380,7 +380,7 @@ body.kue-aktif::before { opacity: 1; }
 .kue__kartu { width: 100%; max-width: 380px; }
 .kue__form {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   justify-items: center;
 }
 .kue__tanya { font-weight: 700; }
@@ -626,7 +626,7 @@ body.kue-aktif::before { opacity: 1; }
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: 32px 14px;
+  gap: 32px 16px;
   max-width: 1080px;
   margin: 0 auto;
 }
@@ -638,6 +638,20 @@ body.kue-aktif::before { opacity: 1; }
 }
 /* Kolom genap turun sedikit agar terasa scrapbook, bukan tabel */
 .foto:nth-child(even) { margin-top: 24px; }
+/* Foto panorama (5, 6, 11, 12) memakai dua kolom dan rasio 4:3 supaya
+   screenshot landscape tidak dipotong persegi. Pasangan ini berurutan,
+   jadi grid tetap rapat di 2, 3, maupun 4 kolom. */
+.foto:nth-child(5),
+.foto:nth-child(6),
+.foto:nth-child(11),
+.foto:nth-child(12) {
+  grid-column: span 2;
+  margin-top: 0;
+}
+.foto:nth-child(5) .foto__img,
+.foto:nth-child(6) .foto__img,
+.foto:nth-child(11) .foto__img,
+.foto:nth-child(12) .foto__img { aspect-ratio: 4 / 3; }
 
 /* Efek hidup yang bisa dipakai ulang (galeri dan timeline):
    miring tipis saat diam, membesar + miring acak saat hover/sentuh. */
@@ -736,19 +750,8 @@ body.kue-aktif::before { opacity: 1; }
   .galeri__daftar {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 46px 28px;
-    grid-auto-flow: dense; /* rapatkan celah saat ada foto lebar */
   }
   .foto:nth-child(even) { margin-top: 0; }
-  /* Dua pasang foto lebar bergantian dengan baris foto kecil */
-  .foto:nth-child(5),
-  .foto:nth-child(6),
-  .foto:nth-child(10),
-  .foto:nth-child(11) { grid-column: span 2; }
-  .foto__img { aspect-ratio: 4 / 5; }
-  .foto:nth-child(5) .foto__img,
-  .foto:nth-child(6) .foto__img,
-  .foto:nth-child(10) .foto__img,
-  .foto:nth-child(11) .foto__img { aspect-ratio: 16 / 10; }
 }
 
 /* --- 13. Lightbox galeri (F5) --- */
@@ -909,12 +912,19 @@ body.lightbox-terbuka { overflow: hidden; }
 }
 
 /* --- 15. Counter kebersamaan (F7) --- */
+/* Counter hanya berisi tiga baris, jadi tingginya mengikuti isi
+   (bukan 60vh) agar tidak menyisakan ruang kosong besar. */
 .counter {
   display: grid;
   justify-items: center;
   align-content: center;
-  gap: 6px;
+  gap: 8px;
+  min-height: auto;
+  padding: 76px 20px;
   text-align: center;
+}
+@media (min-width: 700px) {
+  .counter { padding: 96px 32px; }
 }
 .counter__hari {
   margin: 0;
@@ -943,7 +953,7 @@ body.lightbox-terbuka { overflow: hidden; }
 .alasan__daftar {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
   max-width: 960px;
   margin: 0 auto;
   padding: 0;
@@ -1059,7 +1069,7 @@ body.lightbox-terbuka { overflow: hidden; }
   .alasan { padding: 96px 32px; }
   .alasan__daftar {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
+    gap: 24px;
   }
 }
 @media (min-width: 1000px) {
@@ -1348,7 +1358,21 @@ body.surat-terbuka { overflow: hidden; }
   from { opacity: 0.25; }
   to { opacity: 0.95; }
 }
-.lampion__awan { animation: awan-geser 14s ease-in-out infinite alternate; }
+/* Kabut awan: elemen CSS dengan bentuk tetap, jadi tidak ikut melar
+   seperti saat masih di dalam SVG ber-preserveAspectRatio none. */
+.lampion__awan {
+  position: absolute;
+  z-index: 0;
+  width: min(56vw, 620px);
+  height: clamp(24px, 5vw, 48px);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 246, 236, 0.1), transparent 70%);
+  pointer-events: none;
+  animation: awan-geser 14s ease-in-out infinite alternate;
+}
+.lampion__awan--1 { top: 27%; left: -6%; }
+.lampion__awan--2 { top: 44%; right: -6%; width: min(62vw, 680px); animation-delay: -4s; }
+.lampion__awan--3 { top: 66%; left: 12%; width: min(46vw, 520px); animation-delay: -9s; }
 @keyframes awan-geser {
   from { transform: translateX(-14px); }
   to { transform: translateX(14px); }
@@ -1359,7 +1383,7 @@ body.surat-terbuka { overflow: hidden; }
   z-index: 1;
   display: grid;
   justify-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   max-width: 560px;
 }
@@ -1521,8 +1545,8 @@ body.surat-terbuka { overflow: hidden; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px 14px;
-  margin: 6px 0 0;
+  gap: 8px 16px;
+  margin: 8px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -1641,7 +1665,7 @@ body.lampion-terbuka { overflow: hidden; }
 .hadiah__dalam {
   display: grid;
   justify-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   max-width: 560px;
 }
@@ -1694,7 +1718,7 @@ body.lampion-terbuka { overflow: hidden; }
 }
 .hadiah__kartu {
   display: grid;
-  gap: 14px;
+  gap: 16px;
   justify-items: center;
   width: 100%;
   padding: 20px 18px;
@@ -1834,27 +1858,24 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
 }
 .hero__rahasia--tampil { opacity: 1; transform: none; }
 
-/* Hati kecil easter egg (F15): kecil, 50% opacity, di pojok kanan bawah. */
+/* Hati kecil easter egg (F15): segel penutup di alur footer, bukan tombol tetap. */
 .hati {
-  position: fixed;
-  right: 14px;
-  bottom: calc(14px + env(safe-area-inset-bottom));
-  z-index: 80;
-  padding: 6px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: 0;
   border-radius: 50%;
   background: none;
-  font-size: 1.1rem;
-  line-height: 1;
-  opacity: 0.5;
+  color: var(--pink-tua);
+  opacity: 0.65;
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.hati__ikon { width: 22px; height: 22px; }
 .hati:hover,
-.hati:focus-visible { opacity: 0.9; transform: scale(1.15); }
-/* Saat bar WhatsApp tampil, angkat hati agar tidak menimpa teks footer.
-   shortcut: 172px cukup untuk bar setinggi 2 baris di 360px; ukur ulang bila teks footer lebih panjang. */
-body.wa-tampil .hati { bottom: calc(172px + env(safe-area-inset-bottom)); }
+.hati:focus-visible { opacity: 1; transform: scale(1.08); }
 
 /* Toast hati: di atas layar, tidak menangkap klik, dan tidak menggeser tata letak.
    top 64px sengaja memberi ruang untuk tombol mute di pojok kanan atas. */
@@ -1882,8 +1903,13 @@ body.wa-tampil .hati { bottom: calc(172px + env(safe-area-inset-bottom)); }
 .toast--tampil { opacity: 1; transform: translate(-50%, 0); }
 
 /* --- 22. Footer: tombol pelukan WhatsApp (F12) --- */
-/* Ruang kosong di dasar halaman supaya bar mengambang tidak menutupi konten. */
-.footer { min-height: 170px; }
+/* Footer penutup: segel hati di alur halaman, bar WhatsApp tetap menempel
+   di bawah. Padding bawah memesan ruang agar bar tidak menutupi segel. */
+.footer {
+  display: grid;
+  justify-items: center;
+  padding: 56px 24px calc(200px + env(safe-area-inset-bottom));
+}
 
 .wa {
   position: fixed;
@@ -1893,8 +1919,8 @@ body.wa-tampil .hati { bottom: calc(172px + env(safe-area-inset-bottom)); }
   z-index: 80;
   display: grid;
   justify-items: center;
-  gap: 4px;
-  padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
+  gap: 8px;
+  padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
   pointer-events: none;
 }
 
@@ -1905,12 +1931,13 @@ body.wa-tampil .hati { bottom: calc(172px + env(safe-area-inset-bottom)); }
   justify-content: center;
   width: min(100%, 420px);
   min-height: 56px;
-  padding: 14px 24px;
+  padding: 14px 16px;
   border-radius: 999px;
   /* Versi lebih pekat: kontras putih ≥ 3:1 di kedua ujung gradien */
   background: linear-gradient(135deg, #C9597A, #C9824A);
   color: #fff;
-  font-size: 1.2rem;
+  /* Di 360px label tetap satu baris; emoji tidak jatuh sendirian. */
+  font-size: clamp(1rem, 4.2vw, 1.2rem);
   font-weight: 700;
   line-height: 1.3;
   text-align: center;

@@ -1,0 +1,3220 @@
+{
+  "320": {
+    "sections": {
+      "hero": {
+        "box": {
+          "top": 0,
+          "bottom": 800,
+          "height": 800,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "40px 24px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hero__dalam",
+            "box": {
+              "top": 235,
+              "bottom": 549,
+              "height": 314,
+              "left": 24,
+              "right": 296,
+              "width": 272
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "kue": {
+        "box": {
+          "top": 800,
+          "bottom": 1600,
+          "height": 800,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "76px 20px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "kue__dekor",
+            "box": {
+              "top": 800,
+              "bottom": 1600,
+              "height": 800,
+              "left": 0,
+              "right": 320,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "kue__dalam",
+            "box": {
+              "top": 876,
+              "bottom": 1338,
+              "height": 462,
+              "left": 20,
+              "right": 300,
+              "width": 280
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "8px"
+          }
+        ]
+      },
+      "galeri": {
+        "box": {
+          "top": 1600,
+          "bottom": 3546,
+          "height": 1946,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "76px 16px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "480px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "galeri__daftar",
+            "box": {
+              "top": 1676,
+              "bottom": 3470,
+              "height": 1794,
+              "left": 16,
+              "right": 304,
+              "width": 288
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "32px 16px"
+          }
+        ]
+      },
+      "timeline": {
+        "box": {
+          "top": 3546,
+          "bottom": 4899,
+          "height": 1353,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "480px",
+        "inner": [
+          {
+            "tag": "OL",
+            "cls": "timeline__daftar",
+            "box": {
+              "top": 3622,
+              "bottom": 4823,
+              "height": 1201,
+              "left": 20,
+              "right": 300,
+              "width": 280
+            },
+            "padding": "8px 0px 0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "counter": {
+        "box": {
+          "top": 4899,
+          "bottom": 5257,
+          "height": 358,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "8px",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "P",
+            "cls": "counter__hari tulisan-tangan",
+            "box": {
+              "top": 4975,
+              "bottom": 5055,
+              "height": 80,
+              "left": 20,
+              "right": 300,
+              "width": 280
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__jam",
+            "box": {
+              "top": 5063,
+              "bottom": 5099,
+              "height": 36,
+              "left": 107,
+              "right": 213,
+              "width": 106
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__bawah tulisan-tangan",
+            "box": {
+              "top": 5115,
+              "bottom": 5181,
+              "height": 67,
+              "left": 20,
+              "right": 300,
+              "width": 280
+            },
+            "padding": "0px",
+            "margin": "8px 0px 0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "alasan": {
+        "box": {
+          "top": 5257,
+          "bottom": 6161,
+          "height": 904,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "480px",
+        "inner": [
+          {
+            "tag": "UL",
+            "cls": "alasan__daftar",
+            "box": {
+              "top": 5333,
+              "bottom": 6085,
+              "height": 752,
+              "left": 20,
+              "right": 300,
+              "width": 280
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "surat": {
+        "box": {
+          "top": 6161,
+          "bottom": 6881,
+          "height": 720,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "720px",
+        "inner": [
+          {
+            "tag": "BUTTON",
+            "cls": "surat__amplop",
+            "box": {
+              "top": 6427,
+              "bottom": 6615,
+              "height": 188,
+              "left": 26,
+              "right": 294,
+              "width": 269
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "lampion": {
+        "box": {
+          "top": 6881,
+          "bottom": 7694,
+          "height": 813,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "104px 20px 64px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "lampion__langit",
+            "box": {
+              "top": 6881,
+              "bottom": 7694,
+              "height": 813,
+              "left": 0,
+              "right": 320,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--1",
+            "box": {
+              "top": 7101,
+              "bottom": 7125,
+              "height": 24,
+              "left": -27,
+              "right": 152,
+              "width": 179
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--2",
+            "box": {
+              "top": 7239,
+              "bottom": 7263,
+              "height": 24,
+              "left": 146,
+              "right": 345,
+              "width": 198
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--3",
+            "box": {
+              "top": 7418,
+              "bottom": 7442,
+              "height": 24,
+              "left": 52,
+              "right": 200,
+              "width": 147
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__bulan",
+            "box": {
+              "top": 6899,
+              "bottom": 6977,
+              "height": 78,
+              "left": 224,
+              "right": 302,
+              "width": 78
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__dalam",
+            "box": {
+              "top": 6985,
+              "bottom": 7630,
+              "height": 645,
+              "left": 20,
+              "right": 300,
+              "width": 280
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "hadiah": {
+        "box": {
+          "top": 7694,
+          "bottom": 8494,
+          "height": 800,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "80px 20px 72px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hadiah__dalam",
+            "box": {
+              "top": 7895,
+              "bottom": 8302,
+              "height": 407,
+              "left": 20,
+              "right": 300,
+              "width": 280
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "footer": {
+        "box": {
+          "top": 8494,
+          "bottom": 8794,
+          "height": 300,
+          "left": 0,
+          "right": 320,
+          "width": 320
+        },
+        "padding": "56px 24px 200px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "wa",
+            "box": {
+              "top": 0,
+              "bottom": 0,
+              "height": 0,
+              "left": 0,
+              "right": 0,
+              "width": 0
+            },
+            "padding": "12px 16px 16px",
+            "margin": "0px",
+            "gap": "8px"
+          },
+          {
+            "tag": "BUTTON",
+            "cls": "hati",
+            "box": {
+              "top": 8550,
+              "bottom": 8594,
+              "height": 44,
+              "left": 138,
+              "right": 182,
+              "width": 44
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      }
+    },
+    "overflow": {
+      "horizontal": false,
+      "elems": [
+        {
+          "tag": "g",
+          "cls": "",
+          "left": -72,
+          "right": 395
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": -72,
+          "right": 13
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 318,
+          "right": 383
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 258,
+          "right": 368
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 355,
+          "right": 395
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": -22,
+          "right": 18
+        },
+        {
+          "tag": "g",
+          "cls": "kue__bunting",
+          "left": -102,
+          "right": 423
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -102,
+          "right": 423
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -54,
+          "right": -26
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": 346,
+          "right": 374
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "left": -18,
+          "right": 72
+        },
+        {
+          "tag": "g",
+          "cls": "kue__balon",
+          "left": -14,
+          "right": 68
+        },
+        {
+          "tag": "ellipse",
+          "cls": "",
+          "left": -14,
+          "right": 61
+        },
+        {
+          "tag": "ellipse",
+          "cls": "",
+          "left": -1,
+          "right": 23
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "left": -42,
+          "right": 28
+        }
+      ]
+    },
+    "page": {
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "scrollHeight": 8794,
+      "innerWidth": 320
+    },
+    "sectionGaps": [
+      {
+        "from": "hero",
+        "to": "kue",
+        "gap": 0
+      },
+      {
+        "from": "kue",
+        "to": "galeri",
+        "gap": 0
+      },
+      {
+        "from": "galeri",
+        "to": "timeline",
+        "gap": 0
+      },
+      {
+        "from": "timeline",
+        "to": "counter",
+        "gap": 0
+      },
+      {
+        "from": "counter",
+        "to": "alasan",
+        "gap": 0
+      },
+      {
+        "from": "alasan",
+        "to": "surat",
+        "gap": 0
+      },
+      {
+        "from": "surat",
+        "to": "lampion",
+        "gap": 0
+      },
+      {
+        "from": "lampion",
+        "to": "hadiah",
+        "gap": 0
+      },
+      {
+        "from": "hadiah",
+        "to": "footer",
+        "gap": 0
+      }
+    ],
+    "content": {
+      ".hero__dalam": {
+        "width": 272,
+        "left": 24,
+        "right": 296,
+        "centered": true
+      },
+      ".kue__dalam": {
+        "width": 280,
+        "left": 20,
+        "right": 300,
+        "centered": true
+      },
+      ".galeri__daftar": {
+        "width": 288,
+        "left": 16,
+        "right": 304,
+        "centered": true
+      },
+      ".timeline__daftar": {
+        "width": 280,
+        "left": 20,
+        "right": 300,
+        "centered": true
+      },
+      ".counter__hari": {
+        "width": 280,
+        "left": 20,
+        "right": 300,
+        "centered": true
+      },
+      ".alasan__daftar": {
+        "width": 280,
+        "left": 20,
+        "right": 300,
+        "centered": true
+      },
+      ".surat__amplop": {
+        "width": 269,
+        "left": 26,
+        "right": 294,
+        "centered": true
+      },
+      ".lampion__dalam": {
+        "width": 280,
+        "left": 20,
+        "right": 300,
+        "centered": true
+      },
+      ".hadiah__dalam": {
+        "width": 280,
+        "left": 20,
+        "right": 300,
+        "centered": true
+      },
+      ".footer .hati": {
+        "width": 44,
+        "left": 138,
+        "right": 182,
+        "centered": true
+      }
+    },
+    "errors": []
+  },
+  "360": {
+    "sections": {
+      "hero": {
+        "box": {
+          "top": 0,
+          "bottom": 800,
+          "height": 800,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "40px 24px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hero__dalam",
+            "box": {
+              "top": 235,
+              "bottom": 549,
+              "height": 314,
+              "left": 24,
+              "right": 336,
+              "width": 312
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "kue": {
+        "box": {
+          "top": 800,
+          "bottom": 1600,
+          "height": 800,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "76px 20px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "kue__dekor",
+            "box": {
+              "top": 800,
+              "bottom": 1600,
+              "height": 800,
+              "left": 0,
+              "right": 360,
+              "width": 360
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "kue__dalam",
+            "box": {
+              "top": 876,
+              "bottom": 1377,
+              "height": 501,
+              "left": 20,
+              "right": 340,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "8px"
+          }
+        ]
+      },
+      "galeri": {
+        "box": {
+          "top": 1600,
+          "bottom": 3746,
+          "height": 2146,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "76px 16px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "480px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "galeri__daftar",
+            "box": {
+              "top": 1676,
+              "bottom": 3670,
+              "height": 1994,
+              "left": 16,
+              "right": 344,
+              "width": 328
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "32px 16px"
+          }
+        ]
+      },
+      "timeline": {
+        "box": {
+          "top": 3746,
+          "bottom": 4977,
+          "height": 1231,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "480px",
+        "inner": [
+          {
+            "tag": "OL",
+            "cls": "timeline__daftar",
+            "box": {
+              "top": 3822,
+              "bottom": 4901,
+              "height": 1079,
+              "left": 20,
+              "right": 340,
+              "width": 320
+            },
+            "padding": "8px 0px 0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "counter": {
+        "box": {
+          "top": 4977,
+          "bottom": 5336,
+          "height": 358,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "8px",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "P",
+            "cls": "counter__hari tulisan-tangan",
+            "box": {
+              "top": 5053,
+              "bottom": 5133,
+              "height": 80,
+              "left": 20,
+              "right": 340,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__jam",
+            "box": {
+              "top": 5141,
+              "bottom": 5177,
+              "height": 36,
+              "left": 127,
+              "right": 233,
+              "width": 106
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__bawah tulisan-tangan",
+            "box": {
+              "top": 5193,
+              "bottom": 5260,
+              "height": 67,
+              "left": 20,
+              "right": 340,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "8px 0px 0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "alasan": {
+        "box": {
+          "top": 5336,
+          "bottom": 6346,
+          "height": 1011,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "480px",
+        "inner": [
+          {
+            "tag": "UL",
+            "cls": "alasan__daftar",
+            "box": {
+              "top": 5412,
+              "bottom": 6270,
+              "height": 859,
+              "left": 20,
+              "right": 340,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "surat": {
+        "box": {
+          "top": 6346,
+          "bottom": 7066,
+          "height": 720,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "720px",
+        "inner": [
+          {
+            "tag": "BUTTON",
+            "cls": "surat__amplop",
+            "box": {
+              "top": 6601,
+              "bottom": 6812,
+              "height": 212,
+              "left": 29,
+              "right": 331,
+              "width": 302
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "lampion": {
+        "box": {
+          "top": 7066,
+          "bottom": 7923,
+          "height": 856,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "104px 20px 64px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "lampion__langit",
+            "box": {
+              "top": 7066,
+              "bottom": 7923,
+              "height": 856,
+              "left": 0,
+              "right": 360,
+              "width": 360
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--1",
+            "box": {
+              "top": 7298,
+              "bottom": 7322,
+              "height": 24,
+              "left": -29,
+              "right": 173,
+              "width": 202
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--2",
+            "box": {
+              "top": 7443,
+              "bottom": 7467,
+              "height": 24,
+              "left": 164,
+              "right": 387,
+              "width": 223
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--3",
+            "box": {
+              "top": 7632,
+              "bottom": 7656,
+              "height": 24,
+              "left": 57,
+              "right": 223,
+              "width": 166
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__bulan",
+            "box": {
+              "top": 7084,
+              "bottom": 7162,
+              "height": 78,
+              "left": 264,
+              "right": 342,
+              "width": 78
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__dalam",
+            "box": {
+              "top": 7170,
+              "bottom": 7859,
+              "height": 688,
+              "left": 20,
+              "right": 340,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "hadiah": {
+        "box": {
+          "top": 7923,
+          "bottom": 8723,
+          "height": 800,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "80px 20px 72px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "800px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hadiah__dalam",
+            "box": {
+              "top": 8108,
+              "bottom": 8546,
+              "height": 438,
+              "left": 20,
+              "right": 340,
+              "width": 320
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "footer": {
+        "box": {
+          "top": 8723,
+          "bottom": 9023,
+          "height": 300,
+          "left": 0,
+          "right": 360,
+          "width": 360
+        },
+        "padding": "56px 24px 200px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "wa",
+            "box": {
+              "top": 0,
+              "bottom": 0,
+              "height": 0,
+              "left": 0,
+              "right": 0,
+              "width": 0
+            },
+            "padding": "12px 16px 16px",
+            "margin": "0px",
+            "gap": "8px"
+          },
+          {
+            "tag": "BUTTON",
+            "cls": "hati",
+            "box": {
+              "top": 8779,
+              "bottom": 8823,
+              "height": 44,
+              "left": 158,
+              "right": 202,
+              "width": 44
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      }
+    },
+    "overflow": {
+      "horizontal": false,
+      "elems": [
+        {
+          "tag": "g",
+          "cls": "",
+          "left": -52,
+          "right": 415
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": -52,
+          "right": 33
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 338,
+          "right": 403
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 278,
+          "right": 388
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 375,
+          "right": 415
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": -2,
+          "right": 38
+        },
+        {
+          "tag": "g",
+          "cls": "kue__bunting",
+          "left": -82,
+          "right": 443
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -82,
+          "right": 443
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -34,
+          "right": -6
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": 366,
+          "right": 394
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "left": -22,
+          "right": 48
+        },
+        {
+          "tag": "g",
+          "cls": "kue__balon kue__balon--2",
+          "left": -22,
+          "right": 48
+        },
+        {
+          "tag": "ellipse",
+          "cls": "",
+          "left": -15,
+          "right": 48
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "left": 280,
+          "right": 366
+        },
+        {
+          "tag": "g",
+          "cls": "kue__balon kue__balon--3",
+          "left": 280,
+          "right": 366
+        }
+      ]
+    },
+    "page": {
+      "scrollWidth": 360,
+      "clientWidth": 360,
+      "scrollHeight": 9023,
+      "innerWidth": 360
+    },
+    "sectionGaps": [
+      {
+        "from": "hero",
+        "to": "kue",
+        "gap": 0
+      },
+      {
+        "from": "kue",
+        "to": "galeri",
+        "gap": 0
+      },
+      {
+        "from": "galeri",
+        "to": "timeline",
+        "gap": 0
+      },
+      {
+        "from": "timeline",
+        "to": "counter",
+        "gap": 0
+      },
+      {
+        "from": "counter",
+        "to": "alasan",
+        "gap": 0
+      },
+      {
+        "from": "alasan",
+        "to": "surat",
+        "gap": 0
+      },
+      {
+        "from": "surat",
+        "to": "lampion",
+        "gap": 0
+      },
+      {
+        "from": "lampion",
+        "to": "hadiah",
+        "gap": 0
+      },
+      {
+        "from": "hadiah",
+        "to": "footer",
+        "gap": 0
+      }
+    ],
+    "content": {
+      ".hero__dalam": {
+        "width": 312,
+        "left": 24,
+        "right": 336,
+        "centered": true
+      },
+      ".kue__dalam": {
+        "width": 320,
+        "left": 20,
+        "right": 340,
+        "centered": true
+      },
+      ".galeri__daftar": {
+        "width": 328,
+        "left": 16,
+        "right": 344,
+        "centered": true
+      },
+      ".timeline__daftar": {
+        "width": 320,
+        "left": 20,
+        "right": 340,
+        "centered": true
+      },
+      ".counter__hari": {
+        "width": 320,
+        "left": 20,
+        "right": 340,
+        "centered": true
+      },
+      ".alasan__daftar": {
+        "width": 320,
+        "left": 20,
+        "right": 340,
+        "centered": true
+      },
+      ".surat__amplop": {
+        "width": 302,
+        "left": 29,
+        "right": 331,
+        "centered": true
+      },
+      ".lampion__dalam": {
+        "width": 320,
+        "left": 20,
+        "right": 340,
+        "centered": true
+      },
+      ".hadiah__dalam": {
+        "width": 320,
+        "left": 20,
+        "right": 340,
+        "centered": true
+      },
+      ".footer .hati": {
+        "width": 44,
+        "left": 158,
+        "right": 202,
+        "centered": true
+      }
+    },
+    "errors": []
+  },
+  "390": {
+    "sections": {
+      "hero": {
+        "box": {
+          "top": 0,
+          "bottom": 844,
+          "height": 844,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "40px 24px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "844px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hero__dalam",
+            "box": {
+              "top": 267,
+              "bottom": 561,
+              "height": 293,
+              "left": 24,
+              "right": 366,
+              "width": 342
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "kue": {
+        "box": {
+          "top": 844,
+          "bottom": 1688,
+          "height": 844,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "76px 20px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "844px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "kue__dekor",
+            "box": {
+              "top": 844,
+              "bottom": 1688,
+              "height": 844,
+              "left": 0,
+              "right": 390,
+              "width": 390
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "kue__dalam",
+            "box": {
+              "top": 920,
+              "bottom": 1450,
+              "height": 530,
+              "left": 20,
+              "right": 370,
+              "width": 350
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "8px"
+          }
+        ]
+      },
+      "galeri": {
+        "box": {
+          "top": 1688,
+          "bottom": 3984,
+          "height": 2296,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "76px 16px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "506.4px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "galeri__daftar",
+            "box": {
+              "top": 1764,
+              "bottom": 3908,
+              "height": 2144,
+              "left": 16,
+              "right": 374,
+              "width": 358
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "32px 16px"
+          }
+        ]
+      },
+      "timeline": {
+        "box": {
+          "top": 3984,
+          "bottom": 5191,
+          "height": 1207,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "506.4px",
+        "inner": [
+          {
+            "tag": "OL",
+            "cls": "timeline__daftar",
+            "box": {
+              "top": 4060,
+              "bottom": 5115,
+              "height": 1055,
+              "left": 20,
+              "right": 370,
+              "width": 350
+            },
+            "padding": "8px 0px 0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "counter": {
+        "box": {
+          "top": 5191,
+          "bottom": 5554,
+          "height": 363,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "8px",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "P",
+            "cls": "counter__hari tulisan-tangan",
+            "box": {
+              "top": 5267,
+              "bottom": 5350,
+              "height": 83,
+              "left": 20,
+              "right": 370,
+              "width": 350
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__jam",
+            "box": {
+              "top": 5358,
+              "bottom": 5395,
+              "height": 37,
+              "left": 140,
+              "right": 250,
+              "width": 111
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__bawah tulisan-tangan",
+            "box": {
+              "top": 5411,
+              "bottom": 5478,
+              "height": 67,
+              "left": 20,
+              "right": 370,
+              "width": 350
+            },
+            "padding": "0px",
+            "margin": "8px 0px 0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "alasan": {
+        "box": {
+          "top": 5554,
+          "bottom": 6645,
+          "height": 1091,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "506.4px",
+        "inner": [
+          {
+            "tag": "UL",
+            "cls": "alasan__daftar",
+            "box": {
+              "top": 5630,
+              "bottom": 6569,
+              "height": 939,
+              "left": 20,
+              "right": 370,
+              "width": 350
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "surat": {
+        "box": {
+          "top": 6645,
+          "bottom": 7404,
+          "height": 760,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "76px 20px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "759.6px",
+        "inner": [
+          {
+            "tag": "BUTTON",
+            "cls": "surat__amplop",
+            "box": {
+              "top": 6910,
+              "bottom": 7139,
+              "height": 229,
+              "left": 31,
+              "right": 359,
+              "width": 328
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "lampion": {
+        "box": {
+          "top": 7404,
+          "bottom": 8292,
+          "height": 887,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "104px 20px 64px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "844px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "lampion__langit",
+            "box": {
+              "top": 7404,
+              "bottom": 8292,
+              "height": 887,
+              "left": 0,
+              "right": 390,
+              "width": 390
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--1",
+            "box": {
+              "top": 7644,
+              "bottom": 7668,
+              "height": 24,
+              "left": -30,
+              "right": 188,
+              "width": 218
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--2",
+            "box": {
+              "top": 7795,
+              "bottom": 7819,
+              "height": 24,
+              "left": 178,
+              "right": 419,
+              "width": 242
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--3",
+            "box": {
+              "top": 7990,
+              "bottom": 8014,
+              "height": 24,
+              "left": 61,
+              "right": 240,
+              "width": 179
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__bulan",
+            "box": {
+              "top": 7422,
+              "bottom": 7500,
+              "height": 78,
+              "left": 294,
+              "right": 372,
+              "width": 78
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__dalam",
+            "box": {
+              "top": 7508,
+              "bottom": 8228,
+              "height": 719,
+              "left": 20,
+              "right": 370,
+              "width": 350
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "hadiah": {
+        "box": {
+          "top": 8292,
+          "bottom": 9136,
+          "height": 844,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "80px 20px 72px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "844px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hadiah__dalam",
+            "box": {
+              "top": 8488,
+              "bottom": 8948,
+              "height": 460,
+              "left": 20,
+              "right": 370,
+              "width": 350
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "footer": {
+        "box": {
+          "top": 9136,
+          "bottom": 9436,
+          "height": 300,
+          "left": 0,
+          "right": 390,
+          "width": 390
+        },
+        "padding": "56px 24px 200px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "wa",
+            "box": {
+              "top": 0,
+              "bottom": 0,
+              "height": 0,
+              "left": 0,
+              "right": 0,
+              "width": 0
+            },
+            "padding": "12px 16px 16px",
+            "margin": "0px",
+            "gap": "8px"
+          },
+          {
+            "tag": "BUTTON",
+            "cls": "hati",
+            "box": {
+              "top": 9192,
+              "bottom": 9236,
+              "height": 44,
+              "left": 173,
+              "right": 217,
+              "width": 44
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      }
+    },
+    "overflow": {
+      "horizontal": false,
+      "elems": [
+        {
+          "tag": "g",
+          "cls": "",
+          "left": -50,
+          "right": 443
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": -50,
+          "right": 39
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 361,
+          "right": 430
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 298,
+          "right": 414
+        },
+        {
+          "tag": "circle",
+          "cls": "",
+          "left": 401,
+          "right": 443
+        },
+        {
+          "tag": "g",
+          "cls": "kue__bunting",
+          "left": -82,
+          "right": 472
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -82,
+          "right": 472
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -31,
+          "right": -1
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": 391,
+          "right": 421
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "left": -18,
+          "right": 56
+        },
+        {
+          "tag": "g",
+          "cls": "kue__balon kue__balon--2",
+          "left": -18,
+          "right": 56
+        },
+        {
+          "tag": "ellipse",
+          "cls": "",
+          "left": -11,
+          "right": 56
+        },
+        {
+          "tag": "g",
+          "cls": "",
+          "left": 301,
+          "right": 391
+        },
+        {
+          "tag": "g",
+          "cls": "kue__balon kue__balon--3",
+          "left": 301,
+          "right": 391
+        },
+        {
+          "tag": "ellipse",
+          "cls": "",
+          "left": 313,
+          "right": 391
+        }
+      ]
+    },
+    "page": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "scrollHeight": 9436,
+      "innerWidth": 390
+    },
+    "sectionGaps": [
+      {
+        "from": "hero",
+        "to": "kue",
+        "gap": 0
+      },
+      {
+        "from": "kue",
+        "to": "galeri",
+        "gap": 0
+      },
+      {
+        "from": "galeri",
+        "to": "timeline",
+        "gap": 0
+      },
+      {
+        "from": "timeline",
+        "to": "counter",
+        "gap": 0
+      },
+      {
+        "from": "counter",
+        "to": "alasan",
+        "gap": 0
+      },
+      {
+        "from": "alasan",
+        "to": "surat",
+        "gap": 0
+      },
+      {
+        "from": "surat",
+        "to": "lampion",
+        "gap": 0
+      },
+      {
+        "from": "lampion",
+        "to": "hadiah",
+        "gap": 0
+      },
+      {
+        "from": "hadiah",
+        "to": "footer",
+        "gap": 0
+      }
+    ],
+    "content": {
+      ".hero__dalam": {
+        "width": 342,
+        "left": 24,
+        "right": 366,
+        "centered": true
+      },
+      ".kue__dalam": {
+        "width": 350,
+        "left": 20,
+        "right": 370,
+        "centered": true
+      },
+      ".galeri__daftar": {
+        "width": 358,
+        "left": 16,
+        "right": 374,
+        "centered": true
+      },
+      ".timeline__daftar": {
+        "width": 350,
+        "left": 20,
+        "right": 370,
+        "centered": true
+      },
+      ".counter__hari": {
+        "width": 350,
+        "left": 20,
+        "right": 370,
+        "centered": true
+      },
+      ".alasan__daftar": {
+        "width": 350,
+        "left": 20,
+        "right": 370,
+        "centered": true
+      },
+      ".surat__amplop": {
+        "width": 328,
+        "left": 31,
+        "right": 359,
+        "centered": true
+      },
+      ".lampion__dalam": {
+        "width": 350,
+        "left": 20,
+        "right": 370,
+        "centered": true
+      },
+      ".hadiah__dalam": {
+        "width": 350,
+        "left": 20,
+        "right": 370,
+        "centered": true
+      },
+      ".footer .hati": {
+        "width": 44,
+        "left": 173,
+        "right": 217,
+        "centered": true
+      }
+    },
+    "errors": []
+  },
+  "768": {
+    "sections": {
+      "hero": {
+        "box": {
+          "top": 0,
+          "bottom": 1024,
+          "height": 1024,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "40px 24px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "1024px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hero__dalam",
+            "box": {
+              "top": 322,
+              "bottom": 686,
+              "height": 363,
+              "left": 74,
+              "right": 694,
+              "width": 620
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "kue": {
+        "box": {
+          "top": 1024,
+          "bottom": 2048,
+          "height": 1024,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "76px 20px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "1024px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "kue__dekor",
+            "box": {
+              "top": 1024,
+              "bottom": 2048,
+              "height": 1024,
+              "left": 0,
+              "right": 768,
+              "width": 768
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "kue__dalam",
+            "box": {
+              "top": 1100,
+              "bottom": 1679,
+              "height": 579,
+              "left": 104,
+              "right": 664,
+              "width": 560
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "8px"
+          }
+        ]
+      },
+      "galeri": {
+        "box": {
+          "top": 2048,
+          "bottom": 4363,
+          "height": 2315,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "614.4px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "galeri__daftar",
+            "box": {
+              "top": 2144,
+              "bottom": 4267,
+              "height": 2123,
+              "left": 32,
+              "right": 736,
+              "width": 704
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "40px 24px"
+          }
+        ]
+      },
+      "timeline": {
+        "box": {
+          "top": 4363,
+          "bottom": 5665,
+          "height": 1302,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "614.4px",
+        "inner": [
+          {
+            "tag": "OL",
+            "cls": "timeline__daftar",
+            "box": {
+              "top": 4459,
+              "bottom": 5569,
+              "height": 1110,
+              "left": 32,
+              "right": 736,
+              "width": 704
+            },
+            "padding": "8px 0px 0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "counter": {
+        "box": {
+          "top": 5665,
+          "bottom": 6030,
+          "height": 364,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "8px",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "P",
+            "cls": "counter__hari tulisan-tangan",
+            "box": {
+              "top": 5761,
+              "bottom": 5825,
+              "height": 64,
+              "left": 55,
+              "right": 713,
+              "width": 659
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__jam",
+            "box": {
+              "top": 5833,
+              "bottom": 5885,
+              "height": 51,
+              "left": 308,
+              "right": 460,
+              "width": 152
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__bawah tulisan-tangan",
+            "box": {
+              "top": 5901,
+              "bottom": 5934,
+              "height": 33,
+              "left": 199,
+              "right": 569,
+              "width": 369
+            },
+            "padding": "0px",
+            "margin": "8px 0px 0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "alasan": {
+        "box": {
+          "top": 6030,
+          "bottom": 7145,
+          "height": 1115,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "614.4px",
+        "inner": [
+          {
+            "tag": "UL",
+            "cls": "alasan__daftar",
+            "box": {
+              "top": 6126,
+              "bottom": 7049,
+              "height": 923,
+              "left": 32,
+              "right": 736,
+              "width": 704
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "24px"
+          }
+        ]
+      },
+      "surat": {
+        "box": {
+          "top": 7145,
+          "bottom": 8066,
+          "height": 922,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "921.6px",
+        "inner": [
+          {
+            "tag": "BUTTON",
+            "cls": "surat__amplop",
+            "box": {
+              "top": 7472,
+              "bottom": 7738,
+              "height": 266,
+              "left": 194,
+              "right": 574,
+              "width": 380
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "lampion": {
+        "box": {
+          "top": 8066,
+          "bottom": 9090,
+          "height": 1024,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "112px 32px 96px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "1024px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "lampion__langit",
+            "box": {
+              "top": 8066,
+              "bottom": 9090,
+              "height": 1024,
+              "left": 0,
+              "right": 768,
+              "width": 768
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--1",
+            "box": {
+              "top": 8343,
+              "bottom": 8381,
+              "height": 38,
+              "left": -52,
+              "right": 378,
+              "width": 430
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--2",
+            "box": {
+              "top": 8517,
+              "bottom": 8555,
+              "height": 38,
+              "left": 345,
+              "right": 821,
+              "width": 476
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--3",
+            "box": {
+              "top": 8742,
+              "bottom": 8780,
+              "height": 38,
+              "left": 106,
+              "right": 459,
+              "width": 353
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__bulan",
+            "box": {
+              "top": 8084,
+              "bottom": 8162,
+              "height": 78,
+              "left": 672,
+              "right": 750,
+              "width": 78
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__dalam",
+            "box": {
+              "top": 8187,
+              "bottom": 8985,
+              "height": 797,
+              "left": 104,
+              "right": 664,
+              "width": 560
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "hadiah": {
+        "box": {
+          "top": 9090,
+          "bottom": 10114,
+          "height": 1024,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "112px 32px 96px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "1024px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hadiah__dalam",
+            "box": {
+              "top": 9394,
+              "bottom": 9826,
+              "height": 432,
+              "left": 104,
+              "right": 664,
+              "width": 560
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "footer": {
+        "box": {
+          "top": 10114,
+          "bottom": 10414,
+          "height": 300,
+          "left": 0,
+          "right": 768,
+          "width": 768
+        },
+        "padding": "56px 24px 200px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "wa",
+            "box": {
+              "top": 0,
+              "bottom": 0,
+              "height": 0,
+              "left": 0,
+              "right": 0,
+              "width": 0
+            },
+            "padding": "12px 16px 16px",
+            "margin": "0px",
+            "gap": "8px"
+          },
+          {
+            "tag": "BUTTON",
+            "cls": "hati",
+            "box": {
+              "top": 10170,
+              "bottom": 10214,
+              "height": 44,
+              "left": 362,
+              "right": 406,
+              "width": 44
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      }
+    },
+    "overflow": {
+      "horizontal": false,
+      "elems": [
+        {
+          "tag": "g",
+          "cls": "kue__bunting",
+          "left": -19,
+          "right": 787
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -19,
+          "right": 787
+        },
+        {
+          "tag": "DIV",
+          "cls": "lampion__awan lampion__awan--1",
+          "left": -52,
+          "right": 378
+        },
+        {
+          "tag": "DIV",
+          "cls": "lampion__awan lampion__awan--2",
+          "left": 345,
+          "right": 821
+        }
+      ]
+    },
+    "page": {
+      "scrollWidth": 768,
+      "clientWidth": 768,
+      "scrollHeight": 10414,
+      "innerWidth": 768
+    },
+    "sectionGaps": [
+      {
+        "from": "hero",
+        "to": "kue",
+        "gap": 0
+      },
+      {
+        "from": "kue",
+        "to": "galeri",
+        "gap": 0
+      },
+      {
+        "from": "galeri",
+        "to": "timeline",
+        "gap": 0
+      },
+      {
+        "from": "timeline",
+        "to": "counter",
+        "gap": 0
+      },
+      {
+        "from": "counter",
+        "to": "alasan",
+        "gap": 0
+      },
+      {
+        "from": "alasan",
+        "to": "surat",
+        "gap": 0
+      },
+      {
+        "from": "surat",
+        "to": "lampion",
+        "gap": 0
+      },
+      {
+        "from": "lampion",
+        "to": "hadiah",
+        "gap": 0
+      },
+      {
+        "from": "hadiah",
+        "to": "footer",
+        "gap": 0
+      }
+    ],
+    "content": {
+      ".hero__dalam": {
+        "width": 620,
+        "left": 74,
+        "right": 694,
+        "centered": true
+      },
+      ".kue__dalam": {
+        "width": 560,
+        "left": 104,
+        "right": 664,
+        "centered": true
+      },
+      ".galeri__daftar": {
+        "width": 704,
+        "left": 32,
+        "right": 736,
+        "centered": true
+      },
+      ".timeline__daftar": {
+        "width": 704,
+        "left": 32,
+        "right": 736,
+        "centered": true
+      },
+      ".counter__hari": {
+        "width": 659,
+        "left": 55,
+        "right": 713,
+        "centered": true
+      },
+      ".alasan__daftar": {
+        "width": 704,
+        "left": 32,
+        "right": 736,
+        "centered": true
+      },
+      ".surat__amplop": {
+        "width": 380,
+        "left": 194,
+        "right": 574,
+        "centered": true
+      },
+      ".lampion__dalam": {
+        "width": 560,
+        "left": 104,
+        "right": 664,
+        "centered": true
+      },
+      ".hadiah__dalam": {
+        "width": 560,
+        "left": 104,
+        "right": 664,
+        "centered": true
+      },
+      ".footer .hati": {
+        "width": 44,
+        "left": 362,
+        "right": 406,
+        "centered": true
+      }
+    },
+    "errors": []
+  },
+  "1440": {
+    "sections": {
+      "hero": {
+        "box": {
+          "top": 0,
+          "bottom": 900,
+          "height": 900,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "40px 24px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "900px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hero__dalam",
+            "box": {
+              "top": 260,
+              "bottom": 624,
+              "height": 363,
+              "left": 410,
+              "right": 1030,
+              "width": 620
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "16px"
+          }
+        ]
+      },
+      "kue": {
+        "box": {
+          "top": 900,
+          "bottom": 1800,
+          "height": 900,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "76px 20px 56px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "900px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "kue__dekor",
+            "box": {
+              "top": 900,
+              "bottom": 1800,
+              "height": 900,
+              "left": 0,
+              "right": 1440,
+              "width": 1440
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "kue__dalam",
+            "box": {
+              "top": 976,
+              "bottom": 1672,
+              "height": 696,
+              "left": 440,
+              "right": 1000,
+              "width": 560
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "8px"
+          }
+        ]
+      },
+      "galeri": {
+        "box": {
+          "top": 1800,
+          "bottom": 3450,
+          "height": 1650,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "540px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "galeri__daftar",
+            "box": {
+              "top": 1896,
+              "bottom": 3354,
+              "height": 1458,
+              "left": 180,
+              "right": 1260,
+              "width": 1080
+            },
+            "padding": "0px",
+            "margin": "0px 148px",
+            "gap": "46px 28px"
+          }
+        ]
+      },
+      "timeline": {
+        "box": {
+          "top": 3450,
+          "bottom": 4655,
+          "height": 1205,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "540px",
+        "inner": [
+          {
+            "tag": "OL",
+            "cls": "timeline__daftar",
+            "box": {
+              "top": 3546,
+              "bottom": 4559,
+              "height": 1013,
+              "left": 340,
+              "right": 1100,
+              "width": 760
+            },
+            "padding": "8px 0px 0px",
+            "margin": "0px 308px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "counter": {
+        "box": {
+          "top": 4655,
+          "bottom": 5019,
+          "height": 364,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "8px",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "P",
+            "cls": "counter__hari tulisan-tangan",
+            "box": {
+              "top": 4751,
+              "bottom": 4815,
+              "height": 64,
+              "left": 391,
+              "right": 1049,
+              "width": 659
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__jam",
+            "box": {
+              "top": 4823,
+              "bottom": 4874,
+              "height": 51,
+              "left": 644,
+              "right": 796,
+              "width": 152
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "P",
+            "cls": "counter__bawah tulisan-tangan",
+            "box": {
+              "top": 4890,
+              "bottom": 4923,
+              "height": 33,
+              "left": 535,
+              "right": 905,
+              "width": 369
+            },
+            "padding": "0px",
+            "margin": "8px 0px 0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "alasan": {
+        "box": {
+          "top": 5019,
+          "bottom": 5827,
+          "height": 808,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "block",
+        "minHeight": "540px",
+        "inner": [
+          {
+            "tag": "UL",
+            "cls": "alasan__daftar",
+            "box": {
+              "top": 5115,
+              "bottom": 5731,
+              "height": 616,
+              "left": 240,
+              "right": 1200,
+              "width": 960
+            },
+            "padding": "0px",
+            "margin": "0px 208px",
+            "gap": "24px"
+          }
+        ]
+      },
+      "surat": {
+        "box": {
+          "top": 5827,
+          "bottom": 6637,
+          "height": 810,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "96px 32px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "810px",
+        "inner": [
+          {
+            "tag": "BUTTON",
+            "cls": "surat__amplop",
+            "box": {
+              "top": 6099,
+              "bottom": 6365,
+              "height": 266,
+              "left": 530,
+              "right": 910,
+              "width": 380
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      },
+      "lampion": {
+        "box": {
+          "top": 6637,
+          "bottom": 7643,
+          "height": 1005,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "112px 32px 96px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "900px",
+        "inner": [
+          {
+            "tag": "svg",
+            "cls": "lampion__langit",
+            "box": {
+              "top": 6637,
+              "bottom": 7643,
+              "height": 1005,
+              "left": 0,
+              "right": 1440,
+              "width": 1440
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--1",
+            "box": {
+              "top": 6909,
+              "bottom": 6957,
+              "height": 48,
+              "left": -94,
+              "right": 526,
+              "width": 620
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--2",
+            "box": {
+              "top": 7080,
+              "bottom": 7128,
+              "height": 48,
+              "left": 852,
+              "right": 1532,
+              "width": 680
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__awan lampion__awan--3",
+            "box": {
+              "top": 7301,
+              "bottom": 7349,
+              "height": 48,
+              "left": 187,
+              "right": 707,
+              "width": 520
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__bulan",
+            "box": {
+              "top": 6655,
+              "bottom": 6733,
+              "height": 78,
+              "left": 1344,
+              "right": 1422,
+              "width": 78
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          },
+          {
+            "tag": "DIV",
+            "cls": "lampion__dalam",
+            "box": {
+              "top": 6749,
+              "bottom": 7547,
+              "height": 797,
+              "left": 440,
+              "right": 1000,
+              "width": 560
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "hadiah": {
+        "box": {
+          "top": 7643,
+          "bottom": 8543,
+          "height": 900,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "112px 32px 96px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "900px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "hadiah__dalam",
+            "box": {
+              "top": 7885,
+              "bottom": 8317,
+              "height": 432,
+              "left": 440,
+              "right": 1000,
+              "width": 560
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "12px"
+          }
+        ]
+      },
+      "footer": {
+        "box": {
+          "top": 8543,
+          "bottom": 8843,
+          "height": 300,
+          "left": 0,
+          "right": 1440,
+          "width": 1440
+        },
+        "padding": "56px 24px 200px",
+        "margin": "0px",
+        "gap": "normal",
+        "display": "grid",
+        "minHeight": "0px",
+        "inner": [
+          {
+            "tag": "DIV",
+            "cls": "wa",
+            "box": {
+              "top": 0,
+              "bottom": 0,
+              "height": 0,
+              "left": 0,
+              "right": 0,
+              "width": 0
+            },
+            "padding": "12px 16px 16px",
+            "margin": "0px",
+            "gap": "8px"
+          },
+          {
+            "tag": "BUTTON",
+            "cls": "hati",
+            "box": {
+              "top": 8599,
+              "bottom": 8643,
+              "height": 44,
+              "left": 698,
+              "right": 742,
+              "width": 44
+            },
+            "padding": "0px",
+            "margin": "0px",
+            "gap": "normal"
+          }
+        ]
+      }
+    },
+    "overflow": {
+      "horizontal": false,
+      "elems": [
+        {
+          "tag": "g",
+          "cls": "kue__bunting",
+          "left": -36,
+          "right": 1476
+        },
+        {
+          "tag": "path",
+          "cls": "",
+          "left": -36,
+          "right": 1476
+        },
+        {
+          "tag": "DIV",
+          "cls": "lampion__awan lampion__awan--1",
+          "left": -94,
+          "right": 526
+        },
+        {
+          "tag": "DIV",
+          "cls": "lampion__awan lampion__awan--2",
+          "left": 852,
+          "right": 1532
+        }
+      ]
+    },
+    "page": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "scrollHeight": 8843,
+      "innerWidth": 1440
+    },
+    "sectionGaps": [
+      {
+        "from": "hero",
+        "to": "kue",
+        "gap": 0
+      },
+      {
+        "from": "kue",
+        "to": "galeri",
+        "gap": 0
+      },
+      {
+        "from": "galeri",
+        "to": "timeline",
+        "gap": 0
+      },
+      {
+        "from": "timeline",
+        "to": "counter",
+        "gap": 0
+      },
+      {
+        "from": "counter",
+        "to": "alasan",
+        "gap": 0
+      },
+      {
+        "from": "alasan",
+        "to": "surat",
+        "gap": 0
+      },
+      {
+        "from": "surat",
+        "to": "lampion",
+        "gap": 0
+      },
+      {
+        "from": "lampion",
+        "to": "hadiah",
+        "gap": 0
+      },
+      {
+        "from": "hadiah",
+        "to": "footer",
+        "gap": 0
+      }
+    ],
+    "content": {
+      ".hero__dalam": {
+        "width": 620,
+        "left": 410,
+        "right": 1030,
+        "centered": true
+      },
+      ".kue__dalam": {
+        "width": 560,
+        "left": 440,
+        "right": 1000,
+        "centered": true
+      },
+      ".galeri__daftar": {
+        "width": 1080,
+        "left": 180,
+        "right": 1260,
+        "centered": true
+      },
+      ".timeline__daftar": {
+        "width": 760,
+        "left": 340,
+        "right": 1100,
+        "centered": true
+      },
+      ".counter__hari": {
+        "width": 659,
+        "left": 391,
+        "right": 1049,
+        "centered": true
+      },
+      ".alasan__daftar": {
+        "width": 960,
+        "left": 240,
+        "right": 1200,
+        "centered": true
+      },
+      ".surat__amplop": {
+        "width": 380,
+        "left": 530,
+        "right": 910,
+        "centered": true
+      },
+      ".lampion__dalam": {
+        "width": 560,
+        "left": 440,
+        "right": 1000,
+        "centered": true
+      },
+      ".hadiah__dalam": {
+        "width": 560,
+        "left": 440,
+        "right": 1000,
+        "centered": true
+      },
+      ".footer .hati": {
+        "width": 44,
+        "left": 698,
+        "right": 742,
+        "centered": true
+      }
+    },
+    "errors": []
+  }
+}

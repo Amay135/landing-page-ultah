@@ -559,6 +559,8 @@
     </section>
     <!-- Lampion harapan (F10). Langit malam, lampion besar, lampion kecil dari data.js. -->
     <section id="lampion" class="bagian lampion" aria-labelledby="lampionJudul">
+      <!-- Bintang sengaja direntangkan mengikuti layar (preserveAspectRatio none).
+           Awan dipisah ke elemen CSS di bawah agar tidak ikut melar jadi pita. -->
       <svg class="lampion__langit" viewBox="0 0 400 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         <g fill="#FFF6EC">
           <circle class="lampion__kelip" cx="34" cy="52" r="1.7"/>
@@ -577,12 +579,11 @@
           <circle class="lampion__kelip" cx="190" cy="620" r="1.3"/>
           <circle class="lampion__kelip" cx="370" cy="600" r="1.7"/>
         </g>
-        <g class="lampion__awan" fill="#FFF6EC" opacity=".07">
-          <ellipse cx="90" cy="210" rx="96" ry="9"/>
-          <ellipse cx="310" cy="330" rx="112" ry="8"/>
-          <ellipse cx="150" cy="500" rx="84" ry="7"/>
-        </g>
       </svg>
+      <!-- Tiga lapis kabut awan. Bentuknya tetap karena tidak memakai SVG melar. -->
+      <div class="lampion__awan lampion__awan--1" aria-hidden="true"></div>
+      <div class="lampion__awan lampion__awan--2" aria-hidden="true"></div>
+      <div class="lampion__awan lampion__awan--3" aria-hidden="true"></div>
       <div class="lampion__bulan" aria-hidden="true"></div>
 
       <div class="lampion__dalam">
@@ -716,8 +717,12 @@
       <a id="waTombol" class="wa__tombol" target="_blank" rel="noopener noreferrer"></a>
       <p id="footerTeks" class="wa__teks tulisan-tangan"></p>
     </div>
-    <!-- Easter egg hati (F15): klik memunculkan toast di atas layar -->
-    <button id="hati" class="hati" type="button">💖</button>
+    <!-- Easter egg hati (F15): segel penutup, klik memunculkan toast di atas layar -->
+    <button id="hati" class="hati" type="button">
+      <svg class="hati__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 21C5.5 16.5 2 13.2 2 9.3 2 6.1 4.4 4 7 4c2 0 3.7 1.1 5 3.2C13.3 5.1 15 4 17 4c2.6 0 5 2.1 5 5.3 0 3.9-3.5 7.2-10 11.7Z" fill="currentColor"/>
+      </svg>
+    </button>
   </footer>
 
   <!-- Lightbox galeri (F5): Esc dan backdrop menutup lewat <dialog> -->
