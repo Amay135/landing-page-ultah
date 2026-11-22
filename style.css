@@ -105,6 +105,8 @@ h1, h2, h3 {
   border: 2px solid rgba(217, 163, 172, 0.6);
   border-radius: var(--radius);
   background: #FFFDF8;
+  /* Warna eksplisit: di dalam gate teks warisan berwarna krem dan tak terlihat. */
+  color: var(--teks);
   text-align: center;
 }
 
@@ -152,12 +154,28 @@ h1, h2, h3 {
 /* Halaman tidak bisa di-scroll selama gate masih terbuka */
 body.gate-tertutup { overflow: hidden; }
 
-/* --- 6. Tombol musik latar (kanan bawah, di atas hati kecil) --- */
-.mute {
+/* --- 6. Kelompok kontrol kanan bawah (musik di atas, hati di bawah) --- */
+/* Saat bar WhatsApp belum tampil, kelompok duduk dekat tepi bawah (12px,
+   sejajar maskot). Saat bar tampil, kelompok naik agar tetap di atasnya. */
+/* shortcut: 138px diukur dari bar sekarang (144px: 132px tombol + 6px jarak);
+   naikkan bila teks footer berubah sampai bar lebih tinggi. */
+.kontrol {
   position: fixed;
   right: 14px;
-  bottom: calc(56px + env(safe-area-inset-bottom));
+  bottom: calc(12px + env(safe-area-inset-bottom));
   z-index: 90;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+/* Bar WhatsApp tingginya 144px di semua lebar. Hati berhenti di 138px dari
+   bawah, yaitu 6px di atas tombol WhatsApp (bukan menutupinya). */
+body.wa-tampil .kontrol {
+  bottom: calc(138px + env(safe-area-inset-bottom));
+}
+
+.mute {
   display: grid;
   place-items: center;
   width: 46px;
@@ -169,9 +187,7 @@ body.gate-tertutup { overflow: hidden; }
   color: var(--teks);
   box-shadow: 0 4px 12px rgba(90, 62, 54, 0.14);
   cursor: pointer;
-  /* translate: naik saat bar WhatsApp tampil, tanpa menggeser tata letak. */
-  translate: 0 0;
-  transition: transform 0.25s ease, background-color 0.25s ease, translate 0.35s var(--ease-lembut);
+  transition: transform 0.25s ease, background-color 0.25s ease;
 }
 @media (hover: hover) {
   .mute:hover { transform: scale(1.08); background: #FFFDF8; }
@@ -190,8 +206,6 @@ body.gate-tertutup { overflow: hidden; }
   0%, 100% { transform: rotate(-4deg) translateY(0); }
   50% { transform: rotate(4deg) translateY(-2px); }
 }
-/* Saat bar WhatsApp tampil, angkat tombol agar tidak menutupi tombol pelukan. */
-body.wa-tampil .mute { translate: 0 -158px; }
 
 /* --- 7. Kerangka bagian (sementara sampai tiap fitur diisi) --- */
 main { overflow-x: clip; }
@@ -1257,6 +1271,7 @@ body.surat-terbuka { overflow: hidden; }
 .surat-modal[open] .surat-modal__kertas { animation: lightbox-muncul 0.25s ease-out; }
 .surat-modal__kertas {
   position: relative;
+  z-index: 2; /* di atas kanvas confetti (z-index 1) yang ikut pindah ke dialog */
   display: flex;
   flex-direction: column;
   height: min(86svh, 680px);
@@ -1717,6 +1732,29 @@ body.lampion-terbuka { overflow: hidden; }
   .lampion__kecil { width: 54px; }
 }
 
+/* --- Animasi keluar modal (kelas .modal--pergi dari script.js) --- */
+/* Kelas dipasang sebelum dialog.close(); transform di kartu, backdrop ikut
+   memudar, dan dialog berhenti menangkap klik selama animasi. */
+.lightbox.modal--pergi .lightbox__kartu,
+.surat-modal.modal--pergi .surat-modal__kertas,
+.lampion-modal.modal--pergi .lampion-modal__kertas {
+  animation: modal-keluar 0.2s ease-in forwards;
+}
+.lightbox.modal--pergi::backdrop,
+.surat-modal.modal--pergi::backdrop,
+.lampion-modal.modal--pergi::backdrop {
+  animation: modal-backdrop-keluar 0.2s ease-in forwards;
+}
+.lightbox.modal--pergi,
+.surat-modal.modal--pergi,
+.lampion-modal.modal--pergi { pointer-events: none; }
+@keyframes modal-keluar {
+  to { opacity: 0; transform: translateY(10px) scale(0.98); }
+}
+@keyframes modal-backdrop-keluar {
+  to { opacity: 0; }
+}
+
 /* --- 19. Hadiah penutup (F11) --- */
 .hadiah {
   position: relative;
@@ -1888,8 +1926,9 @@ body.lampion-terbuka { overflow: hidden; }
 }
 
 /* --- 21. Maskot dan pesan rahasia (F15) --- */
-/* Sembunyikan maskot saat bar WhatsApp tampil agar tidak saling menutupi. */
-body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
+/* Maskot digeser ke atas saat bar WhatsApp tampil agar tidak tertutup,
+   tapi tetap terlihat dan bisa diklik (bukan disembunyikan). */
+body.wa-tampil .maskot { translate: 0 -126px; }
 
 .maskot {
   position: fixed;
@@ -1903,6 +1942,7 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   background: none;
   cursor: pointer;
   filter: drop-shadow(0 3px 6px rgba(90, 62, 54, 0.22));
+  transition: translate 0.35s var(--ease-lembut);
 }
 .maskot__svg { display: block; width: 100%; height: auto; }
 .maskot__tangan {
@@ -1928,30 +1968,31 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
 }
 .hero__rahasia--tampil { opacity: 1; transform: none; }
 
-/* Hati kecil easter egg (F15): segel penutup di alur footer, bukan tombol tetap. */
+/* Hati kecil easter egg (F15): bagian bawah kelompok kontrol kanan.
+   Gaya lingkaran mengikuti tombol musik agar terbaca sebagai satu kelompok. */
 .hati {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   padding: 0;
-  border: 0;
+  border: 1.5px solid rgba(244, 182, 194, 0.7);
   border-radius: 50%;
-  background: none;
+  background: rgba(255, 246, 236, 0.94);
   color: var(--pink-tua);
-  opacity: 0.65;
+  box-shadow: 0 4px 12px rgba(90, 62, 54, 0.14);
   cursor: pointer;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.25s ease;
 }
 .hati__ikon { width: 22px; height: 22px; }
 @media (hover: hover) {
-  .hati:hover { opacity: 1; transform: scale(1.08); }
+  .hati:hover { transform: scale(1.08); background: #FFFDF8; }
 }
-.hati:focus-visible { opacity: 1; transform: scale(1.08); }
-.hati:active { opacity: 1; transform: scale(0.94); }
+.hati:focus-visible { transform: scale(1.08); background: #FFFDF8; }
+.hati:active { transform: scale(0.94); }
 
 /* Toast hati: di atas layar, tidak menangkap klik, dan tidak menggeser tata letak.
-   top 64px sengaja memberi ruang untuk tombol mute di pojok kanan atas. */
+   top 64px memberi jarak nyaman dari tepi atas. */
 .toast {
   position: fixed;
   top: calc(64px + env(safe-area-inset-top));
@@ -1976,8 +2017,8 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
 .toast--tampil { opacity: 1; transform: translate(-50%, 0); }
 
 /* --- 22. Footer: tombol pelukan WhatsApp (F12) --- */
-/* Footer penutup: segel hati di alur halaman, bar WhatsApp tetap menempel
-   di bawah. Padding bawah memesan ruang agar bar tidak menutupi segel. */
+/* Footer penutup: bar WhatsApp tetap menempel di bawah. Padding bawah
+   memesan ruang agar bar tidak menutupi ujung konten halaman. */
 .footer {
   display: grid;
   justify-items: center;
@@ -2096,6 +2137,7 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   .maskot--lambai .maskot__tangan { animation: none; }
   .mute,
   .hati,
+  .maskot,
   .toast { transition: none; }
   .wa__tombol { animation: none; transition: none; }
 }

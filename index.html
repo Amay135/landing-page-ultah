@@ -21,15 +21,25 @@
   <!-- Musik: src diisi dari data.js -->
   <audio id="musik" loop preload="none"></audio>
 
-  <!-- Tombol musik, baru tampil setelah musik mulai. Garis coret tampil saat mati. -->
-  <button id="tombolMute" class="mute" type="button" hidden aria-pressed="false" aria-label="Matikan musik">
-    <svg class="mute__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M9 17.5V6l10-2v10.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
-      <ellipse cx="6.6" cy="17.6" rx="2.9" ry="2.4" fill="currentColor"/>
-      <ellipse cx="16.6" cy="14.6" rx="2.9" ry="2.4" fill="currentColor"/>
-      <path class="mute__coret" d="M4 4l16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  </button>
+  <!-- Kelompok kontrol kanan bawah: musik di atas, hati di bawahnya.
+       Satu wadah fixed agar keduanya tidak bergeser saat bar WhatsApp tampil. -->
+  <div id="kontrol" class="kontrol">
+    <!-- Tombol musik, baru tampil setelah musik mulai. Garis coret tampil saat mati. -->
+    <button id="tombolMute" class="mute" type="button" hidden aria-pressed="false" aria-label="Matikan musik">
+      <svg class="mute__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M9 17.5V6l10-2v10.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+        <ellipse cx="6.6" cy="17.6" rx="2.9" ry="2.4" fill="currentColor"/>
+        <ellipse cx="16.6" cy="14.6" rx="2.9" ry="2.4" fill="currentColor"/>
+        <path class="mute__coret" d="M4 4l16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <!-- Easter egg hati (F15): klik memunculkan toast di atas layar -->
+    <button id="hati" class="hati" type="button">
+      <svg class="hati__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 21C5.5 16.5 2 13.2 2 9.3 2 6.1 4.4 4 7 4c2 0 3.7 1.1 5 3.2C13.3 5.1 15 4 17 4c2.6 0 5 2.1 5 5.3 0 3.9-3.5 7.2-10 11.7Z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
 
   <!-- Maskot kucing orisinal di pojok (F15). Klik: melambai. -->
   <button id="maskot" class="maskot" type="button" aria-label="Maskot kucing, klik untuk melambai">
@@ -717,12 +727,7 @@
       <a id="waTombol" class="wa__tombol" target="_blank" rel="noopener noreferrer"></a>
       <p id="footerTeks" class="wa__teks tulisan-tangan"></p>
     </div>
-    <!-- Easter egg hati (F15): segel penutup, klik memunculkan toast di atas layar -->
-    <button id="hati" class="hati" type="button">
-      <svg class="hati__ikon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M12 21C5.5 16.5 2 13.2 2 9.3 2 6.1 4.4 4 7 4c2 0 3.7 1.1 5 3.2C13.3 5.1 15 4 17 4c2.6 0 5 2.1 5 5.3 0 3.9-3.5 7.2-10 11.7Z" fill="currentColor"/>
-      </svg>
-    </button>
+    <!-- Segel hati dipindah ke kelompok kontrol kanan bawah (#kontrol). -->
   </footer>
 
   <!-- Lightbox galeri (F5): Esc dan backdrop menutup lewat <dialog> -->

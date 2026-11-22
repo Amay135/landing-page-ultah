@@ -27,7 +27,7 @@ sandi.hidden = !pakaiSandi;
 (pakaiSandi ? sandi : tombolBuka).focus();
 
 // Latar di belakang gate tidak bisa difokus atau diklik selama gate terbuka.
-const latarTerkunci = ["main", "footer", "#maskot"].map((s) => document.querySelector(s));
+const latarTerkunci = ["main", "footer", "#maskot", "#kontrol"].map((s) => document.querySelector(s));
 function kunciLatar(terkunci) {
   for (const el of latarTerkunci) el.toggleAttribute("inert", terkunci);
 }
@@ -424,7 +424,11 @@ formPotongan.addEventListener("submit", (e) => {
   potonganSiap = null;
   potongan.nama = nama;
   sedangMenyajikan = true;
+  // Menyembunyikan kartu menghapus tinggi layout dan memicu scroll anchoring
+  // meloncat; simpan lalu kembalikan posisi scroll setelah reflow.
+  const gulirSebelum = window.scrollY;
   kartuPotongan.hidden = true;
+  if (window.scrollY !== gulirSebelum) window.scrollTo({ top: gulirSebelum, behavior: "instant" });
   potongan.elemen.classList.add("kue__potongan--sajikan");
 
   // Setelah potongan mendarat: pesan, badge penerima, remah, confetti di piring.
@@ -578,14 +582,14 @@ function geserLightbox(langkah) {
   isiLightbox();
 }
 
-lightboxTutup.addEventListener("click", () => lightbox.close());
+lightboxTutup.addEventListener("click", () => tutupModal(lightbox));
 lightboxSebelum.addEventListener("click", () => geserLightbox(-1));
 lightboxSesudah.addEventListener("click", () => geserLightbox(1));
 lightbox.addEventListener("close", () => document.body.classList.remove("lightbox-terbuka"));
 
 // Klik backdrop (di luar kartu) menutup.
 lightbox.addEventListener("click", (e) => {
-  if (e.target === lightbox) lightbox.close();
+  if (e.target === lightbox) tutupModal(lightbox);
 });
 
 // Panah kiri/kanan saat lightbox terbuka (Esc sudah ditangani <dialog>).
@@ -960,7 +964,7 @@ amplop.addEventListener("click", () => {
 });
 
 suratLewati.addEventListener("click", tampilkanSuratLengkap);
-suratTutup.addEventListener("click", () => suratModal.close());
+suratTutup.addEventListener("click", () => tutupModal(suratModal));
 
 // Esc menutup dialog; timer ketik ikut dihentikan di sini (tidak bocor saat dibuka lagi).
 suratModal.addEventListener("close", () => {
@@ -975,7 +979,7 @@ suratModal.addEventListener("close", () => {
 
 // Klik di luar kertas (backdrop) menutup.
 suratModal.addEventListener("click", (e) => {
-  if (e.target === suratModal) suratModal.close();
+  if (e.target === suratModal) tutupModal(suratModal);
 });
 
 // --- Lampion harapan (F10) ---
@@ -1064,13 +1068,31 @@ function bukaBacaHarapan(isiHarapan) {
 
 lampionBesar.addEventListener("click", bukaTulisHarapan);
 lampionLain.addEventListener("click", bukaTulisHarapan);
-lampionTutup.addEventListener("click", () => lampionModal.close());
+lampionTutup.addEventListener("click", () => tutupModal(lampionModal));
 lampionModal.addEventListener("close", () => document.body.classList.remove("lampion-terbuka"));
 
 // Klik di luar kertas (backdrop) menutup.
 lampionModal.addEventListener("click", (e) => {
-  if (e.target === lampionModal) lampionModal.close();
+  if (e.target === lampionModal) tutupModal(lampionModal);
 });
+
+// --- Animasi keluar dialog ---
+// Satu jalur untuk tombol tutup, backdrop, dan Esc (cancel): pasang kelas
+// animasi keluar, lalu tutup setelah 0.2s agar tidak menghilang mendadak.
+function tutupModal(dialog) {
+  if (!dialog.open || dialog.classList.contains("modal--pergi")) return;
+  dialog.classList.add("modal--pergi");
+  setTimeout(() => {
+    dialog.close();
+    dialog.classList.remove("modal--pergi");
+  }, 200);
+}
+for (const dialog of [lightbox, suratModal, lampionModal]) {
+  dialog.addEventListener("cancel", (e) => {
+    e.preventDefault(); // Esc: tunda close() sampai animasi keluar selesai
+    tutupModal(dialog);
+  });
+}
 
 formLampion.addEventListener("submit", (e) => {
   e.preventDefault();

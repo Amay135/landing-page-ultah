@@ -8,8 +8,8 @@ const DATA = {
   namaSaya: "Aku", // dipakai untuk tebak-tebakan "potongan kue untuk siapa"
   tanggalUlangTahun: "", // opsional, tidak dipakai di halaman
   tanggalJadian: "2026-05-28",
-  kataSandi: "14022023", // kosongkan ("") untuk mematikan sandi
-  petunjukSandi: "Tanggal Valentine tahun 2023, tanpa spasi 😉",
+  kataSandi: "28052026", // kosongkan ("") untuk mematikan sandi
+  petunjukSandi: "Ingat tanggal jadian kita.",
 
   // 2. WhatsApp (tombol pelukan)
   nomorWA: "6285748631950", // format internasional tanpa + dan tanpa spasi
