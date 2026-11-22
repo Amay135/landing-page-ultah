@@ -19,7 +19,7 @@ function ok(name, cond, extra = '') { results.push({ name, pass: !!cond, extra }
     // 1. Gate & musik
     ok('gate tampil sebelum dibuka', await page.locator('#gate').isVisible());
     ok('musik belum jalan sebelum klik', await page.evaluate(() => document.getElementById('musik').paused));
-    if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('14022023');
+    if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('28052026');
     await page.locator('#tombolBuka').click();
     await page.waitForTimeout(1500);
     ok('gate hilang setelah dibuka', !(await page.locator('#gate').isVisible()));

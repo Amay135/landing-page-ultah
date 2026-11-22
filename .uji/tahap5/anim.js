@@ -26,7 +26,7 @@ const status = (page) => page.evaluate(() => {
   const page = await ctx.newPage();
   await page.goto(URL, { waitUntil: 'networkidle' });
   await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
-  if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('14022023');
+  if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('28052026');
   await page.locator('#tombolBuka').click();
   await page.waitForTimeout(1400);
   await page.locator('#kue').scrollIntoViewIfNeeded();

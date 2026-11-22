@@ -30,7 +30,7 @@ const SECTIONS = ['hero', 'kue', 'galeri', 'timeline', 'counter', 'alasan', 'sur
     // Buka gate kalau ada.
     if (await page.locator('#gate').isVisible()) {
       const sandi = page.locator('#sandi');
-      if (await sandi.isVisible()) await sandi.fill('14022023');
+      if (await sandi.isVisible()) await sandi.fill('28052026');
       await page.locator('#tombolBuka').click();
       await page.waitForTimeout(1400);
     }

@@ -26,6 +26,12 @@ labelSandi.hidden = !pakaiSandi;
 sandi.hidden = !pakaiSandi;
 (pakaiSandi ? sandi : tombolBuka).focus();
 
+// Input sandi: buang semua selain angka (termasuk hasil paste), batasi 8 digit.
+sandi.addEventListener("input", () => {
+  const bersih = sandi.value.replace(/\D/g, "").slice(0, 8);
+  if (sandi.value !== bersih) sandi.value = bersih;
+});
+
 // Latar di belakang gate tidak bisa difokus atau diklik selama gate terbuka.
 const latarTerkunci = ["main", "footer", "#maskot", "#kontrol"].map((s) => document.querySelector(s));
 function kunciLatar(terkunci) {
@@ -35,7 +41,7 @@ kunciLatar(true);
 
 formGate.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (pakaiSandi && sandi.value.trim() !== DATA.kataSandi) {
+  if (pakaiSandi && sandi.value !== DATA.kataSandi) {
     pesanGate.textContent = DATA.petunjukSandi
       ? DATA.pesanSandiSalah + " " + DATA.petunjukSandi
       : DATA.pesanSandiSalah;

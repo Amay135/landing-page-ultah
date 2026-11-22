@@ -17,7 +17,7 @@ const gaya = (page, sel, prop, pseudo = null) =>
   page.$eval(sel, (el, [p, ps]) => getComputedStyle(el, ps)[p], [prop, pseudo]);
 
 async function bukaGate(page) {
-  if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('14022023');
+  if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('28052026');
   await page.locator('#tombolBuka').click();
   await page.waitForTimeout(1300);
 }

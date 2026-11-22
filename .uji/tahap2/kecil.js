@@ -8,7 +8,7 @@ const URL = 'http://127.0.0.1:8000/index.html';
     const ctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
     const page = await ctx.newPage();
     await page.goto(URL, { waitUntil: 'networkidle' });
-    if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('14022023');
+    if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('28052026');
     await page.locator('#tombolBuka').click();
     await page.waitForTimeout(1600);
     const h = await page.evaluate(() => document.documentElement.scrollHeight);

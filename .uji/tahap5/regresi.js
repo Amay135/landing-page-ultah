@@ -15,7 +15,7 @@ const ok = (nama, lulus, info = '') => { HASIL.push({ nama, lulus: !!lulus, info
     page.on('pageerror', e => errors.push(e.message));
     await page.goto(URL, { waitUntil: 'networkidle' });
     await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
-    if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('14022023');
+    if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('28052026');
     await page.locator('#tombolBuka').click();
     await page.waitForTimeout(1400);
     const totalH = await page.evaluate(() => document.documentElement.scrollHeight);

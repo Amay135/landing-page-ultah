@@ -36,7 +36,7 @@ const ukurFrame = (page, jumlah = 180) => page.evaluate((n) => new Promise((reso
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'no-preference' });
   const page = await ctx.newPage();
   await page.goto(URL, { waitUntil: 'networkidle' });
-  if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('14022023');
+  if (await page.locator('#sandi').isVisible()) await page.locator('#sandi').fill('28052026');
   await page.locator('#tombolBuka').click();
   await page.waitForTimeout(5500); // hujan confetti lebat selesai, tersisa hujan ringan
 
@@ -69,7 +69,7 @@ const ukurFrame = (page, jumlah = 180) => page.evaluate((n) => new Promise((reso
   const ctxR = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   const pageR = await ctxR.newPage();
   await pageR.goto(URL, { waitUntil: 'networkidle' });
-  if (await pageR.locator('#sandi').isVisible()) await pageR.locator('#sandi').fill('14022023');
+  if (await pageR.locator('#sandi').isVisible()) await pageR.locator('#sandi').fill('28052026');
   await pageR.locator('#tombolBuka').click();
   await pageR.waitForTimeout(1000);
   const clientR = await ctxR.newCDPSession(pageR);

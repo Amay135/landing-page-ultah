@@ -4,9 +4,9 @@
 const DATA = {
   // 1. Data dasar
   namaDia: "Sayang",
-  namaLengkapDia: "",
-  namaSaya: "Aku", // dipakai untuk tebak-tebakan "potongan kue untuk siapa"
-  tanggalUlangTahun: "", // opsional, tidak dipakai di halaman
+  namaLengkapDia: "Nadia",
+  namaSaya: "Amay", // dipakai untuk tebak-tebakan "potongan kue untuk siapa"
+  tanggalUlangTahun: "23 November", // opsional, tidak dipakai di halaman
   tanggalJadian: "2026-05-28",
   kataSandi: "28052026", // kosongkan ("") untuk mematikan sandi
   petunjukSandi: "Ingat tanggal jadian kita.",
@@ -118,7 +118,7 @@ const DATA = {
   suratLabelLewati: "Lewati",
   suratLabelTutup: "Tutup surat",
   suratKecepatanMs: 48, // jeda efek ketik per karakter (40-60 ms)
-  salamSurat: "Untuk Sayang,",
+  salamSurat: "Untuk Sayang Nadia,",
   teksSurat: [
     "Selamat ulang tahun, sayang. Aku masih inget hari pertama kita ketemu di Roblox: satu server, satu chat, dan obrolan receh yang nggak ada rencananya. Waktu itu aku nggak tahu kalau username itu bakal jadi orang paling penting di hidupku.",
     "Terus kita tukar Discord, lanjut ngobrol sampai lupa waktu. Tanggal 28 Mei kamu bilang iya, dan sejak itu dunia online rasanya beda aja. Dari yang awalnya cuma teman main, sekarang resmi jadi dua orang yang saling memiliki. Plot twist terbaik yang nggak pernah aku rencanakan. Makasih ya udah dengerin cerita-ceritaku, dari yang serius sampai yang nggak penting banget.",
@@ -126,7 +126,7 @@ const DATA = {
     "Suatu hari nanti, kalau waktunya dateng, aku mau ketemu kamu beneran. Sampai hari itu tiba, aku bakal tetap ada di sini, di chat yang sama.",
   ].join("\n\n"),
   penutupSurat: "Dengan sayang,",
-  tandaTangan: "Aku",
+  tandaTangan: "Amay",
 
   // 11. Lampion harapan
   judulLampion: "Lepaskan Harapanmu ke Langit",
