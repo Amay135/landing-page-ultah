@@ -1,0 +1,52 @@
+
+===== 320px =====
+PASS  12 foto dan urutannya sesuai data.js  (jumlah=12)
+PASS  foto 5,6,11,12 rasio 4:3  (4 / 3,4 / 3,4 / 3,4 / 3)
+PASS  foto lain rasio 1:1  (1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1)
+PASS  awan CSS lampion ada dan beranimasi  ([179,198,147])
+PASS  counter bukan min-height 60vh  (0px)
+PASS  jarak antar-section stabil (toleransi subpiksel 2px)  (0,0,0,0,0,0,0,0,0)
+PASS  tanpa scroll horizontal
+PASS  tanpa error console/page
+
+===== 360px =====
+PASS  12 foto dan urutannya sesuai data.js  (jumlah=12)
+PASS  foto 5,6,11,12 rasio 4:3  (4 / 3,4 / 3,4 / 3,4 / 3)
+PASS  foto lain rasio 1:1  (1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1)
+PASS  awan CSS lampion ada dan beranimasi  ([202,223,166])
+PASS  counter bukan min-height 60vh  (0px)
+PASS  jarak antar-section stabil (toleransi subpiksel 2px)  (0,0,0,0,0,0,0,0,0)
+PASS  tanpa scroll horizontal
+PASS  tanpa error console/page
+
+===== 390px =====
+PASS  12 foto dan urutannya sesuai data.js  (jumlah=12)
+PASS  foto 5,6,11,12 rasio 4:3  (4 / 3,4 / 3,4 / 3,4 / 3)
+PASS  foto lain rasio 1:1  (1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1)
+PASS  awan CSS lampion ada dan beranimasi  ([218,242,179])
+PASS  counter bukan min-height 60vh  (0px)
+PASS  jarak antar-section stabil (toleransi subpiksel 2px)  (0,0,0,0,0,0,0,0,0)
+PASS  tanpa scroll horizontal
+PASS  tanpa error console/page
+
+===== 768px =====
+PASS  12 foto dan urutannya sesuai data.js  (jumlah=12)
+PASS  foto 5,6,11,12 rasio 4:3  (4 / 3,4 / 3,4 / 3,4 / 3)
+PASS  foto lain rasio 1:1  (1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1)
+PASS  awan CSS lampion ada dan beranimasi  ([430,476,353])
+PASS  counter bukan min-height 60vh  (0px)
+PASS  jarak antar-section stabil (toleransi subpiksel 2px)  (0,0,0,0,0,0,0,0,0)
+PASS  tanpa scroll horizontal
+PASS  tanpa error console/page
+
+===== 1440px =====
+PASS  12 foto dan urutannya sesuai data.js  (jumlah=12)
+PASS  foto 5,6,11,12 rasio 4:3  (4 / 3,4 / 3,4 / 3,4 / 3)
+PASS  foto lain rasio 1:1  (1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1,1 / 1)
+PASS  awan CSS lampion ada dan beranimasi  ([620,680,520])
+PASS  counter bukan min-height 60vh  (0px)
+PASS  jarak antar-section stabil (toleransi subpiksel 2px)  (0,0,0,0,0,0,0,0,0)
+PASS  tanpa scroll horizontal
+PASS  tanpa error console/page
+
+===== RINGKASAN: 40/40 lolos =====
