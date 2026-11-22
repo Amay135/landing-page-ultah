@@ -1,0 +1,6 @@
+PASS  jejak dan lampion kecil dibersihkan  ({"jejak":0,"lahir":0,"siap":true})
+PASS  hati kartu alasan dibersihkan  (saat terbuka=6, sisa=0)
+PASS  sparkle dibatasi 30 dan dibersihkan  (puncak=30, sisa=0)
+PASS  tanpa error console/page
+
+===== RINGKASAN: 4/4 lolos =====

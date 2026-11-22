@@ -1,0 +1,11 @@
+=== REGRESI TIPOGRAFI/LAYOUT TAHAP 4 (setelah noise animasi disaring) ===
+Perbedaan nyata: 8
+ - ('320', 'layout-luar', {'tag': 'g', 'cls': '', 'teks': '', 'left': -18, 'right': 72}, {'tag': 'g', 'cls': '', 'teks': '', 'left': -17, 'right': 71})
+ - ('320', 'layout-luar', {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -14, 'right': 61}, {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -15, 'right': 61})
+ - ('320', 'layout-luar', {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -31, 'right': 28}, {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -31, 'right': 27})
+ - ('360', 'layout-luar', {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -11, 'right': 48}, {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -11, 'right': 47})
+ - ('360', 'layout-luar', {'tag': 'g', 'cls': '', 'teks': '', 'left': 279, 'right': 366}, {'tag': 'g', 'cls': '', 'teks': '', 'left': 280, 'right': 366})
+ - ('360', 'layout-luar', {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': 291, 'right': 366}, {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': 292, 'right': 366})
+ - ('390', 'layout-luar', {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -6, 'right': 55}, {'tag': 'ellipse', 'cls': '', 'teks': '', 'left': -7, 'right': 55})
+ - ('390', 'layout-luar', {'tag': 'g', 'cls': '', 'teks': '', 'left': 301, 'right': 391}, {'tag': 'g', 'cls': '', 'teks': '', 'left': 300, 'right': 391})
+Noise animasi yang diabaikan: {'rect elemen dianimasikan': 46, 'elemen dekoratif bergerak': 9}

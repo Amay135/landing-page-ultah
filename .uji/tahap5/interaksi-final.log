@@ -1,0 +1,237 @@
+
+===== 320px =====
+PASS  gate tampil sebelum dibuka
+PASS  musik belum jalan sebelum klik
+PASS  gate hilang setelah dibuka
+PASS  musik mulai setelah klik  ({"paused":false,"src":"http://127.0.0.1:8000/assets/piano.m4a","t":0.65318})
+PASS  tombol mute tampil
+PASS  nama di hero dari data.js
+PASS  pesan rahasia muncul setelah 5 klik
+PASS  lilin padam
+PASS  teks make a wish
+PASS  tombol potong muncul
+PASS  kartu nama penerima muncul
+PASS  nama kosong ditolak
+PASS  badge penerima dibuat
+PASS  teks penerima muncul
+PASS  tombol potong lagi muncul
+PASS  lightbox terbuka
+PASS  lightbox tertutup dengan Esc
+PASS  timeline reveal
+PASS  counter berjalan  (18:56:04 -> 18:56:06)
+PASS  kartu alasan terbuka (klik)
+PASS  kartu alasan tertutup
+PASS  kartu alasan terbuka (keyboard)
+PASS  modal surat terbuka
+PASS  lewati mengisi surat lengkap
+PASS  surat tertutup
+PASS  modal lampion terbuka
+PASS  harapan kosong ditolak
+PASS  lampion terbang + teks
+PASS  tombol lampion lain muncul
+PASS  lampion baru bisa diklik
+PASS  bar WhatsApp tampil di footer
+PASS  link WhatsApp benar  (https://wa.me/6285748631950?text=Aku%20udah%20lihat%20semuan)
+PASS  toast hati muncul
+PASS  mute mematikan musik
+PASS  unmute menyalakan musik
+PASS  sparkle muncul  (partikel=30)
+PASS  sparkle dibersihkan
+PASS  isi hadiah tampil
+PASS  tombol mainkan lagi tampil
+PASS  mainkan lagi menutup hadiah
+PASS  mainkan lagi mereset kue
+PASS  mainkan lagi mereset kartu
+PASS  tidak ada scroll horizontal  ({"w":320,"c":320})
+  halaman: 7968px
+PASS  tanpa error console/page
+
+===== 360px =====
+PASS  gate tampil sebelum dibuka
+PASS  musik belum jalan sebelum klik
+PASS  gate hilang setelah dibuka
+PASS  musik mulai setelah klik  ({"paused":false,"src":"http://127.0.0.1:8000/assets/piano.m4a","t":1.483887})
+PASS  tombol mute tampil
+PASS  nama di hero dari data.js
+PASS  pesan rahasia muncul setelah 5 klik
+PASS  lilin padam
+PASS  teks make a wish
+PASS  tombol potong muncul
+PASS  kartu nama penerima muncul
+PASS  nama kosong ditolak
+PASS  badge penerima dibuat
+PASS  teks penerima muncul
+PASS  tombol potong lagi muncul
+PASS  lightbox terbuka
+PASS  lightbox tertutup dengan Esc
+PASS  timeline reveal
+PASS  counter berjalan  (18:56:39 -> 18:56:41)
+PASS  kartu alasan terbuka (klik)
+PASS  kartu alasan tertutup
+PASS  kartu alasan terbuka (keyboard)
+PASS  modal surat terbuka
+PASS  lewati mengisi surat lengkap
+PASS  surat tertutup
+PASS  modal lampion terbuka
+PASS  harapan kosong ditolak
+PASS  lampion terbang + teks
+PASS  tombol lampion lain muncul
+PASS  lampion baru bisa diklik
+PASS  bar WhatsApp tampil di footer
+PASS  link WhatsApp benar  (https://wa.me/6285748631950?text=Aku%20udah%20lihat%20semuan)
+PASS  toast hati muncul
+PASS  mute mematikan musik
+PASS  unmute menyalakan musik
+PASS  sparkle muncul  (partikel=30)
+PASS  sparkle dibersihkan
+PASS  isi hadiah tampil
+PASS  tombol mainkan lagi tampil
+PASS  mainkan lagi menutup hadiah
+PASS  mainkan lagi mereset kue
+PASS  mainkan lagi mereset kartu
+PASS  tidak ada scroll horizontal  ({"w":360,"c":360})
+  halaman: 9094px
+PASS  tanpa error console/page
+
+===== 390px =====
+PASS  gate tampil sebelum dibuka
+PASS  musik belum jalan sebelum klik
+PASS  gate hilang setelah dibuka
+PASS  musik mulai setelah klik  ({"paused":false,"src":"http://127.0.0.1:8000/assets/piano.m4a","t":1.488178})
+PASS  tombol mute tampil
+PASS  nama di hero dari data.js
+PASS  pesan rahasia muncul setelah 5 klik
+PASS  lilin padam
+PASS  teks make a wish
+PASS  tombol potong muncul
+PASS  kartu nama penerima muncul
+PASS  nama kosong ditolak
+PASS  badge penerima dibuat
+PASS  teks penerima muncul
+PASS  tombol potong lagi muncul
+PASS  lightbox terbuka
+PASS  lightbox tertutup dengan Esc
+PASS  timeline reveal
+PASS  counter berjalan  (18:57:13 -> 18:57:14)
+PASS  kartu alasan terbuka (klik)
+PASS  kartu alasan tertutup
+PASS  kartu alasan terbuka (keyboard)
+PASS  modal surat terbuka
+PASS  lewati mengisi surat lengkap
+PASS  surat tertutup
+PASS  modal lampion terbuka
+PASS  harapan kosong ditolak
+PASS  lampion terbang + teks
+PASS  tombol lampion lain muncul
+PASS  lampion baru bisa diklik
+PASS  bar WhatsApp tampil di footer
+PASS  link WhatsApp benar  (https://wa.me/6285748631950?text=Aku%20udah%20lihat%20semuan)
+PASS  toast hati muncul
+PASS  mute mematikan musik
+PASS  unmute menyalakan musik
+PASS  sparkle muncul  (partikel=30)
+PASS  sparkle dibersihkan
+PASS  isi hadiah tampil
+PASS  tombol mainkan lagi tampil
+PASS  mainkan lagi menutup hadiah
+PASS  mainkan lagi mereset kue
+PASS  mainkan lagi mereset kartu
+PASS  tidak ada scroll horizontal  ({"w":390,"c":390})
+  halaman: 9480px
+PASS  tanpa error console/page
+
+===== 768px =====
+PASS  gate tampil sebelum dibuka
+PASS  musik belum jalan sebelum klik
+PASS  gate hilang setelah dibuka
+PASS  musik mulai setelah klik  ({"paused":false,"src":"http://127.0.0.1:8000/assets/piano.m4a","t":1.485732})
+PASS  tombol mute tampil
+PASS  nama di hero dari data.js
+PASS  pesan rahasia muncul setelah 5 klik
+PASS  lilin padam
+PASS  teks make a wish
+PASS  tombol potong muncul
+PASS  kartu nama penerima muncul
+PASS  nama kosong ditolak
+PASS  badge penerima dibuat
+PASS  teks penerima muncul
+PASS  tombol potong lagi muncul
+PASS  lightbox terbuka
+PASS  lightbox tertutup dengan Esc
+PASS  timeline reveal
+PASS  counter berjalan  (18:57:48 -> 18:57:49)
+PASS  kartu alasan terbuka (klik)
+PASS  kartu alasan tertutup
+PASS  kartu alasan terbuka (keyboard)
+PASS  modal surat terbuka
+PASS  lewati mengisi surat lengkap
+PASS  surat tertutup
+PASS  modal lampion terbuka
+PASS  harapan kosong ditolak
+PASS  lampion terbang + teks
+PASS  tombol lampion lain muncul
+PASS  lampion baru bisa diklik
+PASS  bar WhatsApp tampil di footer
+PASS  link WhatsApp benar  (https://wa.me/6285748631950?text=Aku%20udah%20lihat%20semuan)
+PASS  toast hati muncul
+PASS  mute mematikan musik
+PASS  unmute menyalakan musik
+PASS  sparkle muncul  (partikel=30)
+PASS  sparkle dibersihkan
+PASS  isi hadiah tampil
+PASS  tombol mainkan lagi tampil
+PASS  mainkan lagi menutup hadiah
+PASS  mainkan lagi mereset kue
+PASS  mainkan lagi mereset kartu
+PASS  tidak ada scroll horizontal  ({"w":768,"c":768})
+  halaman: 10459px
+PASS  tanpa error console/page
+
+===== 1440px =====
+PASS  gate tampil sebelum dibuka
+PASS  musik belum jalan sebelum klik
+PASS  gate hilang setelah dibuka
+PASS  musik mulai setelah klik  ({"paused":false,"src":"http://127.0.0.1:8000/assets/piano.m4a","t":1.456937})
+PASS  tombol mute tampil
+PASS  nama di hero dari data.js
+PASS  pesan rahasia muncul setelah 5 klik
+PASS  lilin padam
+PASS  teks make a wish
+PASS  tombol potong muncul
+PASS  kartu nama penerima muncul
+PASS  nama kosong ditolak
+PASS  badge penerima dibuat
+PASS  teks penerima muncul
+PASS  tombol potong lagi muncul
+PASS  lightbox terbuka
+PASS  lightbox tertutup dengan Esc
+PASS  timeline reveal
+PASS  counter berjalan  (18:58:23 -> 18:58:24)
+PASS  kartu alasan terbuka (klik)
+PASS  kartu alasan tertutup
+PASS  kartu alasan terbuka (keyboard)
+PASS  modal surat terbuka
+PASS  lewati mengisi surat lengkap
+PASS  surat tertutup
+PASS  modal lampion terbuka
+PASS  harapan kosong ditolak
+PASS  lampion terbang + teks
+PASS  tombol lampion lain muncul
+PASS  lampion baru bisa diklik
+PASS  bar WhatsApp tampil di footer
+PASS  link WhatsApp benar  (https://wa.me/6285748631950?text=Aku%20udah%20lihat%20semuan)
+PASS  toast hati muncul
+PASS  mute mematikan musik
+PASS  unmute menyalakan musik
+PASS  sparkle muncul  (partikel=30)
+PASS  sparkle dibersihkan
+PASS  isi hadiah tampil
+PASS  tombol mainkan lagi tampil
+PASS  mainkan lagi menutup hadiah
+PASS  mainkan lagi mereset kue
+PASS  mainkan lagi mereset kartu
+PASS  tidak ada scroll horizontal  ({"w":1440,"c":1440})
+  halaman: 8908px
+PASS  tanpa error console/page
+
+===== RINGKASAN: 220/220 lolos =====

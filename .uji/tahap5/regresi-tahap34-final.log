@@ -1,0 +1,20 @@
+=== TAHAP 3: WARNA / MATERIAL / SPACING ===
+Perbedaan properti material: 0
+Perbedaan ukuran teks: 10 (sengaja: ikon lightbox diganti SVG, font-size glyph dihapus)
+ - ('320', '.lightbox__tombol', 'fontSize', '16.8px', '16px')
+ - ('320', '.lightbox__tombol', 'lineHeight', '16.8px', '16px')
+ - ('360', '.lightbox__tombol', 'fontSize', '16.8px', '16px')
+ - ('360', '.lightbox__tombol', 'lineHeight', '16.8px', '16px')
+ - ('390', '.lightbox__tombol', 'fontSize', '16.8px', '16px')
+ - ('390', '.lightbox__tombol', 'lineHeight', '16.8px', '16px')
+ - ('768', '.lightbox__tombol', 'fontSize', '16.8px', '16px')
+ - ('768', '.lightbox__tombol', 'lineHeight', '16.8px', '16px')
+ - ('1440', '.lightbox__tombol', 'fontSize', '16.8px', '16px')
+ - ('1440', '.lightbox__tombol', 'lineHeight', '16.8px', '16px')
+Ukuran stiker dekoratif berbeda: 5 (posisi/ukuran acak tiap muat, bukan regresi)
+PASS: tidak ada perubahan palet, gradien, shadow, glow, radius, padding, margin, atau gap.
+
+=== TAHAP 4: TIPOGRAFI / LAYOUT / FONT ===
+Perbedaan nyata: 0
+Selisih rect elemen dianimasikan (diabaikan): 69
+PASS: Pacifico/Caveat/Nunito, hierarki dan ukuran teks, lebar/tinggi statis, jumlah baris, serta overflow identik di 5 viewport.

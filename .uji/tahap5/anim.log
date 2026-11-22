@@ -1,0 +1,14 @@
+--- potong: pisau, garis, mask, kartu ---
+0ms {"notch":"0","pisauOpacity":"0","garisOpacity":"0","formTampil":false,"irisanOpacity":null,"irisanTransform":null,"badge":0}
+300ms {"notch":"0","pisauOpacity":"1","garisOpacity":"0","formTampil":false,"irisanOpacity":null,"irisanTransform":null,"badge":0}
+560ms {"notch":"0","pisauOpacity":"1","garisOpacity":"0.717801","formTampil":false,"irisanOpacity":null,"irisanTransform":null,"badge":0}
+820ms {"notch":"72","pisauOpacity":"1","garisOpacity":"0.833674","formTampil":false,"irisanOpacity":null,"irisanTransform":null,"badge":0}
+1050ms {"notch":"72","pisauOpacity":"0.119917","garisOpacity":"0.510516","formTampil":true,"irisanOpacity":null,"irisanTransform":null,"badge":0}
+1150ms {"notch":"72","pisauOpacity":"0","garisOpacity":"0.5","formTampil":true,"irisanOpacity":null,"irisanTransform":null,"badge":0}
+1450ms {"notch":"72","pisauOpacity":"0","garisOpacity":"0.5","formTampil":true,"irisanOpacity":null,"irisanTransform":null,"badge":0}
+--- saji: irisan melengkung ke piring, badge saat mendarat ---
+0ms {"notch":"72","pisauOpacity":"0","garisOpacity":"0.5","formTampil":false,"irisanOpacity":"1","irisanTransform":"matrix(0.994522, 0.104528, -0.104528, 0.994522, -23.2, -114.2)","badge":0}
+200ms {"notch":"72","pisauOpacity":"0","garisOpacity":"0.5","formTampil":false,"irisanOpacity":"1","irisanTransform":"matrix(0.999894, 0.0145289, -0.0145289, 0.999894, -16.2713, -124.704)","badge":0}
+550ms {"notch":"72","pisauOpacity":"0","garisOpacity":"0.5","formTampil":false,"irisanOpacity":"1","irisanTransform":"matrix(0.997345, -0.0728213, 0.0728213, 0.997345, -4.42308, -49.391)","badge":0}
+900ms {"notch":"72","pisauOpacity":"0","garisOpacity":"0.5","formTampil":false,"irisanOpacity":"1","irisanTransform":"matrix(0.996195, -0.0871558, 0.0871558, 0.996195, 0, -9.87873e-06)","badge":1}
+1250ms {"notch":"72","pisauOpacity":"0","garisOpacity":"0.5","formTampil":false,"irisanOpacity":"1","irisanTransform":"matrix(0.996195, -0.0871557, 0.0871557, 0.996195, 0, 0)","badge":1}

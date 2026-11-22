@@ -1,0 +1,18 @@
+
+===== 320px =====
+PASS  badge nama 30 karakter tidak terpotong  ({"teks":"♥Namayangpalingpanjang12345678","lebar":277,"isi":277})
+PASS  nama panjang tidak membuat scroll horizontal
+PASS  surat bisa digulir sampai tanda tangan  ({"akhir":"\nDengan sayang,\n\nAku","scrollTop":1091})
+PASS  surat memakai Caveat  (Caveat, cursive)
+PASS  tiga font tetap termuat  ({"pacifico":true,"caveat":true,"nunito":true})
+PASS  tanpa error console/page
+
+===== 360px =====
+PASS  badge nama 30 karakter tidak terpotong  ({"teks":"♥Namayangpalingpanjang12345678","lebar":287,"isi":287})
+PASS  nama panjang tidak membuat scroll horizontal
+PASS  surat bisa digulir sampai tanda tangan  ({"akhir":"\nDengan sayang,\n\nAku","scrollTop":901})
+PASS  surat memakai Caveat  (Caveat, cursive)
+PASS  tiga font tetap termuat  ({"pacifico":true,"caveat":true,"nunito":true})
+PASS  tanpa error console/page
+
+===== RINGKASAN: 12/12 lolos =====

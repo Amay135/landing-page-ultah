@@ -15,7 +15,9 @@
   --bayangan: 0 6px 18px rgba(90, 62, 54, 0.10);
   --bayangan-halus: 0 2px 8px rgba(90, 62, 54, 0.08);
   --bayangan-angkat: 0 12px 28px rgba(90, 62, 54, 0.18);
-  --transisi: 0.4s ease;
+  --transisi: 0.24s ease; /* hover/press kecil: cepat dan responsif */
+  --ease-lembut: cubic-bezier(0.22, 1, 0.36, 1); /* masuk dan reveal, melambat di akhir */
+  --ease-pegas: cubic-bezier(0.34, 1.3, 0.64, 1); /* pantulan kecil khas kertas */
   --font-judul: "Pacifico", cursive;
   --font-tangan: "Caveat", cursive;
   --font-isi: "Nunito", system-ui, sans-serif;
@@ -48,6 +50,18 @@ h1, h2, h3 {
   margin: 0 0 0.5em;
 }
 .tulisan-tangan { font-family: var(--font-tangan); }
+/* Paragraf panjang: hindari baris terakhir yang menggantung satu kata. */
+.hero__subteks,
+.kue__habis,
+.timeline__teks,
+.alasan__teks,
+.surat-modal__teks,
+.hadiah__teks { text-wrap: pretty; }
+
+/* Gulir ke anchor terasa halus, kecuali pengguna minta gerak minimal. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 
 /* --- 4. Kelas dasar tombol, kartu, input --- */
 .btn {
@@ -155,10 +169,15 @@ body.gate-tertutup { overflow: hidden; }
   color: var(--teks);
   box-shadow: 0 4px 12px rgba(90, 62, 54, 0.14);
   cursor: pointer;
-  transition: transform 0.25s ease, background-color 0.25s ease;
+  /* translate: naik saat bar WhatsApp tampil, tanpa menggeser tata letak. */
+  translate: 0 0;
+  transition: transform 0.25s ease, background-color 0.25s ease, translate 0.35s var(--ease-lembut);
 }
-.mute:hover,
+@media (hover: hover) {
+  .mute:hover { transform: scale(1.08); background: #FFFDF8; }
+}
 .mute:focus-visible { transform: scale(1.08); background: #FFFDF8; }
+.mute:active { transform: scale(0.94); }
 
 .mute__ikon { width: 22px; height: 22px; }
 /* Ayunan kecil hanya saat musik berbunyi. */
@@ -172,7 +191,7 @@ body.gate-tertutup { overflow: hidden; }
   50% { transform: rotate(4deg) translateY(-2px); }
 }
 /* Saat bar WhatsApp tampil, angkat tombol agar tidak menutupi tombol pelukan. */
-body.wa-tampil .mute { bottom: calc(214px + env(safe-area-inset-bottom)); }
+body.wa-tampil .mute { translate: 0 -158px; }
 
 /* --- 7. Kerangka bagian (sementara sampai tiap fitur diisi) --- */
 main { overflow-x: clip; }
@@ -182,7 +201,7 @@ main { overflow-x: clip; }
   /* Reveal saat masuk layar (kelas --tampil dari script.js) */
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.7s var(--ease-lembut), transform 0.7s var(--ease-lembut);
 }
 .bagian--tampil {
   opacity: 1;
@@ -252,7 +271,9 @@ main, footer { position: relative; z-index: 2; }
   transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .hero__nama--tampil { opacity: 1; transform: none; }
-.hero__nama--tampil:hover,
+@media (hover: hover) {
+  .hero__nama--tampil:hover { transform: rotate(-3deg) scale(1.06); }
+}
 .hero__nama--tampil:focus-visible { transform: rotate(-3deg) scale(1.06); }
 
 .hero__subteks {
@@ -397,7 +418,7 @@ body.kue-aktif::before { opacity: 1; }
 .kue__pesan {
   min-height: 1.4em;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #A8555F;
 }
 .kue__penerima,
@@ -411,7 +432,7 @@ body.kue-aktif::before { opacity: 1; }
 }
 .kue__penerima { min-height: 2.1rem; font-size: 1.5rem; }
 .kue__lucu { min-height: 1.6rem; font-size: 1.35rem; }
-.kue__habis { max-width: 380px; font-size: 1.45rem; text-align: center; }
+.kue__habis { max-width: 380px; font-size: 1.45rem; line-height: 1.3; text-align: center; }
 .kue__penerima:not(:empty),
 .kue__lucu:not(:empty),
 .kue__habis:not(:empty) { opacity: 1; transform: none; }
@@ -424,6 +445,7 @@ body.kue-aktif::before { opacity: 1; }
   align-content: flex-start;
   gap: 8px;
   width: 100%;
+  min-width: 0; /* nama lebar tidak melebarkan kolom grid */
   max-width: 380px;
   margin: 0;
   padding: 2px 2px 8px;
@@ -435,6 +457,7 @@ body.kue-aktif::before { opacity: 1; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  max-width: 100%;
   padding: 6px 14px 7px;
   border: 1.5px dashed rgba(232, 184, 109, 0.75);
   border-radius: 999px 14px 999px 14px;
@@ -442,8 +465,9 @@ body.kue-aktif::before { opacity: 1; }
   box-shadow: 0 1px 3px rgba(90, 62, 54, 0.08);
   color: var(--teks);
   line-height: 1.25;
-  white-space: nowrap;
-  animation: badge-muncul 0.45s cubic-bezier(0.34, 1.25, 0.64, 1);
+  white-space: normal; /* nama sangat lebar membungkus, bukan terpotong */
+  overflow-wrap: anywhere;
+  animation: badge-muncul 0.45s var(--ease-pegas);
 }
 .kue__badge:nth-child(2n) { background: #FBF1F3; }
 .kue__badge-hati { color: #E88FA0; font-size: 0.9em; }
@@ -461,7 +485,7 @@ body.kue-aktif::before { opacity: 1; }
   transform-origin: 50% 50%;
 }
 .kue__potongan--sajikan .kue__piring-potongan {
-  animation: piring-muncul 0.5s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+  animation: piring-muncul 0.5s var(--ease-pegas) forwards;
 }
 @keyframes piring-muncul {
   from { opacity: 0; transform: scale(0.3); }
@@ -737,7 +761,7 @@ body.kue-aktif::before { opacity: 1; }
   justify-items: center;
   gap: 1px;
   text-align: center;
-  line-height: 1.15;
+  line-height: 1.25;
 }
 .foto__captionTeks {
   font-family: var(--font-tangan);
@@ -745,7 +769,7 @@ body.kue-aktif::before { opacity: 1; }
   font-weight: 700;
 }
 .foto__tanggal {
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   opacity: 0.8;
 }
 
@@ -753,7 +777,6 @@ body.kue-aktif::before { opacity: 1; }
   .galeri { padding: 96px 32px; }
   .galeri__daftar { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
   .foto__captionTeks { font-size: 1.45rem; }
-  .foto__tanggal { font-size: 0.85rem; }
 }
 @media (min-width: 1000px) {
   .galeri__daftar {
@@ -801,7 +824,7 @@ body.lightbox-terbuka { overflow: hidden; }
   font-family: var(--font-tangan);
   font-size: 1.55rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 .lightbox__tanggal {
   margin: 0;
@@ -818,11 +841,17 @@ body.lightbox-terbuka { overflow: hidden; }
   border-radius: 50%;
   background: rgba(255, 246, 236, 0.92);
   box-shadow: 0 3px 10px rgba(90, 62, 54, 0.18);
-  font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
+  transition: transform 0.16s ease, background-color 0.16s ease;
 }
-.lightbox__tombol--tutup { top: 20px; right: 20px; font-size: 1.05rem; }
+.lightbox__tombol svg { width: 20px; height: 20px; }
+@media (hover: hover) {
+  .lightbox__tombol:hover { background: #FFF6EC; transform: scale(1.06); }
+}
+.lightbox__tombol:focus-visible { background: #FFF6EC; }
+.lightbox__tombol:active { transform: scale(0.92); }
+.lightbox__tombol--tutup { top: 20px; right: 20px; }
 .lightbox__tombol--kiri { left: 20px; top: 40%; }
 .lightbox__tombol--kanan { right: 20px; top: 40%; }
 
@@ -854,7 +883,7 @@ body.lightbox-terbuka { overflow: hidden; }
   padding: 0 0 34px 44px;
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.6s var(--ease-lembut), transform 0.6s var(--ease-lembut);
 }
 .timeline__item:last-child { padding-bottom: 0; }
 .timeline__item--tampil { opacity: 1; transform: none; }
@@ -872,14 +901,12 @@ body.lightbox-terbuka { overflow: hidden; }
 .timeline__kartu { position: relative; }
 .timeline__tanggal {
   margin: 0 0 2px;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   color: var(--emas-tua);
 }
-.timeline__judul { margin: 0 0 6px; font-size: 1.25rem; }
-.timeline__teks { margin: 0; font-size: 0.95rem; opacity: 0.85; }
+.timeline__judul { margin: 0 0 6px; font-size: 1.35rem; }
+.timeline__teks { margin: 0; font-size: 1rem; opacity: 0.85; }
 .timeline__foto-tombol {
   display: block;
   width: 100%;
@@ -917,7 +944,7 @@ body.lightbox-terbuka { overflow: hidden; }
   .timeline__item:nth-child(even).timeline__item--tampil { transform: none; }
   .timeline__item .timeline__titik { left: auto; right: -8px; }
   .timeline__item:nth-child(even) .timeline__titik { left: -8px; right: auto; }
-  .timeline__judul { font-size: 1.4rem; }
+  .timeline__judul { font-size: 1.5rem; }
 }
 
 /* --- 15. Counter kebersamaan (F7) --- */
@@ -988,7 +1015,7 @@ body.lightbox-terbuka { overflow: hidden; }
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1);
+  transition: transform 0.6s var(--ease-pegas);
 }
 .alasan__kartu[aria-expanded="true"] .alasan__isi { transform: rotateY(180deg); }
 
@@ -1048,8 +1075,8 @@ body.lightbox-terbuka { overflow: hidden; }
 .alasan__teks {
   margin-block: auto;
   font-family: var(--font-tangan);
-  font-size: clamp(1.05rem, 4vw, 1.35rem);
-  line-height: 1.2;
+  font-size: clamp(1.1rem, 4.2vw, 1.4rem);
+  line-height: 1.3;
   text-align: center;
   overflow-wrap: anywhere;
 }
@@ -1103,7 +1130,9 @@ body.lightbox-terbuka { overflow: hidden; }
   cursor: pointer;
   transition: transform var(--transisi);
 }
-.surat__amplop:hover { transform: translateY(-3px) rotate(-1deg); }
+@media (hover: hover) {
+  .surat__amplop:hover { transform: translateY(-3px) rotate(-1deg); }
+}
 .surat__amplop:active { transform: scale(0.98); }
 
 .surat__sampul {
@@ -1148,7 +1177,7 @@ body.lightbox-terbuka { overflow: hidden; }
 /* Kertas naik lewat mulut amplop, mulai setelah tutup amplop terbuka. */
 .surat--buka .surat__kertas {
   transform: translateY(-100%);
-  transition: transform 0.85s cubic-bezier(0.25, 0.8, 0.35, 1) 0.4s;
+  transition: transform 0.85s var(--ease-lembut) 0.4s;
 }
 .surat__depan {
   inset: 0;
@@ -1303,7 +1332,12 @@ body.surat-terbuka { overflow: hidden; }
   text-underline-offset: 3px;
   cursor: pointer;
   opacity: 0.8;
+  transition: opacity 0.18s ease;
 }
+@media (hover: hover) {
+  .surat-modal__lewati:hover { opacity: 1; }
+}
+.surat-modal__lewati:focus-visible { opacity: 1; }
 .surat-modal__tutup { margin-left: auto; font-size: 1rem; }
 
 @media (min-width: 700px) {
@@ -1427,7 +1461,11 @@ body.surat-terbuka { overflow: hidden; }
   cursor: pointer;
   transform-origin: 50% 88%;
   animation: lampion-goyang 5.2s ease-in-out infinite alternate;
+  /* Skala terpisah dari transform agar tidak bentrok dengan goyangan. */
+  scale: 1;
+  transition: scale 0.18s ease;
 }
+.lampion__besar:active { scale: 0.97; }
 .lampion__svg {
   display: block;
   width: 100%;
@@ -1452,7 +1490,7 @@ body.surat-terbuka { overflow: hidden; }
   overflow: hidden;
   font-size: clamp(0.78rem, 3.2vw, 1.05rem);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.15;
   color: #4A2410;
   text-align: center;
   overflow-wrap: anywhere;
@@ -1485,7 +1523,11 @@ body.surat-terbuka { overflow: hidden; }
 .lampion__besar--terbang {
   animation: lampion-terbang 4.2s cubic-bezier(0.38, 0.02, 0.62, 1) forwards;
   pointer-events: none;
+  will-change: transform;
 }
+/* Bayangan filter dilepas selama terbang: pendar badan lampion sudah cukup,
+   dan filter besar di elemen yang bergerak membuat frame berat di HP. */
+.lampion__besar--terbang .lampion__svg { filter: none; }
 @keyframes lampion-terbang {
   0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
   18% { transform: translate(-7px, -12vh) rotate(-4deg); }
@@ -1494,7 +1536,7 @@ body.surat-terbuka { overflow: hidden; }
   82% { transform: translate(7px, -96vh) rotate(3deg); opacity: 1; }
   100% { transform: translate(0, -118vh) rotate(-2deg); opacity: 0; }
 }
-.lampion__besar--baru { animation: lampion-muncul 1.1s cubic-bezier(0.22, 1, 0.36, 1); }
+.lampion__besar--baru { animation: lampion-muncul 1.1s var(--ease-lembut); }
 @keyframes lampion-muncul {
   from { opacity: 0; transform: translateY(60px) scale(0.85); }
   to { opacity: 1; transform: none; }
@@ -1544,7 +1586,7 @@ body.surat-terbuka { overflow: hidden; }
   min-height: 2rem;
   margin: 0;
   font-size: 1.45rem;
-  line-height: 1.2;
+  line-height: 1.3;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -1568,16 +1610,28 @@ body.surat-terbuka { overflow: hidden; }
   cursor: pointer;
   filter: drop-shadow(0 0 6px rgba(245, 166, 91, 0.3));
   transition: transform var(--transisi), filter var(--transisi);
+}
+/* Goyangan dipasang di SVG, bukan tombol, agar hover/sentuh bisa mengangkat
+   tombol tanpa tertimpa animasi transform. */
+.lampion__kecil svg {
+  display: block;
+  width: 100%;
+  height: auto;
   animation: lampion-kecil-melayang 4.6s ease-in-out infinite alternate;
 }
-.lampion__kecil-daftar li:nth-child(2n) .lampion__kecil { animation-delay: -1.3s; animation-duration: 5.4s; }
-.lampion__kecil-daftar li:nth-child(3n) .lampion__kecil { animation-delay: -2.5s; animation-duration: 6.1s; }
-.lampion__kecil:hover,
+.lampion__kecil-daftar li:nth-child(2n) .lampion__kecil svg { animation-delay: -1.3s; animation-duration: 5.4s; }
+.lampion__kecil-daftar li:nth-child(3n) .lampion__kecil svg { animation-delay: -2.5s; animation-duration: 6.1s; }
+@media (hover: hover) {
+  .lampion__kecil:hover {
+    transform: translateY(-4px) scale(1.08);
+    filter: drop-shadow(0 0 10px rgba(255, 217, 138, 0.5));
+  }
+}
+.lampion__kecil:active,
 .lampion__kecil:focus-visible {
   transform: translateY(-4px) scale(1.08);
   filter: drop-shadow(0 0 10px rgba(255, 217, 138, 0.5));
 }
-.lampion__kecil svg { display: block; width: 100%; height: auto; }
 @keyframes lampion-kecil-melayang {
   from { transform: translateY(3px) rotate(-3deg); }
   to { transform: translateY(-4px) rotate(3deg); }
@@ -1623,14 +1677,14 @@ body.lampion-terbuka { overflow: hidden; }
 .lampion-modal__input:focus-visible { outline-color: var(--emas); }
 .lampion-modal__hitung {
   margin: 0 2px 6px;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   text-align: right;
   color: #7A5A4F;
 }
 .lampion-modal__pesan {
   min-height: 1.4em;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #A8555F;
 }
 .lampion-modal__isi {
@@ -1650,7 +1704,12 @@ body.lampion-terbuka { overflow: hidden; }
   text-underline-offset: 3px;
   cursor: pointer;
   opacity: 0.8;
+  transition: opacity 0.18s ease;
 }
+@media (hover: hover) {
+  .lampion-modal__tutup:hover { opacity: 1; }
+}
+.lampion-modal__tutup:focus-visible { opacity: 1; }
 
 @media (min-width: 700px) {
   .lampion { padding: 112px 32px 96px; }
@@ -1681,7 +1740,7 @@ body.lampion-terbuka { overflow: hidden; }
 }
 .hadiah__judul {
   margin: 0;
-  font-size: clamp(1.7rem, 7vw, 2.6rem);
+  font-size: clamp(1.8rem, 7vw, 2.8rem);
   text-wrap: balance;
   overflow-wrap: anywhere;
 }
@@ -1696,7 +1755,10 @@ body.lampion-terbuka { overflow: hidden; }
   filter: drop-shadow(0 14px 26px rgba(90, 62, 54, 0.18));
   transition: transform var(--transisi), filter var(--transisi);
 }
-.hadiah__kado:hover { transform: translateY(-4px) rotate(-1deg); }
+@media (hover: hover) {
+  .hadiah__kado:hover { transform: translateY(-4px) rotate(-1deg); }
+}
+.hadiah__kado:not(.hadiah__kado--buka):active { transform: scale(0.98); }
 .hadiah__kado--buka,
 .hadiah__kado--buka:hover { cursor: default; transform: none; }
 .hadiah__svg { display: block; width: 100%; height: auto; }
@@ -1705,7 +1767,7 @@ body.lampion-terbuka { overflow: hidden; }
 .hadiah__tutup-kado {
   transform-box: fill-box;
   transform-origin: 50% 100%;
-  transition: transform 0.7s cubic-bezier(0.34, 1.3, 0.64, 1);
+  transition: transform 0.7s var(--ease-pegas);
 }
 .hadiah__kado--buka .hadiah__tutup-kado {
   transform: translate(-18px, -56px) rotate(-14deg);
@@ -1721,7 +1783,7 @@ body.lampion-terbuka { overflow: hidden; }
 
 /* Isi hadiah muncul dari dalam kado */
 .hadiah__isi { width: 100%; }
-.hadiah__isi--tampil { animation: hadiah-muncul 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.hadiah__isi--tampil { animation: hadiah-muncul 0.7s var(--ease-lembut); }
 @keyframes hadiah-muncul {
   from { opacity: 0; transform: translateY(-36px) scale(0.92); }
   to { opacity: 1; transform: none; }
@@ -1761,10 +1823,8 @@ body.lampion-terbuka { overflow: hidden; }
 .hadiah__tiket::after { right: -11px; }
 .hadiah__jenis {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
   color: var(--emas-tua);
 }
 .hadiah__teks {
@@ -1884,8 +1944,11 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .hati__ikon { width: 22px; height: 22px; }
-.hati:hover,
+@media (hover: hover) {
+  .hati:hover { opacity: 1; transform: scale(1.08); }
+}
 .hati:focus-visible { opacity: 1; transform: scale(1.08); }
+.hati:active { opacity: 1; transform: scale(0.94); }
 
 /* Toast hati: di atas layar, tidak menangkap klik, dan tidak menggeser tata letak.
    top 64px sengaja memberi ruang untuk tombol mute di pojok kanan atas. */
@@ -1955,15 +2018,16 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   text-shadow: 0 1px 3px rgba(90, 62, 54, 0.32);
   box-shadow: 0 6px 18px rgba(90, 62, 54, 0.18), 0 2px 10px rgba(232, 184, 109, 0.22);
   animation: wa-denyut 2.8s ease-in-out infinite;
-  transition: transform var(--transisi), box-shadow var(--transisi);
+  transition: scale 0.16s ease, box-shadow var(--transisi);
 }
-.wa__tombol:active { transform: scale(0.97); }
+/* scale terpisah: animasi denyut memakai transform, jadi :active tetap terasa. */
+.wa__tombol:active { scale: 0.97; }
 
 .wa__teks {
   margin: 0;
   max-width: 420px;
   font-size: 1.25rem;
-  line-height: 1.2;
+  line-height: 1.3;
   text-align: center;
   color: var(--teks);
 }
@@ -1982,6 +2046,10 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   }
   .gate { transition-duration: 0.01s; }
   .hero__nama { transition: none; }
+  .mute__coret { transition: none; }
+  .mute:not(.mute--mati) .mute__ikon { animation: none; }
+  .hero__panah svg { animation: none; }
+  .kue__harapan { transition: none; }
   .kue__potongan,
   .kue__irisan,
   .kue__piring-potongan,
@@ -1992,25 +2060,34 @@ body.wa-tampil .maskot { visibility: hidden; opacity: 0; pointer-events: none; }
   .kue__garis-potong,
   .kue__remah-butir,
   .kue__serpihan > * { animation: none !important; }
+  .kue__nyala,
+  .kue__halo,
+  .kue__balon,
+  .kue__asap path { animation: none; }
   .dekor { display: none; }
   .bagian { opacity: 1; transform: none; transition: none; }
   .foto-hidup { transition: none; }
   .lightbox[open] .lightbox__kartu,
   .surat-modal[open] .surat-modal__kertas,
   .lampion-modal[open] .lampion-modal__kertas { animation: none; }
+  .lightbox__tombol { transition: none; }
   .lampion__besar,
-  .lampion__kecil,
+  .lampion__kecil svg,
   .lampion__kelip,
   .lampion__awan,
   .lampion__cahaya,
   .lampion__percik circle { animation: none; }
+  .lampion__besar { transition: none; }
   .lampion__terbang { transition: none; }
   .surat__tutup,
   .surat__kertas,
   .surat__segel { transition: none; }
   .surat--buka .surat__tutup { animation: none; }
+  .surat-modal__lewati,
+  .lampion-modal__tutup { transition: none; }
   .hadiah__tutup-kado { transition: none; }
   .hadiah__isi--tampil { animation: none; }
+  .hadiah__kilau circle { animation: none; }
   .timeline__daftar::before { transform: none; }
   .timeline__item,
   .timeline__item:nth-child(even) { opacity: 1; transform: none; transition: none; }

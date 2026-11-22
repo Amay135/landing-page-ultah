@@ -1,0 +1,6 @@
+CPU 4x lebih lambat
+  hero: {"label":"hero","frame":180,"rataMs":16.8,"p95Ms":16.8,"p99Ms":33.2,"lebih33ms":2}
+  kue: {"label":"kue","frame":180,"rataMs":16.6,"p95Ms":16.8,"p99Ms":16.8,"lebih33ms":0}
+  lampion diam: {"label":"lampion diam","frame":180,"rataMs":17.9,"p95Ms":33.3,"p99Ms":33.4,"lebih33ms":13}
+  lampion terbang: {"label":"lampion terbang","frame":120,"rataMs":21.3,"p95Ms":33.4,"p99Ms":33.5,"lebih33ms":34}
+  reduced motion: {"label":"reduced motion","frame":180,"rataMs":16.6,"p95Ms":16.8,"p99Ms":16.8,"lebih33ms":0}

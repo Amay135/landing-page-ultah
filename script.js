@@ -1679,7 +1679,7 @@ document.addEventListener("pointerup", (e) => {
 
   const sisa = BATAS_SPARKLE - lapisanSparkle.childElementCount;
   if (sisa <= 0) return;
-  const jumlah = Math.min(Math.floor(acak(14, 21)), sisa);
+  const jumlah = Math.min(Math.floor(acak(8, 13)), sisa); // PRD F14: 8-12 partikel
   for (let i = 0; i < jumlah; i++) {
     const partikel = document.createElement("span");
     const bentuk = BENTUK_SPARKLE[Math.floor(Math.random() * BENTUK_SPARKLE.length)];
@@ -1692,11 +1692,11 @@ document.addEventListener("pointerup", (e) => {
     partikel.style.setProperty("--dx", (Math.cos(sudut) * jarak).toFixed(0) + "px");
     partikel.style.setProperty("--dy", (Math.sin(sudut) * jarak).toFixed(0) + "px");
     partikel.style.setProperty("--rot", acak(-90, 90).toFixed(0) + "deg");
-    partikel.style.setProperty("--dur", acak(0.9, 1.2).toFixed(2) + "s");
+    partikel.style.setProperty("--dur", acak(0.85, 1.05).toFixed(2) + "s");
     partikel.style.setProperty("--ukuran", acak(UKURAN_SPARKLE[bentuk][0], UKURAN_SPARKLE[bentuk][1]).toFixed(1) + "px");
     partikel.style.setProperty("--warna", WARNA_SPARKLE[i % 2]);
     // Timeout juga membersihkan partikel bila animationend tidak sempat jalan (dialog ditutup saat animasi).
-    setTimeout(() => partikel.remove(), 1300);
+    setTimeout(() => partikel.remove(), 1150);
     lapisanSparkle.append(partikel);
   }
 }, { passive: true });

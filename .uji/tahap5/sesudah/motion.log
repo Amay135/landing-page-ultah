@@ -1,0 +1,40 @@
+PASS  [desktop 390] gulir anchor memakai smooth
+PASS  [desktop 390] ikon musik berayun saat musik hidup
+PASS  [desktop 390] tombol musik terangkat di footer  ({"translate":"0px -158px","bawah":214})
+PASS  [desktop 390] lift tombol musik dianimasikan
+PASS  [desktop 390] tombol musik punya feedback tekan  (matrix(0.94, 0, 0, 0.94, 0, 0))
+PASS  [desktop 390] denyut WhatsApp tetap ada
+PASS  [desktop 390] feedback tekan WhatsApp bekerja bersama denyut  (0.97)
+PASS  [desktop 390] goyangan lampion kecil ada di SVG
+PASS  [desktop 390] hover lampion kecil mengangkat tombol  (none -> matrix(1.08, 0, 0, 1.08, 0, -4))
+PASS  [desktop 390] lightbox memakai 3 ikon SVG 20px  ([{"label":"Tutup foto","svg":true,"w":20,"h":20},{"label":"Foto sebelumnya","svg":true,"w":20,"h":20},{"label":"Foto berikutnya","svg":true,"w":20,"h":20}])
+PASS  [desktop 390] navigasi lightbox tetap bekerja
+PASS  [desktop 390] hover tombol 0,24 dtk  (0.24s, 0.24s)
+PASS  [desktop 390] sparkle tidak menumpuk  (sisa=0)
+PASS  [desktop 390] tanpa scroll horizontal setelah interaksi  ({"sw":390,"cw":390})
+PASS  [desktop 390] tanpa error console/page
+PASS  [reduced 390] gulir anchor kembali instan
+PASS  [reduced 390] semua section tetap terlihat
+PASS  [reduced 390] goyangan dekoratif mati
+PASS  [reduced 390] timeline langsung terbaca
+PASS  [reduced 390] nama hero langsung aktif
+PASS  [reduced 390] pesan rahasia tetap bisa dibuka
+PASS  [reduced 390] kartu penerima langsung muncul
+PASS  [reduced 390] potongan kue tetap tersaji
+PASS  [reduced 390] lightbox terbuka
+PASS  [reduced 390] counter langsung ke angka akhir  (Sudah 178 hari sejak kamu bilang iya)
+PASS  [reduced 390] kartu alasan bisa dibalik
+PASS  [reduced 390] partikel hati dilewati
+PASS  [reduced 390] modal surat tetap terbuka
+PASS  [reduced 390] surat langsung lengkap
+PASS  [reduced 390] harapan kosong tetap ditolak
+PASS  [reduced 390] lampion lepas tanpa animasi, lalu siap lagi
+PASS  [reduced 390] isi hadiah tetap tampil
+PASS  [reduced 390] mainkan lagi mereset semuanya
+PASS  [reduced 390] toast hati tetap muncul
+PASS  [reduced 390] mute tetap mematikan musik
+PASS  [reduced 390] unmute tetap menyalakan musik
+PASS  [reduced 390] tanpa scroll horizontal  ({"sw":390,"cw":390})
+PASS  [reduced 390] tanpa error console/page
+PASS  [touch 390] media hover mati di perangkat sentuh
+PASS  [touch 390] maskot disembunyikan saat bar WhatsApp tampil
