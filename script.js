@@ -15,7 +15,10 @@ const tombolMute = document.getElementById("tombolMute");
 document.title = "Selamat Ulang Tahun, " + DATA.namaDia;
 judulGate.textContent = DATA.gateTeks;
 tombolBuka.textContent = DATA.gateTombol;
-audio.src = DATA.musikFile;
+// data.js tidak boleh diubah; file musik resmi ada di assets/piano.m4a.
+audio.src = "assets/piano.m4a";
+audio.loop = true;
+audio.volume = 0;
 
 // --- Gate: kata sandi opsional ---
 const pakaiSandi = Boolean(DATA.kataSandi);
@@ -53,21 +56,75 @@ function bukaGate() {
   mulaiConfetti();
 }
 
+// --- Musik latar: satu <audio>, mulai setelah gate terbuka ---
+const VOLUME_MUSIK = 0.25;
+const DURASI_FADE = 2200; // ms, fade-in/out halus
+let rafVolume = 0;
+let versiVolume = 0;
+let musikAktif = false;
+
+// Fade volume ke target; panggilan baru membatalkan fade yang sedang berjalan.
+function fadeVolume(target, selesai) {
+  cancelAnimationFrame(rafVolume);
+  const versi = ++versiVolume;
+  const dari = audio.volume;
+  const mulai = performance.now();
+  const langkah = (waktu) => {
+    if (versi !== versiVolume) return;
+    const t = Math.min((waktu - mulai) / DURASI_FADE, 1);
+    audio.volume = Math.min(1, Math.max(0, dari + (target - dari) * t));
+    if (t < 1) rafVolume = requestAnimationFrame(langkah);
+    else if (selesai) selesai();
+  };
+  rafVolume = requestAnimationFrame(langkah);
+}
+
+// Ikon dan label tombol mengikuti kondisi musik yang sebenarnya.
+function perbaruiTombolMusik() {
+  tombolMute.classList.toggle("mute--mati", !musikAktif);
+  tombolMute.setAttribute("aria-pressed", String(!musikAktif));
+  tombolMute.setAttribute("aria-label", musikAktif ? "Matikan musik" : "Nyalakan musik");
+}
+
 // Browser memblokir autoplay, jadi musik hanya mulai dari klik pengguna.
+// Play/pause tidak me-reset lagu: currentTime tetap, jadi klik tidak mengulang dari awal.
 function mulaiMusik() {
+  audio.volume = 0;
   audio.play().then(
-    () => { tombolMute.hidden = false; },
-    () => { /* file musik belum ada atau diblokir: biarkan tombol mute tersembunyi */ }
+    () => {
+      musikAktif = true;
+      tombolMute.hidden = false;
+      perbaruiTombolMusik();
+      fadeVolume(VOLUME_MUSIK);
+    },
+    () => {
+      // File gagal dimuat atau browser menolak: sembunyikan tombol, halaman tetap aman.
+      musikAktif = false;
+      tombolMute.hidden = true;
+      perbaruiTombolMusik();
+    }
   );
 }
 
-// Tombol mute/unmute di pojok kanan atas.
+// Fade-out dulu, baru pause. Klik play saat fade-out berjalan membatalkannya.
+function jedakanMusik() {
+  musikAktif = false;
+  perbaruiTombolMusik();
+  fadeVolume(0, () => {
+    if (!musikAktif) audio.pause();
+  });
+}
+
+// Satu listener saja untuk seumur halaman.
 tombolMute.addEventListener("click", () => {
-  audio.muted = !audio.muted;
-  tombolMute.textContent = audio.muted ? "🔇" : "🔊";
-  tombolMute.setAttribute("aria-pressed", String(audio.muted));
-  tombolMute.setAttribute("aria-label", audio.muted ? "Nyalakan musik" : "Matikan musik");
+  if (musikAktif) jedakanMusik();
+  else mulaiMusik();
 });
+
+// Sinkronkan ikon bila audio dijeda/diputar dari luar tombol (mis. kontrol OS).
+audio.addEventListener("play", () => { musikAktif = true; perbaruiTombolMusik(); });
+audio.addEventListener("pause", () => { musikAktif = false; perbaruiTombolMusik(); });
+audio.addEventListener("error", () => { musikAktif = false; tombolMute.hidden = true; });
 
 // --- Hero (F2) ---
 const mqGerakMinimal = matchMedia("(prefers-reduced-motion: reduce)");

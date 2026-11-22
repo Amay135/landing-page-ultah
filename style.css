@@ -132,21 +132,41 @@ h1, h2, h3 {
 /* Halaman tidak bisa di-scroll selama gate masih terbuka */
 body.gate-tertutup { overflow: hidden; }
 
-/* --- 6. Tombol mute musik --- */
+/* --- 6. Tombol musik latar (kanan bawah, di atas hati kecil) --- */
 .mute {
   position: fixed;
-  top: 12px;
-  right: 12px;
+  right: 14px;
+  bottom: calc(56px + env(safe-area-inset-bottom));
   z-index: 90;
-  width: 44px;
-  height: 44px;
-  border: 0;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1.5px solid rgba(244, 182, 194, 0.9);
   border-radius: 50%;
-  background: rgba(255, 246, 236, 0.9);
-  box-shadow: var(--bayangan);
-  font-size: 1.15rem;
+  background: rgba(255, 246, 236, 0.94);
+  color: var(--teks);
+  box-shadow: 0 6px 18px rgba(90, 62, 54, 0.18);
   cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease;
 }
+.mute:hover,
+.mute:focus-visible { transform: scale(1.08); background: #FFFDF8; }
+
+.mute__ikon { width: 22px; height: 22px; }
+/* Ayunan kecil hanya saat musik berbunyi. */
+.mute:not(.mute--mati) .mute__ikon { animation: mute-ayun 3.2s ease-in-out infinite; }
+.mute--mati { color: #A9705C; }
+.mute__coret { opacity: 0; transition: opacity 0.2s ease; }
+.mute--mati .mute__coret { opacity: 1; }
+
+@keyframes mute-ayun {
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(-2px); }
+}
+/* Saat bar WhatsApp tampil, angkat tombol agar tidak menutupi tombol pelukan. */
+body.wa-tampil .mute { bottom: calc(214px + env(safe-area-inset-bottom)); }
 
 /* --- 7. Kerangka bagian (sementara sampai tiap fitur diisi) --- */
 main { overflow-x: clip; }
@@ -1960,6 +1980,7 @@ body.wa-tampil .hati { bottom: calc(172px + env(safe-area-inset-bottom)); }
   .alasan__isi { transition: none; }
   .hero__rahasia { transition: none; }
   .maskot--lambai .maskot__tangan { animation: none; }
+  .mute,
   .hati,
   .toast { transition: none; }
   .wa__tombol { animation: none; transition: none; }
