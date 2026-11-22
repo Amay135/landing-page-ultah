@@ -1,0 +1,177 @@
+
+===== 320x568 =====
+PASS  gate tampil
+PASS  teks input gelap di atas latar terang  (rgb(90, 62, 54) kontras 9.5)
+PASS  tombol Enter mengirim (sandi lama ditolak)
+PASS  pesan salah baru  (Hmm, belum tepat. Coba lagi ya 😅 Ingat tanggal jadian kita.)
+PASS  tidak ada petunjuk Valentine
+PASS  gate terbuka dengan sandi baru
+PASS  musik di atas hati (satu kelompok)  ({"muteBottom":376,"hatiTop":384})
+PASS  musik dan hati sejajar kanan
+PASS  hati di sisi kanan layar  (right=306)
+PASS  musik tidak bergeser saat WhatsApp tampil  (330 -> 330)
+PASS  hati tidak bergeser saat WhatsApp tampil  (384 -> 384)
+PASS  kucing tetap terlihat di bawah
+PASS  kucing tidak tertutup bar WhatsApp  ({"kucingBottom":430,"waTop":435.64849853515625})
+PASS  hati tidak menutupi tombol WhatsApp  ({"hatiBottom":430,"waTop":435.64849853515625})
+PASS  kucing bisa diklik (tidak tertutup)
+PASS  tanpa scroll horizontal
+
+===== 320x800 =====
+PASS  gate tampil
+PASS  teks input gelap di atas latar terang  (rgb(90, 62, 54) kontras 9.5)
+PASS  tombol Enter mengirim (sandi lama ditolak)
+PASS  pesan salah baru  (Hmm, belum tepat. Coba lagi ya 😅 Ingat tanggal jadian kita.)
+PASS  tidak ada petunjuk Valentine
+PASS  gate terbuka dengan sandi baru
+PASS  musik di atas hati (satu kelompok)  ({"muteBottom":608,"hatiTop":616})
+PASS  musik dan hati sejajar kanan
+PASS  hati di sisi kanan layar  (right=306)
+PASS  musik tidak bergeser saat WhatsApp tampil  (562 -> 562)
+PASS  hati tidak bergeser saat WhatsApp tampil  (616 -> 616)
+PASS  kucing tetap terlihat di bawah
+PASS  kucing tidak tertutup bar WhatsApp  ({"kucingBottom":662,"waTop":667.66748046875})
+PASS  hati tidak menutupi tombol WhatsApp  ({"hatiBottom":662,"waTop":667.66748046875})
+PASS  kucing bisa diklik (tidak tertutup)
+PASS  tanpa scroll horizontal
+
+===== 360x800 =====
+PASS  gate tampil
+PASS  teks input gelap di atas latar terang  (rgb(90, 62, 54) kontras 9.5)
+PASS  tombol Enter mengirim (sandi lama ditolak)
+PASS  pesan salah baru  (Hmm, belum tepat. Coba lagi ya 😅 Ingat tanggal jadian kita.)
+PASS  tidak ada petunjuk Valentine
+PASS  tombol masuk membuka gate
+PASS  gate terbuka dengan sandi baru
+PASS  musik di atas hati (satu kelompok)  ({"muteBottom":608,"hatiTop":616})
+PASS  musik dan hati sejajar kanan
+PASS  hati di sisi kanan layar  (right=346)
+PASS  musik tidak bergeser saat WhatsApp tampil  (562 -> 562)
+PASS  hati tidak bergeser saat WhatsApp tampil  (616 -> 616)
+PASS  kucing tetap terlihat di bawah
+PASS  kucing tidak tertutup bar WhatsApp  ({"kucingBottom":662,"waTop":667.6859741210938})
+PASS  hati tidak menutupi tombol WhatsApp  ({"hatiBottom":662,"waTop":667.6859741210938})
+PASS  kucing bisa diklik (tidak tertutup)
+PASS  tanpa scroll horizontal
+
+===== 390x844 =====
+PASS  gate tampil
+PASS  teks input gelap di atas latar terang  (rgb(90, 62, 54) kontras 9.5)
+PASS  tombol Enter mengirim (sandi lama ditolak)
+PASS  pesan salah baru  (Hmm, belum tepat. Coba lagi ya 😅 Ingat tanggal jadian kita.)
+PASS  tidak ada petunjuk Valentine
+PASS  gate terbuka dengan sandi baru
+PASS  musik di atas hati (satu kelompok)  ({"muteBottom":652,"hatiTop":660})
+PASS  musik dan hati sejajar kanan
+PASS  hati di sisi kanan layar  (right=376)
+PASS  musik tidak bergeser saat WhatsApp tampil  (606 -> 606)
+PASS  hati tidak bergeser saat WhatsApp tampil  (660 -> 660)
+PASS  kucing tetap terlihat di bawah
+PASS  kucing tidak tertutup bar WhatsApp  ({"kucingBottom":706,"waTop":711.6482543945312})
+PASS  hati tidak menutupi tombol WhatsApp  ({"hatiBottom":706,"waTop":711.6482543945312})
+PASS  kucing bisa diklik (tidak tertutup)
+PASS  tanpa scroll horizontal
+
+===== 768x1024 =====
+PASS  gate tampil
+PASS  teks input gelap di atas latar terang  (rgb(90, 62, 54) kontras 9.5)
+PASS  tombol Enter mengirim (sandi lama ditolak)
+PASS  pesan salah baru  (Hmm, belum tepat. Coba lagi ya 😅 Ingat tanggal jadian kita.)
+PASS  tidak ada petunjuk Valentine
+PASS  gate terbuka dengan sandi baru
+PASS  musik di atas hati (satu kelompok)  ({"muteBottom":832,"hatiTop":840})
+PASS  musik dan hati sejajar kanan
+PASS  hati di sisi kanan layar  (right=754)
+PASS  musik tidak bergeser saat WhatsApp tampil  (786 -> 786)
+PASS  hati tidak bergeser saat WhatsApp tampil  (840 -> 840)
+PASS  kucing tetap terlihat di bawah
+PASS  kucing tidak tertutup bar WhatsApp  ({"kucingBottom":886,"waTop":891.6481323242188})
+PASS  hati tidak menutupi tombol WhatsApp  ({"hatiBottom":886,"waTop":891.6481323242188})
+PASS  kucing bisa diklik (tidak tertutup)
+PASS  tanpa scroll horizontal
+
+===== 1440x900 =====
+PASS  gate tampil
+PASS  teks input gelap di atas latar terang  (rgb(90, 62, 54) kontras 9.5)
+PASS  tombol Enter mengirim (sandi lama ditolak)
+PASS  pesan salah baru  (Hmm, belum tepat. Coba lagi ya 😅 Ingat tanggal jadian kita.)
+PASS  tidak ada petunjuk Valentine
+PASS  gate terbuka dengan sandi baru
+PASS  musik di atas hati (satu kelompok)  ({"muteBottom":708,"hatiTop":716})
+PASS  musik dan hati sejajar kanan
+PASS  hati di sisi kanan layar  (right=1426)
+PASS  musik tidak bergeser saat WhatsApp tampil  (662 -> 662)
+PASS  hati tidak bergeser saat WhatsApp tampil  (716 -> 716)
+PASS  kucing tetap terlihat di bawah
+PASS  kucing tidak tertutup bar WhatsApp  ({"kucingBottom":762,"waTop":767.62939453125})
+PASS  hati tidak menutupi tombol WhatsApp  ({"hatiBottom":762,"waTop":767.62939453125})
+PASS  kucing bisa diklik (tidak tertutup)
+PASS  tanpa scroll horizontal
+
+===== alur 390x844 =====
+PASS  hero: pesan rahasia
+PASS  kue: lilin padam
+PASS  kue: kartu penerima tampil
+PASS  scroll tidak meloncat saat kartu disembunyikan  (870 -> 870)
+PASS  kue: badge penerima
+PASS  kue: kartu tersembunyi
+PASS  lightbox terbuka
+PASS  lightbox: animasi keluar dipicu  ({"open":true,"pergi":true,"pointer":"none"})
+PASS  lightbox: tidak menangkap klik saat memudar
+PASS  lightbox tertutup setelah animasi
+PASS  scroll lock lightbox bersih
+PASS  lightbox: Esc memulai animasi keluar
+PASS  lightbox: Esc menutup
+PASS  surat terbuka
+PASS  confetti di belakang surat  ({"kanvasDiDialog":true,"zKertas":"2","zKanvas":"1"})
+PASS  surat: Esc memulai animasi keluar
+PASS  surat tertutup
+PASS  confetti kembali ke body
+PASS  lampion terbuka
+PASS  lampion: animasi keluar dipicu
+PASS  lampion tertutup
+PASS  scroll lock lampion bersih
+PASS  toast hati muncul
+PASS  mute mematikan musik
+PASS  unmute menyalakan musik
+PASS  link WhatsApp tetap benar
+PASS  hadiah terbuka
+PASS  mainkan lagi mereset kue
+
+===== alur 1440x900 =====
+PASS  hero: pesan rahasia
+PASS  kue: lilin padam
+PASS  kue: kartu penerima tampil
+PASS  scroll tidak meloncat saat kartu disembunyikan  (926 -> 926)
+PASS  kue: badge penerima
+PASS  kue: kartu tersembunyi
+PASS  lightbox terbuka
+PASS  lightbox: animasi keluar dipicu  ({"open":true,"pergi":true,"pointer":"none"})
+PASS  lightbox: tidak menangkap klik saat memudar
+PASS  lightbox tertutup setelah animasi
+PASS  scroll lock lightbox bersih
+PASS  lightbox: Esc memulai animasi keluar
+PASS  lightbox: Esc menutup
+PASS  surat terbuka
+PASS  confetti di belakang surat  ({"kanvasDiDialog":true,"zKertas":"2","zKanvas":"1"})
+PASS  surat: Esc memulai animasi keluar
+PASS  surat tertutup
+PASS  confetti kembali ke body
+PASS  lampion terbuka
+PASS  lampion: animasi keluar dipicu
+PASS  lampion tertutup
+PASS  scroll lock lampion bersih
+PASS  toast hati muncul
+PASS  mute mematikan musik
+PASS  unmute menyalakan musik
+PASS  link WhatsApp tetap benar
+PASS  hadiah terbuka
+PASS  mainkan lagi mereset kue
+
+===== reduced motion =====
+PASS  reduced motion: konten tetap terlihat  ({"bagianOpacity":"1","dekor":"tidak dibuat"})
+PASS  reduced motion: modal tetap bisa ditutup
+PASS  reduced motion: kucing terlihat
+
+===== RINGKASAN: 156/156 lolos =====
+Console/page error: 0
